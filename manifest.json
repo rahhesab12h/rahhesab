@@ -1,0 +1,22 @@
+{
+  "name": "راه‌حساب",
+  "short_name": "راه‌حساب",
+  "description": "حسابدار مالی رانندگان اسنپ و تپسی",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#087f5b",
+  "theme_color": "#087f5b",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
