@@ -1,0 +1,2371 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#087f5b">
+<title>راه‌حساب | حسابدار مالی رانندگان</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent
+}
+
+body{
+margin:0;
+font-family:Tahoma,Arial,sans-serif;
+background:#f3f7f5;
+color:#17231f
+}
+
+/* ================= Splash ================= */
+
+#splash{
+position:fixed;
+z-index:9999;
+inset:0;
+background:linear-gradient(145deg,#064b38,#15966d);
+display:flex;
+align-items:center;
+justify-content:center;
+transition:opacity .6s ease,visibility .6s ease
+}
+
+#splash.hide{
+opacity:0;
+visibility:hidden
+}
+
+.splash-box{
+text-align:center;
+width:85%;
+max-width:360px;
+color:white
+}
+
+.splash-logo{
+width:190px;
+height:190px;
+object-fit:contain;
+border-radius:32px;
+box-shadow:0 15px 40px #0006;
+animation:logoPulse 1.8s infinite
+}
+
+@keyframes logoPulse{
+0%,100%{transform:scale(1)}
+50%{transform:scale(1.04)}
+}
+
+.splash-box h1{
+font-size:32px;
+margin:25px 0 10px
+}
+
+.splash-box p{
+margin:0 0 28px;
+color:#d8f3e8;
+font-size:13px
+}
+
+.loader{
+height:9px;
+background:#ffffff44;
+border-radius:20px;
+overflow:hidden;
+margin-top:20px
+}
+
+.loader div{
+height:100%;
+width:0%;
+background:white;
+border-radius:20px;
+transition:width .12s linear
+}
+
+#loadPercent{
+display:block;
+margin-top:12px;
+font-size:16px
+}
+
+/* ================= App ================= */
+
+.app{
+max-width:700px;
+margin:auto;
+padding:14px
+}
+
+header{
+background:linear-gradient(135deg,#087f5b,#0ca678);
+color:white;
+padding:20px;
+border-radius:22px;
+margin-bottom:14px;
+box-shadow:0 5px 18px #087f5b44
+}
+
+.header-top{
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+gap:10px
+}
+
+header h1{
+margin:0;
+font-size:27px
+}
+
+header p{
+margin:7px 0 0;
+color:#d8f3e8;
+font-size:12px
+}
+
+.clock{
+text-align:left;
+font-size:13px;
+line-height:1.8;
+white-space:nowrap
+}
+
+.card{
+background:white;
+border-radius:18px;
+padding:16px;
+margin-bottom:14px;
+box-shadow:0 3px 14px #0000000d
+}
+
+h2{
+font-size:18px;
+margin:0 0 14px
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px
+}
+
+.box{
+background:#f2faf6;
+padding:13px;
+border-radius:14px
+}
+
+.box span{
+display:block;
+font-size:12px;
+color:#648076
+}
+
+.box b{
+display:block;
+margin-top:7px;
+font-size:15px
+}
+
+label{
+display:block;
+font-size:13px;
+margin:11px 0 6px;
+color:#53655e
+}
+
+.input{
+position:relative
+}
+
+input{
+width:100%;
+border:1px solid #ccd9d4;
+border-radius:11px;
+padding:13px;
+font-size:15px;
+outline:none;
+background:white;
+font-family:Tahoma,Arial,sans-serif
+}
+
+input:focus{
+border-color:#087f5b;
+box-shadow:0 0 0 3px #087f5b11
+}
+
+.number-input{
+direction:ltr;
+text-align:right;
+padding-left:65px
+}
+
+.unit{
+position:absolute;
+left:11px;
+top:50%;
+transform:translateY(-50%);
+font-size:11px;
+color:#71847c;
+pointer-events:none
+}
+
+button{
+width:100%;
+border:0;
+border-radius:11px;
+padding:13px;
+margin-top:13px;
+background:#087f5b;
+color:white;
+font-size:15px;
+font-family:Tahoma,Arial,sans-serif;
+cursor:pointer
+}
+
+button:active{
+transform:scale(.98)
+}
+
+.secondary{
+background:#e7f3ee;
+color:#087f5b
+}
+
+.danger{
+background:#d64545
+}
+
+.month{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:8px;
+margin-bottom:12px
+}
+
+.month button{
+width:45px;
+margin:0;
+padding:9px;
+font-size:22px
+}
+
+.month strong{
+font-size:17px
+}
+
+.week{
+display:grid;
+grid-template-columns:repeat(7,1fr);
+gap:3px;
+margin-bottom:5px
+}
+
+.week div{
+text-align:center;
+font-size:11px;
+color:#71847c;
+padding:5px 0
+}
+
+.calendar{
+display:grid;
+grid-template-columns:repeat(7,1fr);
+gap:4px
+}
+
+.day{
+min-height:50px;
+border:1px solid #e0e9e5;
+border-radius:10px;
+background:#fff;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+font-size:13px;
+cursor:pointer;
+transition:.2s
+}
+
+.day:hover{
+border-color:#087f5b
+}
+
+.day.empty{
+border:0;
+background:transparent;
+cursor:default
+}
+
+.day.today{
+box-shadow:inset 0 0 0 2px #f59f00
+}
+
+.day.selected{
+background:#087f5b;
+color:white;
+border-color:#087f5b
+}
+
+.day.good{
+border-bottom:4px solid #2f9e44
+}
+
+.day.bad{
+border-bottom:4px solid #d64545
+}
+
+.day small{
+font-size:8px;
+margin-top:3px
+}
+
+.note{
+background:#f2faf6;
+padding:11px;
+border-radius:11px;
+font-size:12px;
+color:#5e7169;
+line-height:1.9;
+margin-top:10px
+}
+
+.row{
+display:flex;
+justify-content:space-between;
+gap:10px;
+margin-top:11px;
+align-items:center
+}
+
+.row b{
+text-align:left
+}
+
+.progress{
+height:13px;
+background:#e1ebe7;
+border-radius:20px;
+overflow:hidden;
+margin-top:9px
+}
+
+.progress div{
+height:100%;
+width:0;
+background:linear-gradient(90deg,#087f5b,#20c997);
+transition:.4s
+}
+
+.history{
+max-height:400px;
+overflow:auto
+}
+
+.history-row{
+padding:12px 0;
+border-bottom:1px solid #edf1ef;
+font-size:12px;
+cursor:pointer
+}
+
+.history-row:last-child{
+border-bottom:0
+}
+
+.history-top{
+display:flex;
+justify-content:space-between;
+margin-bottom:7px
+}
+
+.history-details{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:5px;
+color:#64756e;
+font-size:11px
+}
+
+.profile-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px
+}
+
+.profile-grid .full{
+grid-column:1/-1
+}
+
+.badge{
+display:inline-block;
+background:#e7f7ef;
+color:#087f5b;
+font-size:11px;
+padding:5px 9px;
+border-radius:20px
+}
+
+footer{
+text-align:center;
+color:#71847c;
+font-size:11px;
+padding:10px 5px 25px;
+line-height:2
+}
+
+@media(max-width:430px){
+
+.grid{
+grid-template-columns:1fr 1fr
+}
+
+.profile-grid{
+grid-template-columns:1fr
+}
+
+.profile-grid .full{
+grid-column:auto
+}
+
+.day{
+min-height:45px
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ================= صفحه شروع ================= -->
+
+<div id="splash">
+
+<div class="splash-box">
+
+<img src="logo.png"
+class="splash-logo"
+alt="راه حساب">
+
+<h1>راه‌حساب</h1>
+
+<p>حسابدار مالی رانندگان اسنپ و تپسی</p>
+
+<div class="loader">
+<div id="loaderBar"></div>
+</div>
+
+<span id="loadPercent">۰٪</span>
+
+</div>
+
+</div>
+
+
+<!-- ================= برنامه ================= -->
+
+<div class="app">
+
+<header>
+
+<div class="header-top">
+
+<div>
+<h1>🚗 راه‌حساب</h1>
+<p>حسابدار مالی رانندگان اسنپ و تپسی</p>
+</div>
+
+<div class="clock">
+<div id="clock">--:--</div>
+<div id="todayDate">---</div>
+</div>
+
+</div>
+
+</header>
+
+
+<!-- ================= مشخصات راننده ================= -->
+
+<div class="card">
+
+<h2>👤 مشخصات راننده</h2>
+
+<div class="profile-grid">
+
+<div>
+<label>نام راننده</label>
+<input id="driverName" placeholder="مثلاً علی احمدی">
+</div>
+
+<div>
+<label>شماره تماس</label>
+<input id="driverPhone"
+inputmode="numeric"
+placeholder="0912...">
+</div>
+
+<div>
+<label>ماشین</label>
+<input id="carName" placeholder="مثلاً پژو 206">
+</div>
+
+<div>
+<label>مدل ماشین</label>
+<input id="carModel"
+inputmode="numeric"
+placeholder="مثلاً 1400">
+</div>
+
+<div class="full">
+
+<button onclick="saveProfile()">
+💾 ذخیره مشخصات راننده
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= خلاصه ================= -->
+
+<div class="card">
+
+<h2>📊 خلاصه ماه</h2>
+
+<div class="grid">
+
+<div class="box">
+<span>درآمد</span>
+<b id="monthIncome">۰ تومان</b>
+</div>
+
+<div class="box">
+<span>هزینه</span>
+<b id="monthCost">۰ تومان</b>
+</div>
+
+<div class="box">
+<span>سود خالص</span>
+<b id="monthProfit">۰ تومان</b>
+</div>
+
+<div class="box">
+<span>روز کاری</span>
+<b id="workDays">۰ روز</b>
+</div>
+
+</div>
+
+</div>
+
+
+<!-- ================= تقویم ================= -->
+
+<div class="card">
+
+<h2>📅 تقویم شمسی درآمد</h2>
+
+<div class="month">
+
+<button onclick="changeMonth(-1)">›</button>
+
+<strong id="monthTitle"></strong>
+
+<button onclick="changeMonth(1)">‹</button>
+
+</div>
+
+<div class="week">
+
+<div>ش</div>
+<div>ی</div>
+<div>د</div>
+<div>س</div>
+<div>چ</div>
+<div>پ</div>
+<div>ج</div>
+
+</div>
+
+<div id="calendar" class="calendar"></div>
+
+<div class="note">
+
+🟢 سود مثبت &nbsp;&nbsp;
+🔴 ضرر
+
+<br>
+
+روی هر روز بزن و درآمد و هزینه همان روز را ثبت کن.
+
+</div>
+
+</div>
+
+
+<!-- ================= ثبت روز ================= -->
+
+<div class="card">
+
+<h2 id="selectedTitle">➕ ثبت روز</h2>
+
+<label>💰 درآمد کار / اسنپ / تپسی</label>
+
+<div class="input">
+<input id="income"
+class="number-input"
+type="text"
+inputmode="numeric"
+placeholder="1,400,000"
+oninput="formatInput(this)">
+<span class="unit">تومان</span>
+</div>
+
+
+<label>⛽ هزینه بنزین</label>
+
+<div class="input">
+<input id="fuel"
+class="number-input"
+type="text"
+inputmode="numeric"
+placeholder="100,000"
+oninput="formatInput(this)">
+<span class="unit">تومان</span>
+</div>
+
+
+<label>🔧 استهلاک ماشین</label>
+
+<div class="input">
+<input id="wear"
+class="number-input"
+type="text"
+inputmode="numeric"
+placeholder="150,000"
+oninput="formatInput(this)">
+<span class="unit">تومان</span>
+</div>
+
+
+<label>📦 سایر هزینه‌ها</label>
+
+<div class="input">
+<input id="other"
+class="number-input"
+type="text"
+inputmode="numeric"
+placeholder="50,000"
+oninput="formatInput(this)">
+<span class="unit">تومان</span>
+</div>
+
+
+<button onclick="saveDay()">
+💾 ذخیره حساب روز
+</button>
+
+</div>
+
+
+<!-- ================= هدف مالی ================= -->
+
+<div class="card">
+
+<h2>🎯 هدف مالی</h2>
+
+<label>هدف درآمد خالص</label>
+
+<div class="input">
+
+<input id="goal"
+class="number-input"
+type="text"
+inputmode="numeric"
+placeholder="40,000,000"
+oninput="formatInput(this)">
+
+<span class="unit">تومان</span>
+
+</div>
+
+
+<label>تعداد روز باقی‌مانده</label>
+
+<input id="days"
+type="number"
+inputmode="numeric"
+value="20">
+
+
+<button onclick="saveGoal()">
+🎯 ذخیره هدف
+</button>
+
+
+<div class="row">
+<span>درصد پیشرفت</span>
+<b id="percent">۰٪</b>
+</div>
+
+<div class="progress">
+<div id="bar"></div>
+</div>
+
+
+<div class="row">
+<span>باقی‌مانده تا هدف</span>
+<b id="remain">۰ تومان</b>
+</div>
+
+
+<div class="row">
+<span>لازم برای هر روز</span>
+<b id="daily">۰ تومان</b>
+</div>
+
+</div>
+
+
+<!-- ================= بدهی ================= -->
+
+<div class="card">
+
+<h2>🧾 قسط و بدهی</h2>
+
+<label>مبلغ قسط / بدهی</label>
+
+<div class="input">
+
+<input id="debt"
+class="number-input"
+type="text"
+inputmode="numeric"
+placeholder="20,000,000"
+oninput="formatInput(this)">
+
+<span class="unit">تومان</span>
+
+</div>
+
+
+<label>تاریخ پرداخت</label>
+
+<input id="debtDate"
+placeholder="مثلاً ۲۹ شهریور ۱۴۰۵">
+
+
+<button onclick="saveDebt()">
+💾 ذخیره بدهی
+</button>
+
+
+<div class="row">
+<span>مبلغ بدهی</span>
+<b id="debtShow">۰ تومان</b>
+</div>
+
+
+<div class="row">
+<span>تاریخ پرداخت</span>
+<b id="dateShow">-</b>
+</div>
+
+</div>
+
+
+<!-- ================= تاریخچه ================= -->
+
+<div class="card">
+
+<h2>📋 تاریخچه کامل</h2>
+
+<div class="note">
+
+با لمس هر روز می‌توانی اطلاعات همان روز را دوباره ویرایش کنی.
+
+</div>
+
+<div id="history" class="history"></div>
+
+</div>
+
+
+<!-- ================= گزارش ================= -->
+
+<div class="card">
+
+<h2>📈 گزارش ماه</h2>
+
+<div class="row">
+<span>کل درآمد</span>
+<b id="reportIncome">۰ تومان</b>
+</div>
+
+<div class="row">
+<span>کل بنزین</span>
+<b id="reportFuel">۰ تومان</b>
+</div>
+
+<div class="row">
+<span>کل استهلاک</span>
+<b id="reportWear">۰ تومان</b>
+</div>
+
+<div class="row">
+<span>سایر هزینه‌ها</span>
+<b id="reportOther">۰ تومان</b>
+</div>
+
+<div class="row">
+<span>کل هزینه</span>
+<b id="reportCost">۰ تومان</b>
+</div>
+
+<div class="row">
+<span>💰 سود خالص</span>
+<b id="reportProfit">۰ تومان</b>
+</div>
+
+
+<button class="danger"
+onclick="clearData()">
+
+🗑 پاک کردن همه اطلاعات
+
+</button>
+
+</div>
+
+
+<footer>
+
+<strong>راه‌حساب</strong>
+
+<br>
+
+حسابدار مالی رانندگان اسنپ و تپسی 🚗
+
+<br>
+
+نسخه رایگان آزمایشی
+
+</footer>
+
+</div>
+
+
+<script>
+
+/* =====================================
+   داده اصلی
+===================================== */
+
+let data =
+JSON.parse(localStorage.getItem("rahhesab_final"))
+||
+{
+profile:{
+name:"",
+phone:"",
+car:"",
+model:""
+},
+
+days:{},
+
+goal:0,
+
+goalDays:20,
+
+debt:0,
+
+debtDate:""
+
+};
+
+
+/* =====================================
+   تبدیل تاریخ میلادی به شمسی
+===================================== */
+
+function gregorianToJalali(gy,gm,gd){
+
+let g_d_m=[
+0,31,59,90,120,151,
+181,212,243,273,304,334
+];
+
+let gy2=
+(gm>2)
+?
+gy+1
+:
+gy;
+
+let days=
+355666+
+365*gy+
+Math.floor((gy2+3)/4)-
+Math.floor((gy2+99)/100)+
+Math.floor((gy2+399)/400)+
+gd+
+g_d_m[gm-1];
+
+let jy=
+-1595+
+33*Math.floor(days/12053);
+
+days%=12053;
+
+jy+=
+4*Math.floor(days/1461);
+
+days%=1461;
+
+if(days>365){
+
+jy+=
+Math.floor((days-1)/365);
+
+days=
+(days-1)%365;
+
+}
+
+let jm;
+let jd;
+
+if(days<186){
+
+jm=
+1+
+Math.floor(days/31);
+
+jd=
+1+
+(days%31);
+
+}else{
+
+jm=
+7+
+Math.floor((days-186)/30);
+
+jd=
+1+
+((days-186)%30);
+
+}
+
+return{
+year:jy,
+month:jm,
+day:jd
+};
+
+}
+
+
+/* =====================================
+   تاریخ امروز
+===================================== */
+
+function getTodayJalali(){
+
+let d=new Date();
+
+return gregorianToJalali(
+d.getFullYear(),
+d.getMonth()+1,
+d.getDate()
+);
+
+}
+
+
+let todayJ=
+getTodayJalali();
+
+let viewYear=
+todayJ.year;
+
+let viewMonth=
+todayJ.month;
+
+let selectedDate=
+dateKey(
+todayJ.year,
+todayJ.month,
+todayJ.day
+);
+
+
+/* =====================================
+   ماه‌ها
+===================================== */
+
+const months=[
+
+"فروردین",
+"اردیبهشت",
+"خرداد",
+"تیر",
+"مرداد",
+"شهریور",
+"مهر",
+"آبان",
+"آذر",
+"دی",
+"بهمن",
+"اسفند"
+
+];
+
+
+/* =====================================
+   تعداد روز ماه شمسی
+===================================== */
+
+function isLeapJalali(year){
+
+let breaks=[
+-61,9,38,199,426,686,
+756,818,1111,1181,
+1210,1635,2060,2097,
+2192,2262,2324,2394,
+2456,3178
+];
+
+let bl=
+breaks.length;
+
+let leapJ=
+-14;
+
+let jp=
+breaks[0];
+
+let jm;
+
+let jump;
+
+if(
+year<jp ||
+year>=breaks[bl-1]
+){
+return false;
+}
+
+for(let i=1;i<bl;i++){
+
+jm=
+breaks[i];
+
+jump=
+jm-jp;
+
+if(year<jm)break;
+
+leapJ+=
+Math.floor(jump/33)*8+
+Math.floor((jump%33)/4);
+
+jp=jm;
+
+}
+
+let n=
+year-jp;
+
+leapJ+=
+Math.floor(n/33)*8+
+Math.floor(((n%33)+3)/4);
+
+if((jump%33)===4 && jump-n===4){
+leapJ++;
+}
+
+let gy=
+year+621;
+
+let leapG=
+Math.floor(gy/4)-
+Math.floor(
+(Math.floor(gy/100)+1)*3/4
+)-150;
+
+let march=
+20+leapJ-leapG;
+
+if(jump-n<6){
+n=
+n-jump+
+Math.floor((jump+4)/33)*33;
+}
+
+let leap=
+(
+(
+(
+n+1
+)%33-1
+)%4
+);
+
+if(leap===-1){
+leap=4;
+}
+
+return leap===0;
+
+}
+
+
+function monthDays(year,month){
+
+if(month<=6)return 31;
+
+if(month<=11)return 30;
+
+return isLeapJalali(year)?30:29;
+
+}
+
+
+/* =====================================
+   روز هفته
+   شنبه = 0
+===================================== */
+
+function jalaliToGregorianApprox(
+jy,jm,jd
+){
+
+/*
+برای پیدا کردن روز هفته
+از تبدیل دقیق تقریبی مبتنی بر
+تاریخ مبنا استفاده می‌کنیم
+*/
+
+let epoch=
+new Date(2023,2,21);
+
+let base={
+y:1402,
+m:1,
+d:1
+};
+
+let days=0;
+
+if(jy>=base.y){
+
+for(let y=base.y;y<jy;y++){
+days+=isLeapJalali(y)?366:365;
+}
+
+}else{
+
+for(let y=jy;y<base.y;y++){
+days-=isLeapJalali(y)?366:365;
+}
+
+}
+
+for(let m=1;m<jm;m++){
+
+days+=monthDays(jy,m);
+
+}
+
+days+=jd-1;
+
+return new Date(
+epoch.getTime()+
+days*86400000
+);
+
+}
+
+
+function firstDayOffset(year,month){
+
+let date=
+jalaliToGregorianApprox(
+year,
+month,
+1
+);
+
+let jsDay=
+date.getDay();
+
+return
+(jsDay+1)%7;
+
+}
+
+
+/* =====================================
+   کلید تاریخ
+===================================== */
+
+function dateKey(year,month,day){
+
+return (
+year+"-"+
+String(month).padStart(2,"0")+"-"+
+String(day).padStart(2,"0")
+);
+
+}
+
+
+/* =====================================
+   تبدیل اعداد فارسی
+===================================== */
+
+function normalizeDigits(str){
+
+return String(str)
+.replace(/[۰-۹]/g,function(d){
+
+return "۰۱۲۳۴۵۶۷۸۹".indexOf(d);
+
+})
+.replace(/[٠-٩]/g,function(d){
+
+return "٠١٢٣٤٥٦٧٨٩".indexOf(d);
+
+});
+
+}
+
+
+/* =====================================
+   فرمت ورودی
+===================================== */
+
+function formatInput(input){
+
+let value=
+normalizeDigits(input.value)
+.replace(/[^0-9]/g,"");
+
+if(value===""){
+
+input.value="";
+return;
+
+}
+
+input.value=
+Number(value)
+.toLocaleString("en-US");
+
+}
+
+
+/* =====================================
+   گرفتن عدد
+===================================== */
+
+function getNumber(id){
+
+let value=
+document
+.getElementById(id)
+.value;
+
+value=
+normalizeDigits(value)
+.replace(/,/g,"");
+
+return Number(value)||0;
+
+}
+
+
+/* =====================================
+   نمایش پول
+===================================== */
+
+function money(n){
+
+return Number(n||0)
+.toLocaleString("fa-IR")
++" تومان";
+
+}
+
+
+function formatNumberInput(n){
+
+return n
+?
+Number(n)
+.toLocaleString("en-US")
+:
+"";
+
+}
+
+
+/* =====================================
+   نمایش ساعت
+===================================== */
+
+function updateClock(){
+
+let now=
+new Date();
+
+let time=
+now.toLocaleTimeString(
+"fa-IR",
+{
+hour:"2-digit",
+minute:"2-digit",
+second:"2-digit"
+}
+);
+
+document
+.getElementById("clock")
+.innerText=
+"🕒 "+time;
+
+let j=
+getTodayJalali();
+
+document
+.getElementById("todayDate")
+.innerText=
+j.day+" "+
+months[j.month-1]+" "+
+j.year;
+
+}
+
+
+setInterval(
+updateClock,
+1000
+);
+
+updateClock();
+
+
+/* =====================================
+   انتخاب روز
+===================================== */
+
+function selectDay(day){
+
+selectedDate=
+dateKey(
+viewYear,
+viewMonth,
+day
+);
+
+loadSelectedDay();
+
+renderCalendar();
+
+}
+
+
+/* =====================================
+   تقویم
+===================================== */
+
+function renderCalendar(){
+
+document
+.getElementById("monthTitle")
+.innerText=
+months[viewMonth-1]+
+" "+
+viewYear;
+
+
+let calendar=
+document.getElementById("calendar");
+
+calendar.innerHTML="";
+
+
+let total=
+monthDays(
+viewYear,
+viewMonth
+);
+
+
+let offset=
+firstDayOffset(
+viewYear,
+viewMonth
+);
+
+
+for(let i=0;i<offset;i++){
+
+let empty=
+document.createElement("div");
+
+empty.className=
+"day empty";
+
+calendar.appendChild(empty);
+
+}
+
+
+for(let day=1;day<=total;day++){
+
+let key=
+dateKey(
+viewYear,
+viewMonth,
+day
+);
+
+let item=
+data.days[key];
+
+let div=
+document.createElement("div");
+
+div.className="day";
+
+
+if(key===selectedDate){
+
+div.classList.add(
+"selected"
+);
+
+}
+
+
+let todayKey=
+dateKey(
+todayJ.year,
+todayJ.month,
+todayJ.day
+);
+
+if(key===todayKey){
+
+div.classList.add(
+"today"
+);
+
+}
+
+
+if(item){
+
+let profit=
+item.income-
+item.fuel-
+item.wear-
+item.other;
+
+
+if(profit>0){
+
+div.classList.add("good");
+
+}
+
+if(profit<0){
+
+div.classList.add("bad");
+
+}
+
+}
+
+
+div.innerHTML=
+"<strong>"+
+day+
+"</strong>"+
+(
+item && item.income>0
+?
+"<small>"+
+shortMoney(item.income)+
+"</small>"
+:
+""
+);
+
+
+div.onclick=function(){
+
+selectDay(day);
+
+};
+
+
+calendar.appendChild(div);
+
+}
+
+}
+
+
+/* =====================================
+   مبلغ کوتاه
+===================================== */
+
+function shortMoney(n){
+
+if(n>=1000000){
+
+return (
+n/1000000
+)
+.toFixed(1)
+.replace(".0","")
++"م";
+
+}
+
+if(n>=1000){
+
+return (
+Math.round(n/1000)
++"ک"
+);
+
+}
+
+return n;
+
+}
+
+
+/* =====================================
+   تغییر ماه
+===================================== */
+
+function changeMonth(step){
+
+viewMonth+=step;
+
+if(viewMonth>12){
+
+viewMonth=1;
+viewYear++;
+
+}
+
+if(viewMonth<1){
+
+viewMonth=12;
+viewYear--;
+
+}
+
+selectedDate=
+dateKey(
+viewYear,
+viewMonth,
+1
+);
+
+loadSelectedDay();
+
+renderCalendar();
+
+renderAll();
+
+}
+
+
+/* =====================================
+   بارگذاری روز
+===================================== */
+
+function loadSelectedDay(){
+
+let item=
+data.days[selectedDate];
+
+
+if(!item){
+
+item={
+income:0,
+fuel:0,
+wear:0,
+other:0
+};
+
+}
+
+
+document
+.getElementById("income")
+.value=
+formatNumberInput(
+item.income
+);
+
+
+document
+.getElementById("fuel")
+.value=
+formatNumberInput(
+item.fuel
+);
+
+
+document
+.getElementById("wear")
+.value=
+formatNumberInput(
+item.wear
+);
+
+
+document
+.getElementById("other")
+.value=
+formatNumberInput(
+item.other
+);
+
+
+let parts=
+selectedDate.split("-");
+
+
+document
+.getElementById("selectedTitle")
+.innerText=
+"➕ ثبت روز "+
+Number(parts[2])+
+" "+
+months[Number(parts[1])-1];
+
+}
+
+
+/* =====================================
+   ذخیره روز
+===================================== */
+
+function saveDay(){
+
+data.days[selectedDate]={
+
+income:
+getNumber("income"),
+
+fuel:
+getNumber("fuel"),
+
+wear:
+getNumber("wear"),
+
+other:
+getNumber("other")
+
+};
+
+
+save();
+
+renderAll();
+
+alert("اطلاعات روز ذخیره شد ✅");
+
+}
+
+
+/* =====================================
+   ذخیره مشخصات
+===================================== */
+
+function saveProfile(){
+
+data.profile={
+
+name:
+document
+.getElementById("driverName")
+.value,
+
+phone:
+document
+.getElementById("driverPhone")
+.value,
+
+car:
+document
+.getElementById("carName")
+.value,
+
+model:
+document
+.getElementById("carModel")
+.value
+
+};
+
+save();
+
+alert("مشخصات راننده ذخیره شد ✅");
+
+}
+
+
+/* =====================================
+   ذخیره هدف
+===================================== */
+
+function saveGoal(){
+
+data.goal=
+getNumber("goal");
+
+
+data.goalDays=
+Number(
+normalizeDigits(
+document
+.getElementById("days")
+.value
+)
+)||1;
+
+
+save();
+
+renderAll();
+
+alert("هدف مالی ذخیره شد 🎯");
+
+}
+
+
+/* =====================================
+   ذخیره بدهی
+===================================== */
+
+function saveDebt(){
+
+data.debt=
+getNumber("debt");
+
+
+data.debtDate=
+document
+.getElementById("debtDate")
+.value;
+
+
+save();
+
+renderAll();
+
+alert("بدهی ذخیره شد 🧾");
+
+}
+
+
+/* =====================================
+   ذخیره
+===================================== */
+
+function save(){
+
+localStorage.setItem(
+"rahhesab_final",
+JSON.stringify(data)
+);
+
+}
+
+
+/* =====================================
+   گزارش ماه
+===================================== */
+
+function monthReport(){
+
+let income=0;
+let fuel=0;
+let wear=0;
+let other=0;
+let cost=0;
+let profit=0;
+let workDays=0;
+
+
+Object.keys(data.days)
+.forEach(key=>{
+
+let parts=
+key.split("-");
+
+let y=
+Number(parts[0]);
+
+let m=
+Number(parts[1]);
+
+
+if(
+y===viewYear &&
+m===viewMonth
+){
+
+let x=
+data.days[key];
+
+
+let c=
+x.fuel+
+x.wear+
+x.other;
+
+
+let p=
+x.income-c;
+
+
+income+=x.income;
+
+fuel+=x.fuel;
+
+wear+=x.wear;
+
+other+=x.other;
+
+cost+=c;
+
+profit+=p;
+
+
+if(x.income>0){
+
+workDays++;
+
+}
+
+}
+
+});
+
+
+return{
+
+income,
+fuel,
+wear,
+other,
+cost,
+profit,
+workDays
+
+};
+
+}
+
+
+/* =====================================
+   تاریخچه کامل
+===================================== */
+
+function renderHistory(){
+
+let box=
+document.getElementById("history");
+
+
+let keys=
+Object.keys(data.days)
+.sort()
+.reverse();
+
+
+if(keys.length===0){
+
+box.innerHTML=
+"<div class='note'>هنوز اطلاعاتی ثبت نشده است.</div>";
+
+return;
+
+}
+
+
+box.innerHTML="";
+
+
+keys.forEach(key=>{
+
+let x=
+data.days[key];
+
+
+let profit=
+x.income-
+x.fuel-
+x.wear-
+x.other;
+
+
+let parts=
+key.split("-");
+
+
+let dateText=
+Number(parts[2])+
+" "+
+months[Number(parts[1])-1]+
+" "+
+parts[0];
+
+
+let row=
+document.createElement("div");
+
+row.className=
+"history-row";
+
+
+row.innerHTML=
+
+"<div class='history-top'>"+
+
+"<span>📅 "+
+dateText+
+"</span>"+
+
+"<b>"+
+money(profit)+
+"</b>"+
+
+"</div>"+
+
+
+"<div class='history-details'>"+
+
+"<span>💰 درآمد: "+
+money(x.income)+
+"</span>"+
+
+"<span>⛽ بنزین: "+
+money(x.fuel)+
+"</span>"+
+
+"<span>🔧 استهلاک: "+
+money(x.wear)+
+"</span>"+
+
+"<span>📦 سایر: "+
+money(x.other)+
+"</span>"+
+
+"</div>";
+
+
+row.onclick=function(){
+
+viewYear=
+Number(parts[0]);
+
+viewMonth=
+Number(parts[1]);
+
+selectedDate=
+key;
+
+loadSelectedDay();
+
+renderCalendar();
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+};
+
+
+box.appendChild(row);
+
+});
+
+}
+
+
+/* =====================================
+   رندر کل برنامه
+===================================== */
+
+function renderAll(){
+
+renderCalendar();
+
+loadSelectedDay();
+
+renderHistory();
+
+
+let r=
+monthReport();
+
+
+document
+.getElementById("monthIncome")
+.innerText=
+money(r.income);
+
+
+document
+.getElementById("monthCost")
+.innerText=
+money(r.cost);
+
+
+document
+.getElementById("monthProfit")
+.innerText=
+money(r.profit);
+
+
+document
+.getElementById("workDays")
+.innerText=
+r.workDays
+.toLocaleString("fa-IR")
++" روز";
+
+
+document
+.getElementById("reportIncome")
+.innerText=
+money(r.income);
+
+
+document
+.getElementById("reportFuel")
+.innerText=
+money(r.fuel);
+
+
+document
+.getElementById("reportWear")
+.innerText=
+money(r.wear);
+
+
+document
+.getElementById("reportOther")
+.innerText=
+money(r.other);
+
+
+document
+.getElementById("reportCost")
+.innerText=
+money(r.cost);
+
+
+document
+.getElementById("reportProfit")
+.innerText=
+money(r.profit);
+
+
+/* هدف */
+
+document
+.getElementById("goal")
+.value=
+formatNumberInput(
+data.goal
+);
+
+
+document
+.getElementById("days")
+.value=
+data.goalDays;
+
+
+/* سود کل */
+
+let totalProfit=0;
+
+
+Object.keys(data.days)
+.forEach(key=>{
+
+let x=
+data.days[key];
+
+
+totalProfit+=
+x.income-
+x.fuel-
+x.wear-
+x.other;
+
+});
+
+
+let percent=0;
+
+
+if(data.goal>0){
+
+percent=
+(totalProfit/data.goal)*100;
+
+percent=
+Math.max(
+0,
+Math.min(percent,100)
+);
+
+}
+
+
+document
+.getElementById("percent")
+.innerText=
+Math.round(percent)
+.toLocaleString("fa-IR")
++"٪";
+
+
+document
+.getElementById("bar")
+.style.width=
+percent+"%";
+
+
+let remain=
+Math.max(
+data.goal-totalProfit,
+0
+);
+
+
+document
+.getElementById("remain")
+.innerText=
+money(remain);
+
+
+let daily=
+data.goalDays>0
+?
+Math.ceil(
+remain/data.goalDays
+)
+:
+0;
+
+
+document
+.getElementById("daily")
+.innerText=
+money(daily);
+
+
+/* بدهی */
+
+document
+.getElementById("debt")
+.value=
+formatNumberInput(
+data.debt
+);
+
+
+document
+.getElementById("debtDate")
+.value=
+data.debtDate||"";
+
+
+document
+.getElementById("debtShow")
+.innerText=
+money(data.debt);
+
+
+document
+.getElementById("dateShow")
+.innerText=
+data.debtDate||"-";
+
+
+/* مشخصات */
+
+document
+.getElementById("driverName")
+.value=
+data.profile?.name||"";
+
+
+document
+.getElementById("driverPhone")
+.value=
+data.profile?.phone||"";
+
+
+document
+.getElementById("carName")
+.value=
+data.profile?.car||"";
+
+
+document
+.getElementById("carModel")
+.value=
+data.profile?.model||"";
+
+}
+
+
+/* =====================================
+   پاک کردن اطلاعات
+===================================== */
+
+function clearData(){
+
+let answer=
+confirm(
+"⚠️ همه اطلاعات راننده، درآمدها و هزینه‌ها پاک شود؟"
+);
+
+
+if(answer){
+
+localStorage.removeItem(
+"rahhesab_final"
+);
+
+
+data={
+
+profile:{
+name:"",
+phone:"",
+car:"",
+model:""
+},
+
+days:{},
+
+goal:0,
+
+goalDays:20,
+
+debt:0,
+
+debtDate:""
+
+};
+
+
+renderAll();
+
+alert("اطلاعات پاک شد");
+
+}
+
+}
+
+
+/* =====================================
+   صفحه شروع
+===================================== */
+
+function startApp(){
+
+let percent=0;
+
+let bar=
+document.getElementById(
+"loaderBar"
+);
+
+let text=
+document.getElementById(
+"loadPercent"
+);
+
+
+let timer=
+setInterval(function(){
+
+percent+=2;
+
+
+bar.style.width=
+percent+"%";
+
+
+text.innerText=
+percent
+.toLocaleString("fa-IR")
++"٪";
+
+
+if(percent>=100){
+
+clearInterval(timer);
+
+
+setTimeout(function(){
+
+document
+.getElementById("splash")
+.classList.add("hide");
+
+},350);
+
+}
+
+},30);
+
+}
+
+
+/* =====================================
+   شروع برنامه
+===================================== */
+
+renderAll();
+
+startApp();
+
+</script>
+
+</body>
+</html>
