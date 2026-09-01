@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">راهحساب</string>
-    <string name="title_activity_main">راهحساب</string>
+    <string name="app_name">راه حساب</string>
+    <string name="title_activity_main">راه حساب</string>
     <string name="package_name">ir.rahhesab.app</string>
     <string name="custom_url_scheme">ir.rahhesab.app</string>
 </resources>
