@@ -647,6 +647,16 @@ oninput="formatInput(this)">
 </div>
 
 
+<label>📏 کیلومتر طی‌شده امروز</label>
+
+<div class="input">
+<input id="dayKm" class="number-input" type="text"
+inputmode="numeric" placeholder="200"
+oninput="formatInput(this)">
+<span class="unit">کیلومتر</span>
+</div>
+
+
 <label>🔧 استهلاک ماشین</label>
 
 <div class="input">
@@ -799,6 +809,141 @@ placeholder="مثلاً ۲۹ شهریور ۱۴۰۵">
 </div>
 
 <div id="history" class="history"></div>
+
+</div>
+
+
+
+<!-- ================= Premium | استهلاک حرفه‌ای ================= -->
+
+<div class="card" id="premiumDepreciation">
+
+<h2>⭐ Premium | استهلاک حرفه‌ای خودرو</h2>
+
+<div class="note">
+محاسبه واقعی هزینه استهلاک خودرو و قطعات بر اساس کیلومتر.
+</div>
+
+<label>قیمت خرید خودرو</label>
+<div class="input">
+<input id="vehiclePrice" class="number-input" type="text"
+inputmode="numeric" placeholder="800,000,000" oninput="formatInput(this)">
+<span class="unit">تومان</span>
+</div>
+
+<label>ارزش اسقاط / فروش نهایی</label>
+<div class="input">
+<input id="vehicleSalvage" class="number-input" type="text"
+inputmode="numeric" placeholder="200,000,000" oninput="formatInput(this)">
+<span class="unit">تومان</span>
+</div>
+
+<label>عمر اقتصادی خودرو</label>
+<div class="input">
+<input id="vehicleLifeKm" type="number" inputmode="numeric" value="300000">
+<span class="unit">کیلومتر</span>
+</div>
+
+<label>کیلومتر طی‌شده در روز</label>
+<div class="input">
+<input id="dailyKm" type="number" inputmode="numeric" value="200">
+<span class="unit">کیلومتر</span>
+</div>
+
+<hr>
+
+<label>🛞 لاستیک — هزینه / عمر</label>
+<div class="input">
+<input id="tireCost" class="number-input" type="text"
+inputmode="numeric" placeholder="20,000,000" oninput="formatInput(this)">
+<span class="unit">تومان</span>
+</div>
+<input id="tireLife" type="number" inputmode="numeric" value="50000" placeholder="عمر به کیلومتر">
+
+<label>🛑 لنت و ترمز — هزینه / عمر</label>
+<div class="input">
+<input id="brakeCost" class="number-input" type="text"
+inputmode="numeric" placeholder="5,000,000" oninput="formatInput(this)">
+<span class="unit">تومان</span>
+</div>
+<input id="brakeLife" type="number" inputmode="numeric" value="30000">
+
+<label>🛢️ روغن و فیلترها — هزینه / عمر</label>
+<div class="input">
+<input id="oilCost" class="number-input" type="text"
+inputmode="numeric" placeholder="2,000,000" oninput="formatInput(this)">
+<span class="unit">تومان</span>
+</div>
+<input id="oilLife" type="number" inputmode="numeric" value="7000">
+
+<label>🔋 باتری — هزینه / عمر</label>
+<div class="input">
+<input id="batteryCost" class="number-input" type="text"
+inputmode="numeric" placeholder="5,000,000" oninput="formatInput(this)">
+<span class="unit">تومان</span>
+</div>
+<input id="batteryLife" type="number" inputmode="numeric" value="50000">
+
+<label>⚙️ کلاچ و دیسک — هزینه / عمر</label>
+<div class="input">
+<input id="clutchCost" class="number-input" type="text"
+inputmode="numeric" placeholder="15,000,000" oninput="formatInput(this)">
+<span class="unit">تومان</span>
+</div>
+<input id="clutchLife" type="number" inputmode="numeric" value="100000">
+
+<label>🔧 تسمه‌ها — هزینه / عمر</label>
+<div class="input">
+<input id="beltCost" class="number-input" type="text"
+inputmode="numeric" placeholder="4,000,000" oninput="formatInput(this)">
+<span class="unit">تومان</span>
+</div>
+<input id="beltLife" type="number" inputmode="numeric" value="60000">
+
+<label>🛠️ کمک‌فنر و جلوبندی — هزینه / عمر</label>
+<div class="input">
+<input id="suspensionCost" class="number-input" type="text"
+inputmode="numeric" placeholder="12,000,000" oninput="formatInput(this)">
+<span class="unit">تومان</span>
+</div>
+<input id="suspensionLife" type="number" inputmode="numeric" value="80000">
+
+<label>🔩 تعمیرات متفرقه — هزینه / عمر</label>
+<div class="input">
+<input id="repairCost" class="number-input" type="text"
+inputmode="numeric" placeholder="10,000,000" oninput="formatInput(this)">
+<span class="unit">تومان</span>
+</div>
+<input id="repairLife" type="number" inputmode="numeric" value="50000">
+
+<button onclick="savePremiumDepreciation()">
+💾 ذخیره تنظیمات Premium
+</button>
+
+<div class="row">
+<span>هزینه استهلاک هر کیلومتر</span>
+<b id="premiumPerKm">۰ تومان</b>
+</div>
+
+<div class="row">
+<span>هزینه استهلاک روزانه</span>
+<b id="premiumDaily">۰ تومان</b>
+</div>
+
+<div class="row">
+<span>هزینه استهلاک ماهانه</span>
+<b id="premiumMonthly">۰ تومان</b>
+</div>
+
+<div class="row">
+<span>هزینه استهلاک سالانه</span>
+<b id="premiumYearly">۰ تومان</b>
+</div>
+
+<div class="row">
+<span>سود واقعی با احتساب استهلاک</span>
+<b id="premiumProfit">۰ تومان</b>
+</div>
 
 </div>
 
@@ -1676,26 +1821,52 @@ months[Number(parts[1])-1];
 
 function saveDay(){
 
+const income = getNumber("income");
+const fuel = getNumber("fuel");
+const manualWear = getNumber("wear");
+const other = getNumber("other");
+
+/* کیلومتر واقعی روز */
+const kmEl = document.getElementById("dayKm");
+const dayKm = kmEl
+    ? Number(normalizeDigits(kmEl.value).replace(/,/g,"")) || 0
+    : 0;
+
+/* استهلاک Premium بر اساس کیلومتر واقعی */
+let premiumWear = 0;
+
+if(typeof premiumPerKmValue === "function"){
+    premiumWear = premiumPerKmValue() * dayKm;
+}
+
+/* استهلاک نهایی = استهلاک دستی + Premium */
+const totalWear = manualWear + premiumWear;
+
 data.days[selectedDate]={
 
-income:
-getNumber("income"),
+income: income,
 
-fuel:
-getNumber("fuel"),
+fuel: fuel,
 
-wear:
-getNumber("wear"),
+wear: totalWear,
 
-other:
-getNumber("other")
+manualWear: manualWear,
+
+premiumWear: premiumWear,
+
+km: dayKm,
+
+other: other
 
 };
-
 
 save();
 
 renderAll();
+
+if(typeof renderPremium === "function"){
+    renderPremium();
+}
 
 alert("اطلاعات روز ذخیره شد ✅");
 
@@ -1816,6 +1987,9 @@ function monthReport(){
 let income=0;
 let fuel=0;
 let wear=0;
+let manualWear=0;
+let premiumWear=0;
+let totalKm=0;
 let other=0;
 let cost=0;
 let profit=0;
@@ -1844,9 +2018,22 @@ let x=
 data.days[key];
 
 
+let xWear = Number(x.wear)||0;
+let xManualWear =
+    x.manualWear !== undefined
+    ? Number(x.manualWear)||0
+    : xWear;
+
+let xPremiumWear =
+    x.premiumWear !== undefined
+    ? Number(x.premiumWear)||0
+    : 0;
+
+let xKm = Number(x.km)||0;
+
 let c=
 x.fuel+
-x.wear+
+xWear+
 x.other;
 
 
@@ -1858,7 +2045,10 @@ income+=x.income;
 
 fuel+=x.fuel;
 
-wear+=x.wear;
+wear+=xWear;
+manualWear+=xManualWear;
+premiumWear+=xPremiumWear;
+totalKm+=xKm;
 
 other+=x.other;
 
@@ -1883,6 +2073,9 @@ return{
 income,
 fuel,
 wear,
+manualWear,
+premiumWear,
+totalKm,
 other,
 cost,
 profit,
@@ -1979,7 +2172,19 @@ money(x.income)+
 money(x.fuel)+
 "</span>"+
 
-"<span>🔧 استهلاک: "+
+"<span>📏 کیلومتر: "+
+Number(x.km||0).toLocaleString("fa-IR")+
+" کیلومتر</span>"+
+
+"<span>🔧 استهلاک دستی: "+
+money(x.manualWear !== undefined ? x.manualWear : x.wear)+
+"</span>"+
+
+"<span>⭐ استهلاک Premium: "+
+money(x.premiumWear||0)+
+"</span>"+
+
+"<span>🔧 مجموع استهلاک: "+
 money(x.wear)+
 "</span>"+
 
@@ -2365,6 +2570,163 @@ renderAll();
 
 startApp();
 
+</script>
+
+
+<script>
+/* =====================================
+   RahHesab Premium Depreciation
+===================================== */
+
+const PREMIUM_KEY = "rahhesab_premium_v1";
+
+let premium =
+JSON.parse(localStorage.getItem(PREMIUM_KEY)) || {
+vehiclePrice:0,
+vehicleSalvage:0,
+vehicleLifeKm:300000,
+dailyKm:200,
+tireCost:0,tireLife:50000,
+brakeCost:0,brakeLife:30000,
+oilCost:0,oilLife:7000,
+batteryCost:0,batteryLife:50000,
+clutchCost:0,clutchLife:100000,
+beltCost:0,beltLife:60000,
+suspensionCost:0,suspensionLife:80000,
+repairCost:0,repairLife:50000
+};
+
+function premiumNumber(id){
+    const el=document.getElementById(id);
+    if(!el)return 0;
+    return Number(normalizeDigits(el.value).replace(/,/g,""))||0;
+}
+
+function premiumRead(){
+    premium.vehiclePrice=premiumNumber("vehiclePrice");
+    premium.vehicleSalvage=premiumNumber("vehicleSalvage");
+    premium.vehicleLifeKm=premiumNumber("vehicleLifeKm")||300000;
+    premium.dailyKm=premiumNumber("dailyKm")||200;
+
+    const fields=[
+        ["tireCost","tireLife"],
+        ["brakeCost","brakeLife"],
+        ["oilCost","oilLife"],
+        ["batteryCost","batteryLife"],
+        ["clutchCost","clutchLife"],
+        ["beltCost","beltLife"],
+        ["suspensionCost","suspensionLife"],
+        ["repairCost","repairLife"]
+    ];
+
+    fields.forEach(x=>{
+        premium[x[0]]=premiumNumber(x[0]);
+        premium[x[1]]=premiumNumber(x[1]);
+    });
+}
+
+function premiumPerKmValue(){
+    let vehicle=
+        Math.max(
+            premium.vehiclePrice-premium.vehicleSalvage,
+            0
+        ) /
+        Math.max(premium.vehicleLifeKm,1);
+
+    let parts=0;
+
+    [
+        ["tireCost","tireLife"],
+        ["brakeCost","brakeLife"],
+        ["oilCost","oilLife"],
+        ["batteryCost","batteryLife"],
+        ["clutchCost","clutchLife"],
+        ["beltCost","beltLife"],
+        ["suspensionCost","suspensionLife"],
+        ["repairCost","repairLife"]
+    ].forEach(x=>{
+        parts +=
+            premium[x[0]] /
+            Math.max(premium[x[1]],1);
+    });
+
+    return vehicle+parts;
+}
+
+function renderPremium(){
+    const perKm=premiumPerKmValue();
+    const daily=perKm*premium.dailyKm;
+
+    document.getElementById("premiumPerKm").innerText=money(perKm);
+    document.getElementById("premiumDaily").innerText=money(daily);
+    document.getElementById("premiumMonthly").innerText=money(daily*30);
+    document.getElementById("premiumYearly").innerText=money(daily*365);
+
+    let income=0;
+    let fuel=0;
+    let other=0;
+
+    Object.keys(data.days||{}).forEach(k=>{
+        const d=data.days[k]||{};
+        income += Number(d.income)||0;
+        fuel += Number(d.fuel)||0;
+        other += Number(d.other)||0;
+    });
+
+    document.getElementById("premiumProfit").innerText=
+        money(income-fuel-other-(perKm*premium.dailyKm*Object.keys(data.days||{}).length));
+}
+
+function savePremiumDepreciation(){
+    premiumRead();
+
+    localStorage.setItem(
+        PREMIUM_KEY,
+        JSON.stringify(premium)
+    );
+
+    renderPremium();
+
+    alert("تنظیمات استهلاک Premium ذخیره شد ⭐");
+}
+
+function loadPremiumDepreciation(){
+    const ids=[
+        "vehiclePrice","vehicleSalvage","vehicleLifeKm","dailyKm",
+        "tireCost","tireLife",
+        "brakeCost","brakeLife",
+        "oilCost","oilLife",
+        "batteryCost","batteryLife",
+        "clutchCost","clutchLife",
+        "beltCost","beltLife",
+        "suspensionCost","suspensionLife",
+        "repairCost","repairLife"
+    ];
+
+    ids.forEach(id=>{
+        const el=document.getElementById(id);
+        if(!el)return;
+
+        const value=premium[id];
+
+        if(value!==undefined){
+            el.value =
+                el.classList.contains("number-input")
+                ? formatNumberInput(value)
+                : value;
+        }
+    });
+
+    renderPremium();
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+    loadPremiumDepreciation();
+
+    setTimeout(()=>{
+        renderPremium();
+    },300);
+});
 </script>
 
 </body>
