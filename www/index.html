@@ -2729,5 +2729,85 @@ document.addEventListener("DOMContentLoaded",()=>{
 });
 </script>
 
+<script src="premium.js"></script>
+
+<div id="premium-shop-card" style="margin:16px 0;padding:18px;border:2px solid #b89b5e;border-radius:16px;background:#fffdf7;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,.08)">
+  <div style="font-size:24px;font-weight:800;color:#8f773f">⭐ راه‌حساب Premium</div>
+  <div style="margin-top:10px;font-size:17px">اعتبار: <b>۳۰ روز</b></div>
+  <div style="margin-top:6px;font-size:20px;font-weight:800;color:#16834b">۲۵۰٬۰۰۰ تومان</div>
+  <div id="premium-shop-status" style="margin-top:10px;font-weight:700">وضعیت: غیرفعال</div>
+  <button onclick="activatePremium30();updatePremiumShop()" style="margin-top:14px;padding:12px 28px;border:0;border-radius:12px;background:#b89b5e;color:white;font-size:17px;font-weight:800">
+    🛒 خرید Premium
+  </button>
+</div>
+
+<script>
+function updatePremiumShop(){
+  const el=document.getElementById("premium-shop-status");
+  if(!el)return;
+  el.textContent=premiumActive()
+    ? "وضعیت: فعال ⭐"
+    : "وضعیت: غیرفعال";
+}
+document.addEventListener("DOMContentLoaded",updatePremiumShop);
+</script>
+
 </body>
 </html>
+
+<style>
+/* RahHesab Green + White + Matte Gold Theme */
+:root{
+  --rh-green:#16834b;
+  --rh-green-dark:#0d5f37;
+  --rh-white:#ffffff;
+  --rh-gold:#b89b5e;
+  --rh-gold-dark:#8f773f;
+  --rh-gold-light:#d2bd88;
+}
+
+body{
+  background:#f7faf8 !important;
+  color:#183027 !important;
+}
+
+button{
+  border-radius:12px;
+}
+
+.premium,
+.premium-card,
+.premium-box,
+[class*="premium"]{
+  border-color:var(--rh-gold) !important;
+}
+
+.premium,
+.premium-card,
+.premium-box{
+  background:linear-gradient(145deg,#fffdf7,#f4eddb) !important;
+}
+
+.premium button,
+button.premium{
+  background:var(--rh-gold) !important;
+  color:#fff !important;
+}
+
+h1,h2,h3{
+  color:var(--rh-green-dark);
+}
+
+input,select,textarea{
+  border-color:#d7e5dd !important;
+  background:#fff !important;
+}
+
+.primary,
+.btn-primary,
+button[type="submit"]{
+  background:var(--rh-green) !important;
+  color:#fff !important;
+}
+
+</style>
