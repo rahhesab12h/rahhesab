@@ -1,3 +1,10 @@
 rahhesab-release.jks
 keystore.txt
 rahhesab-release.jks
+
+# Local backups
+*.backup-*
+backup/
+
+# Local APKs
+*.apk

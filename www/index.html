@@ -817,6 +817,14 @@ placeholder="مثلاً ۲۹ شهریور ۱۴۰۵">
 <!-- ================= Premium | استهلاک حرفه‌ای ================= -->
 
 <div class="card" id="premiumDepreciation">
+<div id="premiumVipLock" style="display:none;margin:0 0 14px;padding:14px;border-radius:14px;background:#fff8e8;border:1px solid #d6b56a;text-align:center">
+  <div style="font-size:20px;font-weight:800">👑 امکانات VIP</div>
+  <div style="margin-top:7px">برای استفاده از استهلاک حرفه‌ای خودرو، VIP را فعال کنید.</div>
+  <button onclick="startPremiumPurchase()" style="margin-top:10px;padding:10px 22px;border:0;border-radius:10px;background:#b89b5e;color:white;font-weight:800">
+    🛒 فعال‌سازی VIP
+  </button>
+</div>
+
 
 <h2>⭐ Premium | استهلاک حرفه‌ای خودرو</h2>
 
@@ -2578,10 +2586,10 @@ startApp();
    RahHesab Premium Depreciation
 ===================================== */
 
-const PREMIUM_KEY = "rahhesab_premium_v1";
+const PREMIUM_SETTINGS_KEY = "rahhesab_premium_settings_v1";
 
 let premium =
-JSON.parse(localStorage.getItem(PREMIUM_KEY)) || {
+JSON.parse(localStorage.getItem(PREMIUM_SETTINGS_KEY)) || {
 vehiclePrice:0,
 vehicleSalvage:0,
 vehicleLifeKm:300000,
@@ -2681,7 +2689,7 @@ function savePremiumDepreciation(){
     premiumRead();
 
     localStorage.setItem(
-        PREMIUM_KEY,
+        PREMIUM_SETTINGS_KEY,
         JSON.stringify(premium)
     );
 
@@ -2729,27 +2737,64 @@ document.addEventListener("DOMContentLoaded",()=>{
 });
 </script>
 
-<script src="premium.js"></script>
+
 
 <div id="premium-shop-card" style="margin:16px 0;padding:18px;border:2px solid #b89b5e;border-radius:16px;background:#fffdf7;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,.08)">
-  <div style="font-size:24px;font-weight:800;color:#8f773f">⭐ راه‌حساب Premium</div>
-  <div style="margin-top:10px;font-size:17px">اعتبار: <b>۳۰ روز</b></div>
-  <div style="margin-top:6px;font-size:20px;font-weight:800;color:#16834b">۲۵۰٬۰۰۰ تومان</div>
-  <div id="premium-shop-status" style="margin-top:10px;font-weight:700">وضعیت: غیرفعال</div>
-  <button onclick="activatePremium30();updatePremiumShop()" style="margin-top:14px;padding:12px 28px;border:0;border-radius:12px;background:#b89b5e;color:white;font-size:17px;font-weight:800">
-    🛒 خرید Premium
+  <div style="font-size:24px;font-weight:800;color:#8f773f">⭐ راه‌حساب VIP</div>
+  <div style="margin-top:10px;font-size:17px">۳۰ روز امکانات حرفه‌ای</div>
+  <div id="premium-shop-status" style="margin-top:10px;font-weight:700">وضعیت: VIP فعال نیست</div>
+  <button onclick="startPremiumPurchase()" style="margin-top:14px;padding:12px 28px;border:0;border-radius:12px;background:#b89b5e;color:white;font-size:17px;font-weight:800">
+    🛒 فعال‌سازی VIP
   </button>
 </div>
 
 <script>
 function updatePremiumShop(){
   const el=document.getElementById("premium-shop-status");
-  if(!el)return;
-  el.textContent=premiumActive()
-    ? "وضعیت: فعال ⭐"
-    : "وضعیت: غیرفعال";
+  if(!el) return;
+
+  if(typeof isVipActive === "function" && isVipActive()){
+    const days = typeof vipDaysRemaining === "function"
+      ? vipDaysRemaining()
+      : 0;
+
+    el.textContent = "👑 VIP فعال است — " + days + " روز باقی‌مانده";
+  } else {
+    el.textContent = "وضعیت: VIP فعال نیست";
+  }
 }
+
+function startPremiumPurchase(){
+  alert("پرداخت رسمی VIP از طریق بازار یا مایکت در مرحله بعد فعال می‌شود.");
+}
+
 document.addEventListener("DOMContentLoaded",updatePremiumShop);
+</script>
+
+  <script src="vip.js"></script>
+<script>
+function updatePremiumVipLock(){
+  const card = document.getElementById("premiumDepreciation");
+  const lock = document.getElementById("premiumVipLock");
+  if(!card || !lock) return;
+
+  const active =
+    typeof isVipActive === "function" &&
+    isVipActive();
+
+  lock.style.display = active ? "none" : "block";
+
+  const controls = card.querySelectorAll(
+    'input, select, textarea, button'
+  );
+
+  controls.forEach(el => {
+    if(el.closest("#premiumVipLock")) return;
+    el.disabled = !active;
+  });
+}
+
+document.addEventListener("DOMContentLoaded", updatePremiumVipLock);
 </script>
 
 </body>
