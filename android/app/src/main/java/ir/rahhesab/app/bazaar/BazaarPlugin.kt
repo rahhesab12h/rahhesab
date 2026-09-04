@@ -5,6 +5,7 @@ import com.getcapacitor.JSObject
 import com.getcapacitor.Plugin
 import com.getcapacitor.PluginCall
 import com.getcapacitor.annotation.CapacitorPlugin
+import com.getcapacitor.PluginMethod
 import ir.cafebazaar.poolakey.Payment
 import ir.cafebazaar.poolakey.config.PaymentConfiguration
 import ir.cafebazaar.poolakey.config.SecurityCheck
@@ -21,6 +22,7 @@ class BazaarPlugin : Plugin() {
 
     private val productId = "rahhesab_vip_30"
 
+    @PluginMethod
     fun connect(call: PluginCall) {
         try {
             val config = PaymentConfiguration(
@@ -50,6 +52,7 @@ class BazaarPlugin : Plugin() {
         }
     }
 
+    @PluginMethod
     fun subscribe(call: PluginCall) {
         val p = payment
 
@@ -102,6 +105,7 @@ class BazaarPlugin : Plugin() {
         }
     }
 
+    @PluginMethod
     fun checkSubscription(call: PluginCall) {
         val p = payment
 
