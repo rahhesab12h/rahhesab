@@ -1,0 +1,4 @@
+const BAZAAR_PRODUCT_ID = "rahhesab_vip_30";
+
+const BAZAAR_RSA_KEY =
+"MIHNMA0GCSqGSIb3DQEBAQUAA4G7ADCBtwKBrwCPqvvtjVNDFd1fzL8Yero6NBzthhXdaJaFceUPtI8wCIgIejlxe018gxdVtB+l8/Pc2cfzCXIfuivbnPEnPU1NBUzh/0Cz7GkYFtOtHKrkC3Row9HtBj3hor+59xXRc14nOYlvbePSrZqfO7kiEf/uxxYjaOuxf80eDqddi1CT76eb1Dine3kMmcwMTqSt7pxfyCiYFKxzvuwcc2K2OHZ90ZG2J59aCW6bVxanfvECAwEAAQ==";
