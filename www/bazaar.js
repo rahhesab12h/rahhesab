@@ -1,146 +1,369 @@
 /*
  * RahHesab - Bazaar VIP Bridge
- * Connects the existing VIP system to the native Capacitor Bazaar plugin.
+ *
+ * Flow:
+ *
+ * UI
+ *  ↓
+ * buyBazaarVip()
+ *  ↓
+ * Native Bazaar Plugin
+ *  ↓
+ * Poolakey
+ *  ↓
+ * Bazaar verified purchase
+ *  ↓
+ * VIP entitlement
  */
 
 (function () {
-  "use strict";
 
-  function getBazaarPlugin() {
-    return window.Capacitor &&
-           window.Capacitor.Plugins &&
-           window.Capacitor.Plugins.Bazaar
-      ? window.Capacitor.Plugins.Bazaar
-      : null;
-  }
+    "use strict";
 
-  function updateBazaarVipUI() {
-    if (typeof updatePremiumShop === "function") {
-      updatePremiumShop();
+    const PRODUCT_ID =
+        typeof BAZAAR_PRODUCT_ID !== "undefined"
+            ? BAZAAR_PRODUCT_ID
+            : "rahhesab_vip_30";
+
+
+    function getBazaarPlugin() {
+
+        try {
+
+            if (
+                window.Capacitor &&
+                window.Capacitor.Plugins &&
+                window.Capacitor.Plugins.Bazaar
+            ) {
+                return window.Capacitor.Plugins.Bazaar;
+            }
+
+        } catch (_) {}
+
+        return null;
     }
 
-    if (typeof updatePremiumVipLock === "function") {
-      updatePremiumVipLock();
-    }
-  }
 
-  async function connectBazaar() {
-    const Bazaar = getBazaarPlugin();
+    function updateBazaarVipUI(active) {
 
-    if (!Bazaar) {
-      return false;
-    }
+        try {
 
-    try {
-      await Bazaar.connect();
-      return true;
-    } catch (error) {
-      console.log("Bazaar connection:", error);
-      return false;
-    }
-  }
+            window.dispatchEvent(
+                new CustomEvent("rahhesab-vip-changed", {
+                    detail: {
+                        active: !!active,
+                        provider: "bazaar",
+                        productId: PRODUCT_ID
+                    }
+                })
+            );
 
-  async function checkBazaarSubscription() {
-    const Bazaar = getBazaarPlugin();
+        } catch (_) {}
 
-    if (!Bazaar) {
-      return false;
-    }
 
-    try {
-      const result = await Bazaar.checkSubscription();
+        try {
 
-      if (!result || !result.active) {
-        return false;
-      }
+            if (typeof window.updateVipUI === "function") {
+                window.updateVipUI();
+            }
 
-      const purchaseTime = Number(result.purchaseTime);
-
-      if (!Number.isFinite(purchaseTime) || purchaseTime <= 0) {
-        return false;
-      }
-
-      /*
-       * Current product is a 30-day subscription.
-       * The native Bazaar layer confirms the subscription purchase.
-       */
-      const expiresAt = purchaseTime + (30 * 86400000);
-
-      applyVerifiedVip({
-        status: "active",
-        provider: "bazaar",
-        purchaseToken: result.purchaseToken || "",
-        expiresAt: expiresAt
-      });
-
-      updateBazaarVipUI();
-      return true;
-
-    } catch (error) {
-      console.log("Bazaar subscription check:", error);
-      return false;
-    }
-  }
-
-  window.startPremiumPurchase = async function () {
-    const Bazaar = getBazaarPlugin();
-
-    if (!Bazaar) {
-      alert("برای خرید VIP، نسخه بازار راه‌حساب را نصب و اجرا کنید.");
-      return;
+        } catch (_) {}
     }
 
-    try {
-      await connectBazaar();
 
-      const result = await Bazaar.subscribe({
-        payload: "rahhesab_vip_30"
-      });
+    function activateVerifiedPurchase(result) {
 
-      if (result && result.purchased) {
-        const purchaseTime = Number(result.purchaseTime);
-
-        if (Number.isFinite(purchaseTime) && purchaseTime > 0) {
-          applyVerifiedVip({
-            status: "active",
-            provider: "bazaar",
-            purchaseToken: result.purchaseToken || "",
-            expiresAt: purchaseTime + (30 * 86400000)
-          });
+        if (!result || result.active !== true) {
+            return false;
         }
 
-        updateBazaarVipUI();
 
-        alert("👑 اشتراک VIP با موفقیت فعال شد.");
-      }
+        const entitlement = {
 
-    } catch (error) {
-      console.log("Bazaar purchase:", error);
+            provider: "bazaar",
 
-      const message =
-        error && error.message
-          ? error.message
-          : "پرداخت انجام نشد.";
+            productId:
+                result.productId || PRODUCT_ID,
 
-      alert(message);
+            purchaseToken:
+                result.purchaseToken || "",
+
+            orderId:
+                result.orderId || "",
+
+            purchaseTime:
+                result.purchaseTime || ""
+        };
+
+
+        /*
+         * Use existing RahHesab VIP core.
+         *
+         * We intentionally do NOT create a fake local
+         * purchase. Activation only happens after Native
+         * Bazaar confirms the purchase.
+         */
+
+        try {
+
+            if (
+                typeof window.activateVipFromPurchase ===
+                "function"
+            ) {
+
+                window.activateVipFromPurchase(
+                    entitlement
+                );
+
+                return true;
+            }
+
+
+            if (
+                typeof window.setVipEntitlement ===
+                "function"
+            ) {
+
+                window.setVipEntitlement(
+                    entitlement
+                );
+
+                return true;
+            }
+
+        } catch (error) {
+
+            console.error(
+                "VIP entitlement activation failed:",
+                error
+            );
+        }
+
+
+        console.warn(
+            "RahHesab VIP activation function was not found."
+        );
+
+        return false;
     }
-  };
 
-  async function initializeBazaarVip() {
-    const connected = await connectBazaar();
 
-    if (connected) {
-      await checkBazaarSubscription();
+    async function connectBazaar() {
+
+        const Bazaar =
+            getBazaarPlugin();
+
+
+        if (!Bazaar) {
+
+            console.warn(
+                "Bazaar native plugin is not available."
+            );
+
+            return false;
+        }
+
+
+        try {
+
+            const result =
+                await Bazaar.connect();
+
+
+            return !!(
+                result &&
+                result.connected === true
+            );
+
+        } catch (error) {
+
+            console.error(
+                "Bazaar connection failed:",
+                error
+            );
+
+            return false;
+        }
     }
 
-    updateBazaarVipUI();
-  }
 
-  document.addEventListener(
-    "DOMContentLoaded",
-    initializeBazaarVip
-  );
+    async function checkBazaarSubscription() {
 
-  window.checkBazaarSubscription = checkBazaarSubscription;
-  window.connectBazaar = connectBazaar;
+        const Bazaar =
+            getBazaarPlugin();
+
+
+        if (!Bazaar) {
+            return false;
+        }
+
+
+        try {
+
+            const result =
+                await Bazaar.checkSubscription();
+
+
+            const active =
+                !!(
+                    result &&
+                    result.active === true
+                );
+
+
+            if (active) {
+
+                activateVerifiedPurchase(
+                    result
+                );
+            }
+
+
+            updateBazaarVipUI(active);
+
+
+            return active;
+
+        } catch (error) {
+
+            console.error(
+                "Bazaar subscription check failed:",
+                error
+            );
+
+            updateBazaarVipUI(false);
+
+            return false;
+        }
+    }
+
+
+    async function buyBazaarVip() {
+
+        const Bazaar =
+            getBazaarPlugin();
+
+
+        if (!Bazaar) {
+
+            console.warn(
+                "Bazaar native plugin is not available."
+            );
+
+            return false;
+        }
+
+
+        try {
+
+            const connected =
+                await connectBazaar();
+
+
+            if (!connected) {
+                return false;
+            }
+
+
+            const result =
+                await Bazaar.subscribe({
+                    payload: PRODUCT_ID
+                });
+
+
+            if (
+                !result ||
+                result.purchased !== true
+            ) {
+
+                return false;
+            }
+
+
+            /*
+             * Native Poolakey has already confirmed
+             * successful Bazaar purchase.
+             */
+
+            const verifiedResult = {
+
+                active: true,
+
+                productId:
+                    result.productId ||
+                    PRODUCT_ID,
+
+                purchaseToken:
+                    result.purchaseToken ||
+                    "",
+
+                orderId:
+                    result.orderId ||
+                    "",
+
+                purchaseTime:
+                    result.purchaseTime ||
+                    ""
+            };
+
+
+            const activated =
+                activateVerifiedPurchase(
+                    verifiedResult
+                );
+
+
+            updateBazaarVipUI(
+                activated
+            );
+
+
+            return activated;
+
+        } catch (error) {
+
+            console.error(
+                "Bazaar purchase failed:",
+                error
+            );
+
+            return false;
+        }
+    }
+
+
+    async function initializeBazaarVip() {
+
+        const connected =
+            await connectBazaar();
+
+
+        if (!connected) {
+
+            updateBazaarVipUI(false);
+
+            return false;
+        }
+
+
+        return await checkBazaarSubscription();
+    }
+
+
+    /*
+     * Public API
+     */
+
+    window.connectBazaar =
+        connectBazaar;
+
+    window.checkBazaarSubscription =
+        checkBazaarSubscription;
+
+    window.buyBazaarVip =
+        buyBazaarVip;
+
+    window.initializeBazaarVip =
+        initializeBazaarVip;
+
 })();

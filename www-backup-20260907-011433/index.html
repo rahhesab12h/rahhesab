@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#ffffff">
+<meta name="description" content="راه‌حساب؛ حسابدار مالی رانندگان">
+<title>راه‌حساب</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+  margin:0;
+  padding:0;
+  background:#f7f9fb;
+  color:#172b3a;
+  font-family:
+    Tahoma,
+    Arial,
+    sans-serif;
+}
+
+body{
+  min-height:100vh;
+}
+
+button,
+input,
+select{
+  font-family:inherit;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+}
+
+.app{
+  max-width:620px;
+  margin:auto;
+  min-height:100vh;
+  background:#fff;
+  box-shadow:0 0 30px rgba(0,0,0,.05);
+  padding-bottom:92px;
+}
+
+/* HEADER */
+
+.header{
+  padding:20px 18px 12px;
+  background:#fff;
+}
+
+.header-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.logo{
+  width:52px;
+  height:52px;
+  border-radius:15px;
+  background:#173b55;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-size:27px;
+  box-shadow:0 6px 15px rgba(23,59,85,.15);
+}
+
+.brand-title{
+  font-size:25px;
+  font-weight:900;
+  color:#183a52;
+}
+
+.brand-sub{
+  margin-top:3px;
+  font-size:13px;
+  color:#687781;
+}
+
+.date-box{
+  text-align:right;
+  color:#53616a;
+  font-size:12px;
+  line-height:1.8;
+}
+
+.date-box strong{
+  display:block;
+  color:#183a52;
+  font-size:14px;
+}
+
+/* MAIN */
+
+.page{
+  display:none;
+  padding:8px 16px 20px;
+}
+
+.page.active{
+  display:block;
+}
+
+/* SUMMARY */
+
+.summary{
+  margin-top:8px;
+  border-radius:23px;
+  background:#173b55;
+  color:#fff;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  overflow:hidden;
+  box-shadow:0 10px 25px rgba(23,59,85,.14);
+}
+
+.summary-item{
+  padding:17px 8px;
+  text-align:center;
+  border-left:1px solid rgba(255,255,255,.2);
+}
+
+.summary-item:last-child{
+  border-left:0;
+}
+
+.summary-label{
+  font-size:13px;
+  opacity:.9;
+}
+
+.summary-value{
+  margin-top:7px;
+  font-size:19px;
+  font-weight:900;
+  white-space:nowrap;
+}
+
+.summary-unit{
+  margin-top:4px;
+  font-size:11px;
+  opacity:.75;
+}
+
+/* GRID */
+
+.dashboard-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:15px;
+}
+
+.card{
+  min-height:142px;
+  border-radius:19px;
+  padding:16px 10px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  box-shadow:0 3px 10px rgba(0,0,0,.04);
+  transition:.15s;
+}
+
+.card:active{
+  transform:scale(.97);
+}
+
+.card-icon{
+  width:54px;
+  height:54px;
+  border-radius:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:29px;
+  margin-bottom:9px;
+}
+
+.card-title{
+  font-size:16px;
+  font-weight:900;
+  color:#182b3a;
+}
+
+.card-text{
+  margin-top:7px;
+  font-size:11px;
+  color:#52616b;
+  line-height:1.7;
+}
+
+.income-card{background:#dcf7e9;}
+.income-card .card-icon{background:#b9ecd2;}
+
+.expense-card{background:#ffe1e4;}
+.expense-card .card-icon{background:#ffc0c7;}
+
+.report-card{background:#dbeeff;}
+.report-card .card-icon{background:#b9ddfb;}
+
+.car-card{background:#ffebca;}
+.car-card .card-icon{background:#ffd79c;}
+
+.debt-card{background:#eee1ff;}
+.debt-card .card-icon{background:#dcc4ff;}
+
+.goal-card{background:#d7f7f3;}
+.goal-card .card-icon{background:#b7ebe4;}
+
+.settings-card{background:#edf1f4;}
+.settings-card .card-icon{background:#dce3e8;}
+
+.backup-card{background:#e0efff;}
+.backup-card .card-icon{background:#c1e0ff;}
+
+.history-card{background:#eee4ff;}
+.history-card .card-icon{background:#d8c6fa;}
+
+/* VEHICLE */
+
+.vehicle-box{
+  margin-top:15px;
+  border:1px solid #e1e6e9;
+  border-radius:19px;
+  padding:15px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+  background:#fff;
+}
+
+.vehicle-icon{
+  width:54px;
+  height:54px;
+  border-radius:15px;
+  background:#eaf0f4;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+}
+
+.vehicle-info{
+  flex:1;
+}
+
+.vehicle-name{
+  font-weight:900;
+  font-size:14px;
+}
+
+.vehicle-details{
+  margin-top:7px;
+  color:#687781;
+  font-size:11px;
+  line-height:1.8;
+}
+
+/* SECTION */
+
+.section-title{
+  font-size:20px;
+  font-weight:900;
+  margin:12px 2px 15px;
+  color:#183a52;
+}
+
+.back-btn{
+  width:100%;
+  padding:13px;
+  border-radius:14px;
+  background:#173b55;
+  color:#fff;
+  margin-bottom:14px;
+  font-size:14px;
+}
+
+/* FORM */
+
+.form-box{
+  background:#fff;
+  border:1px solid #e4e8eb;
+  border-radius:18px;
+  padding:15px;
+  margin-bottom:12px;
+}
+
+.field{
+  margin-bottom:12px;
+}
+
+.field:last-child{
+  margin-bottom:0;
+}
+
+.field label{
+  display:block;
+  margin-bottom:6px;
+  color:#53616a;
+  font-size:12px;
+}
+
+.field input,
+.field select{
+  width:100%;
+  border:1px solid #dce2e6;
+  background:#fafcfd;
+  border-radius:12px;
+  padding:12px;
+  outline:none;
+  font-size:14px;
+  color:#172b3a;
+}
+
+.field input:focus,
+.field select:focus{
+  border-color:#2bbf7d;
+  background:#fff;
+}
+
+.primary{
+  width:100%;
+  padding:13px;
+  border-radius:13px;
+  background:#15966a;
+  color:#fff;
+  font-size:14px;
+  font-weight:800;
+}
+
+.secondary{
+  width:100%;
+  padding:13px;
+  border-radius:13px;
+  background:#edf2f5;
+  color:#183a52;
+  font-size:14px;
+  margin-top:9px;
+}
+
+/* REPORT */
+
+.report-list{
+  display:grid;
+  gap:10px;
+}
+
+.report-row{
+  background:#fff;
+  border:1px solid #e5e9ec;
+  border-radius:15px;
+  padding:14px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.report-row span{
+  color:#61707a;
+  font-size:13px;
+}
+
+.report-row strong{
+  color:#183a52;
+  font-size:15px;
+}
+
+/* HISTORY */
+
+.history-item{
+  background:#fff;
+  border:1px solid #e4e9ec;
+  border-radius:15px;
+  padding:14px;
+  margin-bottom:10px;
+}
+
+.history-date{
+  font-weight:900;
+  color:#183a52;
+}
+
+.history-values{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:7px;
+  margin-top:10px;
+}
+
+.history-values div{
+  background:#f5f8fa;
+  border-radius:9px;
+  padding:8px;
+  font-size:11px;
+}
+
+/* EMPTY */
+
+.empty{
+  text-align:center;
+  color:#7b8992;
+  padding:35px 10px;
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav{
+  position:fixed;
+  left:50%;
+  bottom:0;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:620px;
+  height:78px;
+  background:#fff;
+  border-top:1px solid #e4e8eb;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  z-index:100;
+  box-shadow:0 -5px 20px rgba(0,0,0,.06);
+}
+
+.nav-btn{
+  background:#fff;
+  color:#66747d;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:5px;
+  font-size:11px;
+}
+
+.nav-icon{
+  font-size:24px;
+  line-height:1;
+}
+
+.nav-btn.active{
+  color:#1766d1;
+  font-weight:900;
+}
+
+/* TOAST */
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:92px;
+  transform:translateX(-50%) translateY(20px);
+  width:calc(100% - 35px);
+  max-width:550px;
+  background:#173b55;
+  color:#fff;
+  padding:13px 16px;
+  border-radius:13px;
+  text-align:center;
+  font-size:13px;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:300;
+}
+
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
+}
+
+/* RESPONSIVE */
+
+@media(max-width:430px){
+  .dashboard-grid{
+    gap:9px;
+  }
+
+  .card{
+    min-height:133px;
+    padding:12px 7px;
+  }
+
+  .card-title{
+    font-size:14px;
+  }
+
+  .card-text{
+    font-size:10px;
+  }
+
+  .card-icon{
+    width:48px;
+    height:48px;
+    font-size:25px;
+  }
+
+  .summary-value{
+    font-size:16px;
+  }
+
+  .brand-title{
+    font-size:22px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="header">
+  <div class="header-row">
+
+    <div class="brand">
+      <div class="logo">📈</div>
+      <div>
+        <div class="brand-title">راه‌حساب</div>
+        <div class="brand-sub">حسابدار مالی رانندگان</div>
+      </div>
+    </div>
+
+    <div class="date-box">
+      <strong id="jalaliDate">در حال بارگذاری...</strong>
+      <span id="gregorianDate"></span>
+    </div>
+
+  </div>
+</header>
+
+
+<!-- HOME -->
+
+<section id="homePage" class="page active">
+
+  <div class="summary">
+
+    <div class="summary-item">
+      <div class="summary-label">امروز سود</div>
+      <div class="summary-value" id="todayProfit">۰</div>
+      <div class="summary-unit">تومان</div>
+    </div>
+
+    <div class="summary-item">
+      <div class="summary-label">امروز هزینه</div>
+      <div class="summary-value" id="todayExpense">۰</div>
+      <div class="summary-unit">تومان</div>
+    </div>
+
+    <div class="summary-item">
+      <div class="summary-label">امروز درآمد</div>
+      <div class="summary-value" id="todayIncome">۰</div>
+      <div class="summary-unit">تومان</div>
+    </div>
+
+  </div>
+
+
+  <div class="dashboard-grid">
+
+    <button class="card income-card" onclick="openPage('incomePage')">
+      <div class="card-icon">💰</div>
+      <div class="card-title">درآمد</div>
+      <div class="card-text">ثبت و مشاهده درآمدها</div>
+    </button>
+
+    <button class="card expense-card" onclick="openPage('expensePage')">
+      <div class="card-icon">💳</div>
+      <div class="card-title">هزینه</div>
+      <div class="card-text">ثبت و مدیریت هزینه‌ها</div>
+    </button>
+
+    <button class="card report-card" onclick="openPage('reportPage')">
+      <div class="card-icon">📊</div>
+      <div class="card-title">گزارش</div>
+      <div class="card-text">گزارش‌های مالی و ماهانه</div>
+    </button>
+
+    <button class="card car-card" onclick="openPage('carPage')">
+      <div class="card-icon">🚕</div>
+      <div class="card-title">خودرو</div>
+      <div class="card-text">هزینه‌ها و سرویس‌ها</div>
+    </button>
+
+    <button class="card debt-card" onclick="openPage('debtPage')">
+      <div class="card-icon">📅</div>
+      <div class="card-title">اقساط و بدهی</div>
+      <div class="card-text">مدیریت اقساط و بدهی‌ها</div>
+    </button>
+
+    <button class="card goal-card" onclick="openPage('goalPage')">
+      <div class="card-icon">🎯</div>
+      <div class="card-title">هدف</div>
+      <div class="card-text">تعیین هدف و پیشرفت</div>
+    </button>
+
+    <button class="card settings-card" onclick="openPage('settingsPage')">
+      <div class="card-icon">⚙️</div>
+      <div class="card-title">تنظیمات</div>
+      <div class="card-text">تنظیمات برنامه</div>
+    </button>
+
+    <button class="card backup-card" onclick="backupData()">
+      <div class="card-icon">☁️</div>
+      <div class="card-title">پشتیبان‌گیری</div>
+      <div class="card-text">ذخیره و بازیابی اطلاعات</div>
+    </button>
+
+    <button class="card history-card" onclick="openPage('historyPage')">
+      <div class="card-icon">📄</div>
+      <div class="card-title">تاریخچه</div>
+      <div class="card-text">تمامی تراکنش‌ها</div>
+    </button>
+
+  </div>
+
+
+  <div class="vehicle-box">
+
+    <div class="vehicle-icon">🚕</div>
+
+    <div class="vehicle-info">
+      <div class="vehicle-name" id="homeCar">خودرو: ثبت نشده</div>
+      <div class="vehicle-details">
+        کارکرد: <span id="homeKm">۰</span> کیلومتر
+        <br>
+        مصرف سوخت: <span id="homeFuel">۷٫۲</span> لیتر / ۱۰۰ کیلومتر
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- INCOME -->
+
+<section id="incomePage" class="page">
+
+  <button class="back-btn" onclick="goHome()">← بازگشت به خانه</button>
+
+  <div class="section-title">💰 ثبت درآمد</div>
+
+  <div class="form-box">
+
+    <div class="field">
+      <label>درآمد امروز (تومان)</label>
+      <input id="incomeInput" type="number" inputmode="numeric" placeholder="مثلاً ۲۸۵۰۰۰۰">
+    </div>
+
+    <div class="field">
+      <label>تعداد سفر</label>
+      <input id="tripsInput" type="number" inputmode="numeric" placeholder="مثلاً ۱۲">
+    </div>
+
+    <div class="field">
+      <label>ساعت کار</label>
+      <input id="hoursInput" type="number" inputmode="decimal" placeholder="مثلاً ۸">
+    </div>
+
+    <button class="primary" onclick="saveIncome()">ذخیره درآمد</button>
+
+  </div>
+
+</section>
+
+
+<!-- EXPENSE -->
+
+<section id="expensePage" class="page">
+
+  <button class="back-btn" onclick="goHome()">← بازگشت به خانه</button>
+
+  <div class="section-title">💳 ثبت هزینه</div>
+
+  <div class="form-box">
+
+    <div class="field">
+      <label>سوخت (تومان)</label>
+      <input id="fuelInput" type="number" inputmode="numeric" placeholder="مثلاً ۳۵۰۰۰۰">
+    </div>
+
+    <div class="field">
+      <label>استهلاک (تومان)</label>
+      <input id="wearInput" type="number" inputmode="numeric" placeholder="مثلاً ۲۵۰۰۰۰">
+    </div>
+
+    <div class="field">
+      <label>هزینه‌های دیگر (تومان)</label>
+      <input id="otherInput" type="number" inputmode="numeric" placeholder="مثلاً ۱۰۰۰۰۰">
+    </div>
+
+    <button class="primary" onclick="saveExpense()">ذخیره هزینه</button>
+
+  </div>
+
+</section>
+
+
+<!-- REPORT -->
+
+<section id="reportPage" class="page">
+
+  <button class="back-btn" onclick="goHome()">← بازگشت به خانه</button>
+
+  <div class="section-title">📊 گزارش مالی</div>
+
+  <div class="report-list">
+
+    <div class="report-row">
+      <span>کل درآمد</span>
+      <strong id="reportIncome">۰ تومان</strong>
+    </div>
+
+    <div class="report-row">
+      <span>کل هزینه</span>
+      <strong id="reportExpense">۰ تومان</strong>
+    </div>
+
+    <div class="report-row">
+      <span>سود خالص</span>
+      <strong id="reportProfit">۰ تومان</strong>
+    </div>
+
+    <div class="report-row">
+      <span>روزهای کاری</span>
+      <strong id="reportDays">۰</strong>
+    </div>
+
+    <div class="report-row">
+      <span>تعداد سفر</span>
+      <strong id="reportTrips">۰</strong>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- CAR -->
+
+<section id="carPage" class="page">
+
+  <button class="back-btn" onclick="goHome()">← بازگشت به خانه</button>
+
+  <div class="section-title">🚕 اطلاعات خودرو</div>
+
+  <div class="form-box">
+
+    <div class="field">
+      <label>نام خودرو</label>
+      <input id="carName" placeholder="مثلاً پژو ۲۰۶">
+    </div>
+
+    <div class="field">
+      <label>مدل</label>
+      <input id="carModel" placeholder="مثلاً ۱۴۰۲">
+    </div>
+
+    <div class="field">
+      <label>کارکرد خودرو (کیلومتر)</label>
+      <input id="carKm" type="number" inputmode="numeric" placeholder="مثلاً ۱۲۰۰۰">
+    </div>
+
+    <div class="field">
+      <label>مصرف سوخت در ۱۰۰ کیلومتر</label>
+      <input id="carFuel" type="number" inputmode="decimal" value="7.2">
+    </div>
+
+    <button class="primary" onclick="saveCar()">ذخیره مشخصات خودرو</button>
+
+  </div>
+
+</section>
+
+
+<!-- DEBT -->
+
+<section id="debtPage" class="page">
+
+  <button class="back-btn" onclick="goHome()">← بازگشت به خانه</button>
+
+  <div class="section-title">📅 اقساط و بدهی</div>
+
+  <div class="form-box">
+
+    <div class="field">
+      <label>مبلغ بدهی (تومان)</label>
+      <input id="debtInput" type="number" inputmode="numeric">
+    </div>
+
+    <div class="field">
+      <label>مبلغ قسط ماهانه (تومان)</label>
+      <input id="installmentInput" type="number" inputmode="numeric">
+    </div>
+
+    <button class="primary" onclick="saveDebt()">ذخیره اطلاعات</button>
+
+  </div>
+
+  <div class="report-row">
+    <span>بدهی فعلی</span>
+    <strong id="debtShow">۰ تومان</strong>
+  </div>
+
+</section>
+
+
+<!-- GOAL -->
+
+<section id="goalPage" class="page">
+
+  <button class="back-btn" onclick="goHome()">← بازگشت به خانه</button>
+
+  <div class="section-title">🎯 هدف درآمد</div>
+
+  <div class="form-box">
+
+    <div class="field">
+      <label>هدف درآمد ماهانه (تومان)</label>
+      <input id="goalInput" type="number" inputmode="numeric" placeholder="مثلاً ۵۰۰۰۰۰۰۰">
+    </div>
+
+    <button class="primary" onclick="saveGoal()">ذخیره هدف</button>
+
+  </div>
+
+  <div class="report-row">
+    <span>پیشرفت هدف</span>
+    <strong id="goalShow">۰٪</strong>
+  </div>
+
+</section>
+
+
+<!-- HISTORY -->
+
+<section id="historyPage" class="page">
+
+  <button class="back-btn" onclick="goHome()">← بازگشت به خانه</button>
+
+  <div class="section-title">📄 تاریخچه</div>
+
+  <div id="historyList"></div>
+
+</section>
+
+
+<!-- SETTINGS -->
+
+<section id="settingsPage" class="page">
+
+  <button class="back-btn" onclick="goHome()">← بازگشت به خانه</button>
+
+  <div class="section-title">⚙️ تنظیمات</div>
+
+  <div class="form-box">
+
+    <div class="field">
+      <label>نام راننده</label>
+      <input id="driverName" placeholder="نام شما">
+    </div>
+
+    <div class="field">
+      <label>شماره تماس</label>
+      <input id="driverPhone" inputmode="tel" placeholder="۰۹۱۲...">
+    </div>
+
+    <button class="primary" onclick="saveProfile()">ذخیره مشخصات</button>
+
+  </div>
+
+  <div class="form-box">
+    <button class="secondary" onclick="backupData()">💾 پشتیبان‌گیری اطلاعات</button>
+    <button class="secondary" onclick="clearAllData()">🗑️ پاک کردن اطلاعات</button>
+  </div>
+
+</section>
+
+
+</div>
+
+
+<!-- NAV -->
+
+<nav class="bottom-nav">
+
+  <button id="navHome" class="nav-btn active" onclick="goHome()">
+    <div class="nav-icon">⌂</div>
+    <div>خانه</div>
+  </button>
+
+  <button id="navHistory" class="nav-btn" onclick="openPage('historyPage')">
+    <div class="nav-icon">◷</div>
+    <div>تاریخچه</div>
+  </button>
+
+  <button id="navReminder" class="nav-btn" onclick="showReminder()">
+    <div class="nav-icon">♧</div>
+    <div>یادآوری</div>
+  </button>
+
+  <button id="navProfile" class="nav-btn" onclick="openPage('settingsPage')">
+    <div class="nav-icon">♙</div>
+    <div>پروفایل</div>
+  </button>
+
+</nav>
+
+
+<div id="toast" class="toast"></div>
+
+
+<script>
+"use strict";
+
+/* =========================
+   DATA
+========================= */
+
+const STORAGE_KEY = "rahhesab_v2";
+
+let appData = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null") || {
+  profile:{
+    name:"",
+    phone:"",
+    car:"",
+    model:"",
+    km:0,
+    fuel:7.2
+  },
+  days:{},
+  debt:0,
+  installment:0,
+  goal:0
+};
+
+
+/* =========================
+   HELPERS
+========================= */
+
+function saveData(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
+}
+
+function faNumber(value){
+  return Number(value || 0).toLocaleString("fa-IR");
+}
+
+function money(value){
+  return faNumber(Math.round(Number(value || 0))) + " تومان";
+}
+
+function todayKey(){
+  const d = new Date();
+  return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+}
+
+function todayData(){
+  const key = todayKey();
+
+  if(!appData.days[key]){
+    appData.days[key] = {
+      income:0,
+      fuel:0,
+      wear:0,
+      other:0,
+      trips:0,
+      hours:0
+    };
+  }
+
+  return appData.days[key];
+}
+
+function totalExpenses(day){
+  return Number(day.fuel||0) +
+         Number(day.wear||0) +
+         Number(day.other||0);
+}
+
+function showToast(text){
+  const t = document.getElementById("toast");
+  t.textContent = text;
+  t.classList.add("show");
+
+  clearTimeout(window.toastTimer);
+
+  window.toastTimer = setTimeout(()=>{
+    t.classList.remove("show");
+  },2200);
+}
+
+
+/* =========================
+   DATE
+========================= */
+
+function renderDate(){
+
+  const now = new Date();
+
+  const jalali =
+    new Intl.DateTimeFormat(
+      "fa-IR-u-ca-persian",
+      {
+        weekday:"long",
+        year:"numeric",
+        month:"long",
+        day:"numeric"
+      }
+    ).format(now);
+
+  const gregorian =
+    new Intl.DateTimeFormat(
+      "fa-IR",
+      {
+        year:"numeric",
+        month:"long",
+        day:"numeric"
+      }
+    ).format(now);
+
+  document.getElementById("jalaliDate").textContent = jalali;
+  document.getElementById("gregorianDate").textContent = gregorian;
+}
+
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function openPage(pageId){
+
+  document.querySelectorAll(".page").forEach(page=>{
+    page.classList.remove("active");
+  });
+
+  const page = document.getElementById(pageId);
+
+  if(page){
+    page.classList.add("active");
+  }
+
+  document.querySelectorAll(".nav-btn").forEach(btn=>{
+    btn.classList.remove("active");
+  });
+
+  if(pageId === "homePage"){
+    document.getElementById("navHome").classList.add("active");
+  }
+
+  if(pageId === "historyPage"){
+    document.getElementById("navHistory").classList.add("active");
+  }
+
+  if(pageId === "settingsPage"){
+    document.getElementById("navProfile").classList.add("active");
+  }
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+  renderAll();
+}
+
+function goHome(){
+  openPage("homePage");
+}
+
+
+/* =========================
+   HOME
+========================= */
+
+function renderHome(){
+
+  const d = todayData();
+
+  const expense = totalExpenses(d);
+  const profit = Number(d.income||0) - expense;
+
+  document.getElementById("todayIncome").textContent =
+    faNumber(d.income);
+
+  document.getElementById("todayExpense").textContent =
+    faNumber(expense);
+
+  document.getElementById("todayProfit").textContent =
+    faNumber(profit);
+
+  const p = appData.profile;
+
+  if(p.car){
+    document.getElementById("homeCar").textContent =
+      "خودرو: " + p.car + (p.model ? " " + p.model : "");
+  }else{
+    document.getElementById("homeCar").textContent =
+      "خودرو: ثبت نشده";
+  }
+
+  document.getElementById("homeKm").textContent =
+    faNumber(p.km);
+
+  document.getElementById("homeFuel").textContent =
+    p.fuel || "۷٫۲";
+}
+
+
+/* =========================
+   INCOME
+========================= */
+
+function saveIncome(){
+
+  const d = todayData();
+
+  d.income =
+    Number(document.getElementById("incomeInput").value || 0);
+
+  d.trips =
+    Number(document.getElementById("tripsInput").value || 0);
+
+  d.hours =
+    Number(document.getElementById("hoursInput").value || 0);
+
+  saveData();
+
+  showToast("درآمد امروز ذخیره شد ✓");
+
+  renderAll();
+}
+
+
+/* =========================
+   EXPENSE
+========================= */
+
+function saveExpense(){
+
+  const d = todayData();
+
+  d.fuel =
+    Number(document.getElementById("fuelInput").value || 0);
+
+  d.wear =
+    Number(document.getElementById("wearInput").value || 0);
+
+  d.other =
+    Number(document.getElementById("otherInput").value || 0);
+
+  saveData();
+
+  showToast("هزینه‌های امروز ذخیره شد ✓");
+
+  renderAll();
+}
+
+
+/* =========================
+   CAR
+========================= */
+
+function saveCar(){
+
+  appData.profile.car =
+    document.getElementById("carName").value.trim();
+
+  appData.profile.model =
+    document.getElementById("carModel").value.trim();
+
+  appData.profile.km =
+    Number(document.getElementById("carKm").value || 0);
+
+  appData.profile.fuel =
+    Number(document.getElementById("carFuel").value || 7.2);
+
+  saveData();
+
+  showToast("اطلاعات خودرو ذخیره شد ✓");
+
+  renderAll();
+}
+
+
+/* =========================
+   DEBT
+========================= */
+
+function saveDebt(){
+
+  appData.debt =
+    Number(document.getElementById("debtInput").value || 0);
+
+  appData.installment =
+    Number(document.getElementById("installmentInput").value || 0);
+
+  saveData();
+
+  showToast("اطلاعات بدهی ذخیره شد ✓");
+
+  renderAll();
+}
+
+
+/* =========================
+   GOAL
+========================= */
+
+function saveGoal(){
+
+  appData.goal =
+    Number(document.getElementById("goalInput").value || 0);
+
+  saveData();
+
+  showToast("هدف درآمد ذخیره شد ✓");
+
+  renderAll();
+}
+
+
+/* =========================
+   PROFILE
+========================= */
+
+function saveProfile(){
+
+  appData.profile.name =
+    document.getElementById("driverName").value.trim();
+
+  appData.profile.phone =
+    document.getElementById("driverPhone").value.trim();
+
+  saveData();
+
+  showToast("پروفایل ذخیره شد ✓");
+}
+
+
+/* =========================
+   REPORT
+========================= */
+
+function renderReport(){
+
+  let income = 0;
+  let expense = 0;
+  let trips = 0;
+  let days = 0;
+
+  Object.values(appData.days).forEach(d=>{
+
+    income += Number(d.income||0);
+    expense += totalExpenses(d);
+    trips += Number(d.trips||0);
+
+    if(
+      Number(d.income||0) > 0 ||
+      totalExpenses(d) > 0
+    ){
+      days++;
+    }
+
+  });
+
+  document.getElementById("reportIncome").textContent =
+    money(income);
+
+  document.getElementById("reportExpense").textContent =
+    money(expense);
+
+  document.getElementById("reportProfit").textContent =
+    money(income-expense);
+
+  document.getElementById("reportDays").textContent =
+    faNumber(days);
+
+  document.getElementById("reportTrips").textContent =
+    faNumber(trips);
+}
+
+
+/* =========================
+   HISTORY
+========================= */
+
+function renderHistory(){
+
+  const box =
+    document.getElementById("historyList");
+
+  const entries =
+    Object.entries(appData.days)
+      .sort((a,b)=>b[0].localeCompare(a[0]));
+
+  if(!entries.length){
+
+    box.innerHTML =
+      '<div class="empty">هنوز اطلاعاتی ثبت نشده است.</div>';
+
+    return;
+  }
+
+  box.innerHTML = "";
+
+  entries.forEach(([date,d])=>{
+
+    const expense = totalExpenses(d);
+    const profit = Number(d.income||0)-expense;
+
+    const item = document.createElement("div");
+
+    item.className = "history-item";
+
+    item.innerHTML = `
+      <div class="history-date">${date}</div>
+
+      <div class="history-values">
+
+        <div>
+          درآمد:
+          <strong>${money(d.income)}</strong>
+        </div>
+
+        <div>
+          هزینه:
+          <strong>${money(expense)}</strong>
+        </div>
+
+        <div>
+          سود:
+          <strong>${money(profit)}</strong>
+        </div>
+
+        <div>
+          سفر:
+          <strong>${faNumber(d.trips)}</strong>
+        </div>
+
+      </div>
+    `;
+
+    box.appendChild(item);
+  });
+}
+
+
+/* =========================
+   FORM LOAD
+========================= */
+
+function loadForms(){
+
+  const d = todayData();
+  const p = appData.profile;
+
+  document.getElementById("incomeInput").value =
+    d.income || "";
+
+  document.getElementById("tripsInput").value =
+    d.trips || "";
+
+  document.getElementById("hoursInput").value =
+    d.hours || "";
+
+  document.getElementById("fuelInput").value =
+    d.fuel || "";
+
+  document.getElementById("wearInput").value =
+    d.wear || "";
+
+  document.getElementById("otherInput").value =
+    d.other || "";
+
+  document.getElementById("carName").value =
+    p.car || "";
+
+  document.getElementById("carModel").value =
+    p.model || "";
+
+  document.getElementById("carKm").value =
+    p.km || "";
+
+  document.getElementById("carFuel").value =
+    p.fuel || 7.2;
+
+  document.getElementById("debtInput").value =
+    appData.debt || "";
+
+  document.getElementById("installmentInput").value =
+    appData.installment || "";
+
+  document.getElementById("goalInput").value =
+    appData.goal || "";
+
+  document.getElementById("driverName").value =
+    p.name || "";
+
+  document.getElementById("driverPhone").value =
+    p.phone || "";
+}
+
+
+/* =========================
+   OTHER
+========================= */
+
+function renderOther(){
+
+  document.getElementById("debtShow").textContent =
+    money(appData.debt);
+
+  let totalIncome = 0;
+
+  Object.values(appData.days).forEach(d=>{
+    totalIncome += Number(d.income||0);
+  });
+
+  let progress = 0;
+
+  if(appData.goal > 0){
+    progress =
+      Math.min(100,(totalIncome/appData.goal)*100);
+  }
+
+  document.getElementById("goalShow").textContent =
+    faNumber(progress.toFixed(0)) + "٪";
+}
+
+
+/* =========================
+   BACKUP
+========================= */
+
+function backupData(){
+
+  const data =
+    JSON.stringify(appData,null,2);
+
+  const blob =
+    new Blob([data],{type:"application/json"});
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const a =
+    document.createElement("a");
+
+  a.href = url;
+
+  a.download =
+    "rahhesab-backup-" + todayKey() + ".json";
+
+  document.body.appendChild(a);
+
+  a.click();
+
+  a.remove();
+
+  URL.revokeObjectURL(url);
+
+  showToast("فایل پشتیبان آماده شد ✓");
+}
+
+
+/* =========================
+   CLEAR
+========================= */
+
+function clearAllData(){
+
+  const ok =
+    confirm("تمام اطلاعات راه‌حساب حذف شود؟");
+
+  if(!ok){
+    return;
+  }
+
+  localStorage.removeItem(STORAGE_KEY);
+
+  appData = {
+    profile:{
+      name:"",
+      phone:"",
+      car:"",
+      model:"",
+      km:0,
+      fuel:7.2
+    },
+    days:{},
+    debt:0,
+    installment:0,
+    goal:0
+  };
+
+  showToast("اطلاعات پاک شد");
+
+  setTimeout(()=>{
+    location.reload();
+  },700);
+}
+
+
+/* =========================
+   REMINDER
+========================= */
+
+function showReminder(){
+
+  document.querySelectorAll(".nav-btn")
+    .forEach(btn=>btn.classList.remove("active"));
+
+  document.getElementById("navReminder")
+    .classList.add("active");
+
+  showToast("یادآوری: درآمد و هزینه امروز را ثبت کن 🔔");
+
+  setTimeout(()=>{
+    document.getElementById("navReminder")
+      .classList.remove("active");
+
+    document.getElementById("navHome")
+      .classList.add("active");
+  },2200);
+}
+
+
+/* =========================
+   RENDER ALL
+========================= */
+
+function renderAll(){
+
+  renderDate();
+  renderHome();
+  renderReport();
+  renderHistory();
+  renderOther();
+  loadForms();
+}
+
+
+/* =========================
+   START
+========================= */
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+  renderAll();
+
+});
+
+</script>
+
+</body>
+</html>

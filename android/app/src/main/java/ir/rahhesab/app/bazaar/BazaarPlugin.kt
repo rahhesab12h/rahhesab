@@ -6,6 +6,7 @@ import com.getcapacitor.Plugin
 import com.getcapacitor.PluginCall
 import com.getcapacitor.annotation.CapacitorPlugin
 import com.getcapacitor.PluginMethod
+import ir.cafebazaar.poolakey.Connection
 import ir.cafebazaar.poolakey.Payment
 import ir.cafebazaar.poolakey.config.PaymentConfiguration
 import ir.cafebazaar.poolakey.config.SecurityCheck
@@ -14,46 +15,74 @@ import ir.cafebazaar.poolakey.request.PurchaseRequest
 @CapacitorPlugin(name = "Bazaar")
 class BazaarPlugin : Plugin() {
 
+    companion object {
+
+        private const val PRODUCT_ID = "rahhesab_vip_30"
+
+        private const val RSA_KEY =
+            "MIHNMA0GCSqGSIb3DQEBAQUAA4G7ADCBtwKBrwCPqvvtjVNDFd1fzL8Yero6NBzthhXdaJaFceUPtI8wCIgIejlxe018gxdVtB+l8/Pc2cfzCXIfuivbnPEnPU1NBUzh/0Cz7GkYFtOtHKrkC3Row9HtBj3hor+59xXRc14nOYlvbePSrZqfO7kiEf/uxxYjaOuxf80eDqddi1CT76eb1Dine3kMmcwMTqSt7pxfyCiYFKxzvuwcc2K2OHZ90ZG2J59aCW6bVxanfvECAwEAAQ=="
+    }
+
     private var payment: Payment? = null
-    private var connection: ir.cafebazaar.poolakey.Connection? = null
-
-    private val rsaKey =
-        "MIHNMA0GCSqGSIb3DQEBAQUAA4G7ADCBtwKBrwCPqvvtjVNDFd1fzL8Yero6NBzthhXdaJaFceUPtI8wCIgIejlxe018gxdVtB+l8/Pc2cfzCXIfuivbnPEnPU1NBUzh/0Cz7GkYFtOtHKrkC3Row9HtBj3hor+59xXRc14nOYlvbePSrZqfO7kiEf/uxxYjaOuxf80eDqddi1CT76eb1Dine3kMmcwMTqSt7pxfyCiYFKxzvuwcc2K2OHZ90ZG2J59aCW6bVxanfvECAwEAAQ=="
-
-    private val productId = "rahhesab_vip_30"
+    private var connection: Connection? = null
 
     @PluginMethod
     fun connect(call: PluginCall) {
+
+        if (payment != null && connection != null) {
+            val result = JSObject()
+            result.put("connected", true)
+            result.put("productId", PRODUCT_ID)
+            call.resolve(result)
+            return
+        }
+
         try {
+
             val config = PaymentConfiguration(
-                localSecurityCheck = SecurityCheck.Enable(rsaKey),
+                localSecurityCheck = SecurityCheck.Enable(RSA_KEY),
                 shouldSupportSubscription = true
             )
 
             payment = Payment(activity, config)
 
             connection = payment!!.connect {
+
                 connectionSucceed {
+
                     val result = JSObject()
+
                     result.put("connected", true)
+                    result.put("productId", PRODUCT_ID)
+
                     call.resolve(result)
                 }
 
                 connectionFailed {
-                    call.reject("اتصال به بازار ناموفق بود", it.message)
+
+                    call.reject(
+                        "اتصال به بازار ناموفق بود",
+                        it.message
+                    )
                 }
 
                 disconnected {
+                    connection = null
                 }
             }
 
         } catch (e: Exception) {
-            call.reject("خطا در راه‌اندازی بازار", e.message)
+
+            call.reject(
+                "خطا در راه‌اندازی بازار",
+                e.message
+            )
         }
     }
 
     @PluginMethod
     fun subscribe(call: PluginCall) {
+
         val p = payment
 
         if (p == null) {
@@ -68,45 +97,74 @@ class BazaarPlugin : Plugin() {
             return
         }
 
-        val payload = call.getString("payload") ?: ""
+        val payload =
+            call.getString("payload") ?: PRODUCT_ID
 
-        p.subscribeProduct(
-            registry = host.activityResultRegistry,
-            request = PurchaseRequest(
-                productId = productId,
-                payload = payload,
-                dynamicPriceToken = null
+        try {
+
+            p.subscribeProduct(
+
+                registry = host.activityResultRegistry,
+
+                request = PurchaseRequest(
+                    productId = PRODUCT_ID,
+                    payload = payload,
+                    dynamicPriceToken = null
+                )
+
+            ) {
+
+                purchaseFlowBegan {
+                    // Purchase flow started
+                }
+
+                purchaseSucceed {
+
+                    val result = JSObject()
+
+                    result.put("purchased", true)
+                    result.put("active", true)
+                    result.put("productId", it.productId)
+                    result.put("purchaseToken", it.purchaseToken)
+                    result.put("purchaseTime", it.purchaseTime)
+                    result.put("orderId", it.orderId)
+
+                    call.resolve(result)
+                }
+
+                purchaseCanceled {
+                    call.reject("خرید لغو شد")
+                }
+
+                purchaseFailed {
+
+                    call.reject(
+                        "خرید ناموفق بود",
+                        it.message
+                    )
+                }
+
+                failedToBeginFlow {
+
+                    call.reject(
+                        "شروع فرآیند خرید ناموفق بود",
+                        it.message
+                    )
+                }
+            }
+
+        } catch (e: Exception) {
+
+            call.reject(
+                "خطا در شروع خرید",
+                e.message
             )
-        ) {
-            purchaseFlowBegan {
-            }
-
-            purchaseSucceed {
-                val result = JSObject()
-                result.put("purchased", true)
-                result.put("productId", it.productId)
-                result.put("purchaseToken", it.purchaseToken)
-                result.put("purchaseTime", it.purchaseTime)
-                result.put("orderId", it.orderId)
-                call.resolve(result)
-            }
-
-            purchaseCanceled {
-                call.reject("خرید لغو شد")
-            }
-
-            purchaseFailed {
-                call.reject("خرید ناموفق بود", it.message)
-            }
-
-            failedToBeginFlow {
-                call.reject("شروع فرآیند خرید ناموفق بود", it.message)
-            }
         }
     }
 
     @PluginMethod
     fun checkSubscription(call: PluginCall) {
+
         val p = payment
 
         if (p == null) {
@@ -114,30 +172,72 @@ class BazaarPlugin : Plugin() {
             return
         }
 
-        p.getSubscribedProducts {
-            querySucceed { purchases ->
-                val purchase = purchases.firstOrNull {
-                    it.productId == productId
+        try {
+
+            p.getSubscribedProducts {
+
+                querySucceed { purchases ->
+
+                    val purchase = purchases.firstOrNull {
+                        it.productId == PRODUCT_ID
+                    }
+
+                    val result = JSObject()
+
+                    if (purchase != null) {
+
+                        result.put("active", true)
+                        result.put("productId", purchase.productId)
+                        result.put(
+                            "purchaseToken",
+                            purchase.purchaseToken
+                        )
+                        result.put(
+                            "purchaseTime",
+                            purchase.purchaseTime
+                        )
+                        result.put(
+                            "orderId",
+                            purchase.orderId
+                        )
+
+                    } else {
+
+                        result.put("active", false)
+                        result.put("productId", PRODUCT_ID)
+                    }
+
+                    call.resolve(result)
                 }
 
-                val result = JSObject()
+                queryFailed {
 
-                if (purchase != null) {
-                    result.put("active", true)
-                    result.put("productId", purchase.productId)
-                    result.put("purchaseToken", purchase.purchaseToken)
-                    result.put("purchaseTime", purchase.purchaseTime)
-                    result.put("orderId", purchase.orderId)
-                } else {
-                    result.put("active", false)
+                    call.reject(
+                        "بررسی اشتراک بازار ناموفق بود",
+                        it.message
+                    )
                 }
-
-                call.resolve(result)
             }
 
-            queryFailed {
-                call.reject("بررسی اشتراک بازار ناموفق بود", it.message)
-            }
+        } catch (e: Exception) {
+
+            call.reject(
+                "خطا در بررسی اشتراک",
+                e.message
+            )
         }
+    }
+
+    override fun handleOnDestroy() {
+
+        try {
+            connection?.disconnect()
+        } catch (_: Exception) {
+        }
+
+        connection = null
+        payment = null
+
+        super.handleOnDestroy()
     }
 }
