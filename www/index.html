@@ -2,2894 +2,1577 @@
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#087f5b">
-<title>راه‌حساب | حسابدار مالی رانندگان</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#ffffff">
+<meta name="description" content="راه‌حساب؛ حسابدار مالی رانندگان">
+<title>راه‌حساب</title>
 
 <style>
-
 *{
-box-sizing:border-box;
--webkit-tap-highlight-color:transparent
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+  margin:0;
+  padding:0;
+  background:#f7f9fb;
+  color:#172b3a;
+  font-family:
+    Tahoma,
+    Arial,
+    sans-serif;
 }
 
 body{
-margin:0;
-font-family:Tahoma,Arial,sans-serif;
-background:#f3f7f5;
-color:#17231f
+  min-height:100vh;
 }
 
-/* ================= Splash ================= */
-
-#splash{
-position:fixed;
-z-index:9999;
-inset:0;
-background:linear-gradient(145deg,#064b38,#15966d);
-display:flex;
-align-items:center;
-justify-content:center;
-transition:opacity .6s ease,visibility .6s ease
-}
-
-#splash.hide{
-opacity:0;
-visibility:hidden
-}
-
-.splash-box{
-text-align:center;
-width:85%;
-max-width:360px;
-color:white
-}
-
-.splash-logo{
-width:190px;
-height:190px;
-object-fit:contain;
-border-radius:32px;
-box-shadow:0 15px 40px #0006;
-animation:logoPulse 1.8s infinite
-}
-
-@keyframes logoPulse{
-0%,100%{transform:scale(1)}
-50%{transform:scale(1.04)}
-}
-
-.splash-box h1{
-font-size:32px;
-margin:25px 0 10px
-}
-
-.splash-box p{
-margin:0 0 28px;
-color:#d8f3e8;
-font-size:13px
-}
-
-.loader{
-height:9px;
-background:#ffffff44;
-border-radius:20px;
-overflow:hidden;
-margin-top:20px
-}
-
-.loader div{
-height:100%;
-width:0%;
-background:white;
-border-radius:20px;
-transition:width .12s linear
-}
-
-#loadPercent{
-display:block;
-margin-top:12px;
-font-size:16px
-}
-
-/* ================= App ================= */
-
-.app{
-max-width:700px;
-margin:auto;
-padding:14px
-}
-
-header{
-background:linear-gradient(135deg,#087f5b,#0ca678);
-color:white;
-padding:20px;
-border-radius:22px;
-margin-bottom:14px;
-box-shadow:0 5px 18px #087f5b44
-}
-
-.header-top{
-display:flex;
-justify-content:space-between;
-align-items:flex-start;
-gap:10px
-}
-
-header h1{
-margin:0;
-font-size:27px
-}
-
-header p{
-margin:7px 0 0;
-color:#d8f3e8;
-font-size:12px
-}
-
-.clock{
-text-align:left;
-font-size:13px;
-line-height:1.8;
-white-space:nowrap
-}
-
-.card{
-background:white;
-border-radius:18px;
-padding:16px;
-margin-bottom:14px;
-box-shadow:0 3px 14px #0000000d
-}
-
-h2{
-font-size:18px;
-margin:0 0 14px
-}
-
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px
-}
-
-.box{
-background:#f2faf6;
-padding:13px;
-border-radius:14px
-}
-
-.box span{
-display:block;
-font-size:12px;
-color:#648076
-}
-
-.box b{
-display:block;
-margin-top:7px;
-font-size:15px
-}
-
-label{
-display:block;
-font-size:13px;
-margin:11px 0 6px;
-color:#53655e
-}
-
-.input{
-position:relative
-}
-
-input{
-width:100%;
-border:1px solid #ccd9d4;
-border-radius:11px;
-padding:13px;
-font-size:15px;
-outline:none;
-background:white;
-font-family:Tahoma,Arial,sans-serif
-}
-
-input:focus{
-border-color:#087f5b;
-box-shadow:0 0 0 3px #087f5b11
-}
-
-.number-input{
-direction:ltr;
-text-align:right;
-padding-left:65px
-}
-
-.unit{
-position:absolute;
-left:11px;
-top:50%;
-transform:translateY(-50%);
-font-size:11px;
-color:#71847c;
-pointer-events:none
+button,
+input,
+select{
+  font-family:inherit;
 }
 
 button{
-width:100%;
-border:0;
-border-radius:11px;
-padding:13px;
-margin-top:13px;
-background:#087f5b;
-color:white;
-font-size:15px;
-font-family:Tahoma,Arial,sans-serif;
-cursor:pointer
+  border:0;
+  cursor:pointer;
 }
 
-button:active{
-transform:scale(.98)
+.app{
+  max-width:620px;
+  margin:auto;
+  min-height:100vh;
+  background:#fff;
+  box-shadow:0 0 30px rgba(0,0,0,.05);
+  padding-bottom:92px;
+}
+
+/* HEADER */
+
+.header{
+  padding:20px 18px 12px;
+  background:#fff;
+}
+
+.header-row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.logo{
+  width:52px;
+  height:52px;
+  border-radius:15px;
+  background:#173b55;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-size:27px;
+  box-shadow:0 6px 15px rgba(23,59,85,.15);
+}
+
+.brand-title{
+  font-size:25px;
+  font-weight:900;
+  color:#183a52;
+}
+
+.brand-sub{
+  margin-top:3px;
+  font-size:13px;
+  color:#687781;
+}
+
+.date-box{
+  text-align:right;
+  color:#53616a;
+  font-size:12px;
+  line-height:1.8;
+}
+
+.date-box strong{
+  display:block;
+  color:#183a52;
+  font-size:14px;
+}
+
+/* MAIN */
+
+.page{
+  display:none;
+  padding:8px 16px 20px;
+}
+
+.page.active{
+  display:block;
+}
+
+/* SUMMARY */
+
+.summary{
+  margin-top:8px;
+  border-radius:23px;
+  background:#173b55;
+  color:#fff;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  overflow:hidden;
+  box-shadow:0 10px 25px rgba(23,59,85,.14);
+}
+
+.summary-item{
+  padding:17px 8px;
+  text-align:center;
+  border-left:1px solid rgba(255,255,255,.2);
+}
+
+.summary-item:last-child{
+  border-left:0;
+}
+
+.summary-label{
+  font-size:13px;
+  opacity:.9;
+}
+
+.summary-value{
+  margin-top:7px;
+  font-size:19px;
+  font-weight:900;
+  white-space:nowrap;
+}
+
+.summary-unit{
+  margin-top:4px;
+  font-size:11px;
+  opacity:.75;
+}
+
+/* GRID */
+
+.dashboard-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:15px;
+}
+
+.card{
+  min-height:142px;
+  border-radius:19px;
+  padding:16px 10px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  box-shadow:0 3px 10px rgba(0,0,0,.04);
+  transition:.15s;
+}
+
+.card:active{
+  transform:scale(.97);
+}
+
+.card-icon{
+  width:54px;
+  height:54px;
+  border-radius:16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:29px;
+  margin-bottom:9px;
+}
+
+.card-title{
+  font-size:16px;
+  font-weight:900;
+  color:#182b3a;
+}
+
+.card-text{
+  margin-top:7px;
+  font-size:11px;
+  color:#52616b;
+  line-height:1.7;
+}
+
+.income-card{background:#dcf7e9;}
+.income-card .card-icon{background:#b9ecd2;}
+
+.expense-card{background:#ffe1e4;}
+.expense-card .card-icon{background:#ffc0c7;}
+
+.report-card{background:#dbeeff;}
+.report-card .card-icon{background:#b9ddfb;}
+
+.car-card{background:#ffebca;}
+.car-card .card-icon{background:#ffd79c;}
+
+.debt-card{background:#eee1ff;}
+.debt-card .card-icon{background:#dcc4ff;}
+
+.goal-card{background:#d7f7f3;}
+.goal-card .card-icon{background:#b7ebe4;}
+
+.settings-card{background:#edf1f4;}
+.settings-card .card-icon{background:#dce3e8;}
+
+.backup-card{background:#e0efff;}
+.backup-card .card-icon{background:#c1e0ff;}
+
+.history-card{background:#eee4ff;}
+.history-card .card-icon{background:#d8c6fa;}
+
+/* VEHICLE */
+
+.vehicle-box{
+  margin-top:15px;
+  border:1px solid #e1e6e9;
+  border-radius:19px;
+  padding:15px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+  background:#fff;
+}
+
+.vehicle-icon{
+  width:54px;
+  height:54px;
+  border-radius:15px;
+  background:#eaf0f4;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+}
+
+.vehicle-info{
+  flex:1;
+}
+
+.vehicle-name{
+  font-weight:900;
+  font-size:14px;
+}
+
+.vehicle-details{
+  margin-top:7px;
+  color:#687781;
+  font-size:11px;
+  line-height:1.8;
+}
+
+/* SECTION */
+
+.section-title{
+  font-size:20px;
+  font-weight:900;
+  margin:12px 2px 15px;
+  color:#183a52;
+}
+
+.back-btn{
+  width:100%;
+  padding:13px;
+  border-radius:14px;
+  background:#173b55;
+  color:#fff;
+  margin-bottom:14px;
+  font-size:14px;
+}
+
+/* FORM */
+
+.form-box{
+  background:#fff;
+  border:1px solid #e4e8eb;
+  border-radius:18px;
+  padding:15px;
+  margin-bottom:12px;
+}
+
+.field{
+  margin-bottom:12px;
+}
+
+.field:last-child{
+  margin-bottom:0;
+}
+
+.field label{
+  display:block;
+  margin-bottom:6px;
+  color:#53616a;
+  font-size:12px;
+}
+
+.field input,
+.field select{
+  width:100%;
+  border:1px solid #dce2e6;
+  background:#fafcfd;
+  border-radius:12px;
+  padding:12px;
+  outline:none;
+  font-size:14px;
+  color:#172b3a;
+}
+
+.field input:focus,
+.field select:focus{
+  border-color:#2bbf7d;
+  background:#fff;
+}
+
+.primary{
+  width:100%;
+  padding:13px;
+  border-radius:13px;
+  background:#15966a;
+  color:#fff;
+  font-size:14px;
+  font-weight:800;
 }
 
 .secondary{
-background:#e7f3ee;
-color:#087f5b
+  width:100%;
+  padding:13px;
+  border-radius:13px;
+  background:#edf2f5;
+  color:#183a52;
+  font-size:14px;
+  margin-top:9px;
 }
 
-.danger{
-background:#d64545
+/* REPORT */
+
+.report-list{
+  display:grid;
+  gap:10px;
 }
 
-.month{
-display:flex;
-align-items:center;
-justify-content:space-between;
-gap:8px;
-margin-bottom:12px
+.report-row{
+  background:#fff;
+  border:1px solid #e5e9ec;
+  border-radius:15px;
+  padding:14px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 }
 
-.month button{
-width:45px;
-margin:0;
-padding:9px;
-font-size:22px
+.report-row span{
+  color:#61707a;
+  font-size:13px;
 }
 
-.month strong{
-font-size:17px
+.report-row strong{
+  color:#183a52;
+  font-size:15px;
 }
 
-.week{
-display:grid;
-grid-template-columns:repeat(7,1fr);
-gap:3px;
-margin-bottom:5px
+/* HISTORY */
+
+.history-item{
+  background:#fff;
+  border:1px solid #e4e9ec;
+  border-radius:15px;
+  padding:14px;
+  margin-bottom:10px;
 }
 
-.week div{
-text-align:center;
-font-size:11px;
-color:#71847c;
-padding:5px 0
+.history-date{
+  font-weight:900;
+  color:#183a52;
 }
 
-.calendar{
-display:grid;
-grid-template-columns:repeat(7,1fr);
-gap:4px
+.history-values{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:7px;
+  margin-top:10px;
 }
 
-.day{
-min-height:50px;
-border:1px solid #e0e9e5;
-border-radius:10px;
-background:#fff;
-display:flex;
-flex-direction:column;
-align-items:center;
-justify-content:center;
-font-size:13px;
-cursor:pointer;
-transition:.2s
+.history-values div{
+  background:#f5f8fa;
+  border-radius:9px;
+  padding:8px;
+  font-size:11px;
 }
 
-.day:hover{
-border-color:#087f5b
+/* EMPTY */
+
+.empty{
+  text-align:center;
+  color:#7b8992;
+  padding:35px 10px;
 }
 
-.day.empty{
-border:0;
-background:transparent;
-cursor:default
+/* BOTTOM NAV */
+
+.bottom-nav{
+  position:fixed;
+  left:50%;
+  bottom:0;
+  transform:translateX(-50%);
+  width:100%;
+  max-width:620px;
+  height:78px;
+  background:#fff;
+  border-top:1px solid #e4e8eb;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  z-index:100;
+  box-shadow:0 -5px 20px rgba(0,0,0,.06);
 }
 
-.day.today{
-box-shadow:inset 0 0 0 2px #f59f00
+.nav-btn{
+  background:#fff;
+  color:#66747d;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  gap:5px;
+  font-size:11px;
 }
 
-.day.selected{
-background:#087f5b;
-color:white;
-border-color:#087f5b
+.nav-icon{
+  font-size:24px;
+  line-height:1;
 }
 
-.day.good{
-border-bottom:4px solid #2f9e44
+.nav-btn.active{
+  color:#1766d1;
+  font-weight:900;
 }
 
-.day.bad{
-border-bottom:4px solid #d64545
+/* TOAST */
+
+.toast{
+  position:fixed;
+  left:50%;
+  bottom:92px;
+  transform:translateX(-50%) translateY(20px);
+  width:calc(100% - 35px);
+  max-width:550px;
+  background:#173b55;
+  color:#fff;
+  padding:13px 16px;
+  border-radius:13px;
+  text-align:center;
+  font-size:13px;
+  opacity:0;
+  pointer-events:none;
+  transition:.25s;
+  z-index:300;
 }
 
-.day small{
-font-size:8px;
-margin-top:3px
+.toast.show{
+  opacity:1;
+  transform:translateX(-50%) translateY(0);
 }
 
-.note{
-background:#f2faf6;
-padding:11px;
-border-radius:11px;
-font-size:12px;
-color:#5e7169;
-line-height:1.9;
-margin-top:10px
-}
-
-.row{
-display:flex;
-justify-content:space-between;
-gap:10px;
-margin-top:11px;
-align-items:center
-}
-
-.row b{
-text-align:left
-}
-
-.progress{
-height:13px;
-background:#e1ebe7;
-border-radius:20px;
-overflow:hidden;
-margin-top:9px
-}
-
-.progress div{
-height:100%;
-width:0;
-background:linear-gradient(90deg,#087f5b,#20c997);
-transition:.4s
-}
-
-.history{
-max-height:400px;
-overflow:auto
-}
-
-.history-row{
-padding:12px 0;
-border-bottom:1px solid #edf1ef;
-font-size:12px;
-cursor:pointer
-}
-
-.history-row:last-child{
-border-bottom:0
-}
-
-.history-top{
-display:flex;
-justify-content:space-between;
-margin-bottom:7px
-}
-
-.history-details{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:5px;
-color:#64756e;
-font-size:11px
-}
-
-.profile-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px
-}
-
-.profile-grid .full{
-grid-column:1/-1
-}
-
-.badge{
-display:inline-block;
-background:#e7f7ef;
-color:#087f5b;
-font-size:11px;
-padding:5px 9px;
-border-radius:20px
-}
-
-footer{
-text-align:center;
-color:#71847c;
-font-size:11px;
-padding:10px 5px 25px;
-line-height:2
-}
+/* RESPONSIVE */
 
 @media(max-width:430px){
+  .dashboard-grid{
+    gap:9px;
+  }
 
-.grid{
-grid-template-columns:1fr 1fr
+  .card{
+    min-height:133px;
+    padding:12px 7px;
+  }
+
+  .card-title{
+    font-size:14px;
+  }
+
+  .card-text{
+    font-size:10px;
+  }
+
+  .card-icon{
+    width:48px;
+    height:48px;
+    font-size:25px;
+  }
+
+  .summary-value{
+    font-size:16px;
+  }
+
+  .brand-title{
+    font-size:22px;
+  }
 }
-
-.profile-grid{
-grid-template-columns:1fr
-}
-
-.profile-grid .full{
-grid-column:auto
-}
-
-.day{
-min-height:45px
-}
-
-}
-
 </style>
 </head>
 
 <body>
 
-<!-- ================= صفحه شروع ================= -->
-
-<div id="splash">
-
-<div class="splash-box">
-
-<img src="logo.png"
-class="splash-logo"
-alt="راه حساب">
-
-<h1>راه‌حساب</h1>
-
-<p>حسابدار مالی رانندگان اسنپ و تپسی</p>
-
-<div class="loader">
-<div id="loaderBar"></div>
-</div>
-
-<span id="loadPercent">۰٪</span>
-
-</div>
-
-</div>
-
-
-<!-- ================= برنامه ================= -->
-
 <div class="app">
 
-<header>
+<header class="header">
+  <div class="header-row">
 
-<div class="header-top">
+    <div class="brand">
+      <div class="logo">📈</div>
+      <div>
+        <div class="brand-title">راه‌حساب</div>
+        <div class="brand-sub">حسابدار مالی رانندگان</div>
+      </div>
+    </div>
 
-<div>
-<h1>🚗 راه‌حساب</h1>
-<p>حسابدار مالی رانندگان اسنپ و تپسی</p>
-</div>
+    <div class="date-box">
+      <strong id="jalaliDate">در حال بارگذاری...</strong>
+      <span id="gregorianDate"></span>
+    </div>
 
-<div class="clock">
-<div id="clock">--:--</div>
-<div id="todayDate">---</div>
-</div>
-
-</div>
-
+  </div>
 </header>
 
 
-<!-- ================= مشخصات راننده ================= -->
+<!-- HOME -->
 
-<div class="card">
+<section id="homePage" class="page active">
 
-<h2>👤 مشخصات راننده</h2>
+  <div class="summary">
 
-<div class="profile-grid">
+    <div class="summary-item">
+      <div class="summary-label">امروز سود</div>
+      <div class="summary-value" id="todayProfit">۰</div>
+      <div class="summary-unit">تومان</div>
+    </div>
 
-<div>
-<label>نام راننده</label>
-<input id="driverName" placeholder="مثلاً علی احمدی">
+    <div class="summary-item">
+      <div class="summary-label">امروز هزینه</div>
+      <div class="summary-value" id="todayExpense">۰</div>
+      <div class="summary-unit">تومان</div>
+    </div>
+
+    <div class="summary-item">
+      <div class="summary-label">امروز درآمد</div>
+      <div class="summary-value" id="todayIncome">۰</div>
+      <div class="summary-unit">تومان</div>
+    </div>
+
+  </div>
+
+
+  <div class="dashboard-grid">
+
+    <button class="card income-card" onclick="openPage('incomePage')">
+      <div class="card-icon">💰</div>
+      <div class="card-title">درآمد</div>
+      <div class="card-text">ثبت و مشاهده درآمدها</div>
+    </button>
+
+    <button class="card expense-card" onclick="openPage('expensePage')">
+      <div class="card-icon">💳</div>
+      <div class="card-title">هزینه</div>
+      <div class="card-text">ثبت و مدیریت هزینه‌ها</div>
+    </button>
+
+    <button class="card report-card" onclick="openPage('reportPage')">
+      <div class="card-icon">📊</div>
+      <div class="card-title">گزارش</div>
+      <div class="card-text">گزارش‌های مالی و ماهانه</div>
+    </button>
+
+    <button class="card car-card" onclick="openPage('carPage')">
+      <div class="card-icon">🚕</div>
+      <div class="card-title">خودرو</div>
+      <div class="card-text">هزینه‌ها و سرویس‌ها</div>
+    </button>
+
+    <button class="card debt-card" onclick="openPage('debtPage')">
+      <div class="card-icon">📅</div>
+      <div class="card-title">اقساط و بدهی</div>
+      <div class="card-text">مدیریت اقساط و بدهی‌ها</div>
+    </button>
+
+    <button class="card goal-card" onclick="openPage('goalPage')">
+      <div class="card-icon">🎯</div>
+      <div class="card-title">هدف</div>
+      <div class="card-text">تعیین هدف و پیشرفت</div>
+    </button>
+
+    <button class="card settings-card" onclick="openPage('settingsPage')">
+      <div class="card-icon">⚙️</div>
+      <div class="card-title">تنظیمات</div>
+      <div class="card-text">تنظیمات برنامه</div>
+    </button>
+
+    <button class="card backup-card" onclick="backupData()">
+      <div class="card-icon">☁️</div>
+      <div class="card-title">پشتیبان‌گیری</div>
+      <div class="card-text">ذخیره و بازیابی اطلاعات</div>
+    </button>
+
+    <button class="card history-card" onclick="openPage('historyPage')">
+      <div class="card-icon">📄</div>
+      <div class="card-title">تاریخچه</div>
+      <div class="card-text">تمامی تراکنش‌ها</div>
+    </button>
+
+  </div>
+
+
+  <div class="vehicle-box">
+
+    <div class="vehicle-icon">🚕</div>
+
+    <div class="vehicle-info">
+      <div class="vehicle-name" id="homeCar">خودرو: ثبت نشده</div>
+      <div class="vehicle-details">
+        کارکرد: <span id="homeKm">۰</span> کیلومتر
+        <br>
+        مصرف سوخت: <span id="homeFuel">۷٫۲</span> لیتر / ۱۰۰ کیلومتر
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- INCOME -->
+
+<section id="incomePage" class="page">
+
+  <button class="back-btn" onclick="goHome()">← بازگشت به خانه</button>
+
+  <div class="section-title">💰 ثبت درآمد</div>
+
+  <div class="form-box">
+
+    <div class="field">
+      <label>درآمد امروز (تومان)</label>
+      <input id="incomeInput" type="number" inputmode="numeric" placeholder="مثلاً ۲۸۵۰۰۰۰">
+    </div>
+
+    <div class="field">
+      <label>تعداد سفر</label>
+      <input id="tripsInput" type="number" inputmode="numeric" placeholder="مثلاً ۱۲">
+    </div>
+
+    <div class="field">
+      <label>ساعت کار</label>
+      <input id="hoursInput" type="number" inputmode="decimal" placeholder="مثلاً ۸">
+    </div>
+
+    <button class="primary" onclick="saveIncome()">ذخیره درآمد</button>
+
+  </div>
+
+</section>
+
+
+<!-- EXPENSE -->
+
+<section id="expensePage" class="page">
+
+  <button class="back-btn" onclick="goHome()">← بازگشت به خانه</button>
+
+  <div class="section-title">💳 ثبت هزینه</div>
+
+  <div class="form-box">
+
+    <div class="field">
+      <label>سوخت (تومان)</label>
+      <input id="fuelInput" type="number" inputmode="numeric" placeholder="مثلاً ۳۵۰۰۰۰">
+    </div>
+
+    <div class="field">
+      <label>استهلاک (تومان)</label>
+      <input id="wearInput" type="number" inputmode="numeric" placeholder="مثلاً ۲۵۰۰۰۰">
+    </div>
+
+    <div class="field">
+      <label>هزینه‌های دیگر (تومان)</label>
+      <input id="otherInput" type="number" inputmode="numeric" placeholder="مثلاً ۱۰۰۰۰۰">
+    </div>
+
+    <button class="primary" onclick="saveExpense()">ذخیره هزینه</button>
+
+  </div>
+
+</section>
+
+
+<!-- REPORT -->
+
+<section id="reportPage" class="page">
+
+  <button class="back-btn" onclick="goHome()">← بازگشت به خانه</button>
+
+  <div class="section-title">📊 گزارش مالی</div>
+
+  <div class="report-list">
+
+    <div class="report-row">
+      <span>کل درآمد</span>
+      <strong id="reportIncome">۰ تومان</strong>
+    </div>
+
+    <div class="report-row">
+      <span>کل هزینه</span>
+      <strong id="reportExpense">۰ تومان</strong>
+    </div>
+
+    <div class="report-row">
+      <span>سود خالص</span>
+      <strong id="reportProfit">۰ تومان</strong>
+    </div>
+
+    <div class="report-row">
+      <span>روزهای کاری</span>
+      <strong id="reportDays">۰</strong>
+    </div>
+
+    <div class="report-row">
+      <span>تعداد سفر</span>
+      <strong id="reportTrips">۰</strong>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- CAR -->
+
+<section id="carPage" class="page">
+
+  <button class="back-btn" onclick="goHome()">← بازگشت به خانه</button>
+
+  <div class="section-title">🚕 اطلاعات خودرو</div>
+
+  <div class="form-box">
+
+    <div class="field">
+      <label>نام خودرو</label>
+      <input id="carName" placeholder="مثلاً پژو ۲۰۶">
+    </div>
+
+    <div class="field">
+      <label>مدل</label>
+      <input id="carModel" placeholder="مثلاً ۱۴۰۲">
+    </div>
+
+    <div class="field">
+      <label>کارکرد خودرو (کیلومتر)</label>
+      <input id="carKm" type="number" inputmode="numeric" placeholder="مثلاً ۱۲۰۰۰">
+    </div>
+
+    <div class="field">
+      <label>مصرف سوخت در ۱۰۰ کیلومتر</label>
+      <input id="carFuel" type="number" inputmode="decimal" value="7.2">
+    </div>
+
+    <button class="primary" onclick="saveCar()">ذخیره مشخصات خودرو</button>
+
+  </div>
+
+</section>
+
+
+<!-- DEBT -->
+
+<section id="debtPage" class="page">
+
+  <button class="back-btn" onclick="goHome()">← بازگشت به خانه</button>
+
+  <div class="section-title">📅 اقساط و بدهی</div>
+
+  <div class="form-box">
+
+    <div class="field">
+      <label>مبلغ بدهی (تومان)</label>
+      <input id="debtInput" type="number" inputmode="numeric">
+    </div>
+
+    <div class="field">
+      <label>مبلغ قسط ماهانه (تومان)</label>
+      <input id="installmentInput" type="number" inputmode="numeric">
+    </div>
+
+    <button class="primary" onclick="saveDebt()">ذخیره اطلاعات</button>
+
+  </div>
+
+  <div class="report-row">
+    <span>بدهی فعلی</span>
+    <strong id="debtShow">۰ تومان</strong>
+  </div>
+
+</section>
+
+
+<!-- GOAL -->
+
+<section id="goalPage" class="page">
+
+  <button class="back-btn" onclick="goHome()">← بازگشت به خانه</button>
+
+  <div class="section-title">🎯 هدف درآمد</div>
+
+  <div class="form-box">
+
+    <div class="field">
+      <label>هدف درآمد ماهانه (تومان)</label>
+      <input id="goalInput" type="number" inputmode="numeric" placeholder="مثلاً ۵۰۰۰۰۰۰۰">
+    </div>
+
+    <button class="primary" onclick="saveGoal()">ذخیره هدف</button>
+
+  </div>
+
+  <div class="report-row">
+    <span>پیشرفت هدف</span>
+    <strong id="goalShow">۰٪</strong>
+  </div>
+
+</section>
+
+
+<!-- HISTORY -->
+
+<section id="historyPage" class="page">
+
+  <button class="back-btn" onclick="goHome()">← بازگشت به خانه</button>
+
+  <div class="section-title">📄 تاریخچه</div>
+
+  <div id="historyList"></div>
+
+</section>
+
+
+<!-- SETTINGS -->
+
+<section id="settingsPage" class="page">
+
+  <button class="back-btn" onclick="goHome()">← بازگشت به خانه</button>
+
+  <div class="section-title">⚙️ تنظیمات</div>
+
+  <div class="form-box">
+
+    <div class="field">
+      <label>نام راننده</label>
+      <input id="driverName" placeholder="نام شما">
+    </div>
+
+    <div class="field">
+      <label>شماره تماس</label>
+      <input id="driverPhone" inputmode="tel" placeholder="۰۹۱۲...">
+    </div>
+
+    <button class="primary" onclick="saveProfile()">ذخیره مشخصات</button>
+
+  </div>
+
+  <div class="form-box">
+    <button class="secondary" onclick="backupData()">💾 پشتیبان‌گیری اطلاعات</button>
+    <button class="secondary" onclick="clearAllData()">🗑️ پاک کردن اطلاعات</button>
+  </div>
+
+</section>
+
+
 </div>
 
-<div>
-<label>شماره تماس</label>
-<input id="driverPhone"
-inputmode="numeric"
-placeholder="0912...">
-</div>
 
-<div>
-<label>ماشین</label>
-<input id="carName" placeholder="مثلاً پژو 206">
-</div>
+<!-- NAV -->
 
-<div>
-<label>مدل ماشین</label>
-<input id="carModel"
-inputmode="numeric"
-placeholder="مثلاً 1400">
-</div>
+<nav class="bottom-nav">
 
-<div class="full">
-
-<button onclick="saveProfile()">
-💾 ذخیره مشخصات راننده
-</button>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- ================= خلاصه ================= -->
-
-<div class="card">
-
-<h2>📊 خلاصه ماه</h2>
-
-<div class="grid">
-
-<div class="box">
-<span>درآمد</span>
-<b id="monthIncome">۰ تومان</b>
-</div>
-
-<div class="box">
-<span>هزینه</span>
-<b id="monthCost">۰ تومان</b>
-</div>
-
-<div class="box">
-<span>سود خالص</span>
-<b id="monthProfit">۰ تومان</b>
-</div>
-
-<div class="box">
-<span>روز کاری</span>
-<b id="workDays">۰ روز</b>
-</div>
-
-</div>
-
-</div>
-
-
-<!-- ================= تقویم ================= -->
-
-<div class="card">
-
-<h2>📅 تقویم شمسی درآمد</h2>
-
-<div class="month">
-
-<button onclick="changeMonth(-1)">›</button>
-
-<strong id="monthTitle"></strong>
-
-<button onclick="changeMonth(1)">‹</button>
-
-</div>
-
-<div class="week">
-
-<div>ش</div>
-<div>ی</div>
-<div>د</div>
-<div>س</div>
-<div>چ</div>
-<div>پ</div>
-<div>ج</div>
-
-</div>
-
-<div id="calendar" class="calendar"></div>
-
-<div class="note">
-
-🟢 سود مثبت &nbsp;&nbsp;
-🔴 ضرر
-
-<br>
-
-روی هر روز بزن و درآمد و هزینه همان روز را ثبت کن.
-
-</div>
-
-</div>
-
-
-<!-- ================= ثبت روز ================= -->
-
-<div class="card">
-
-<h2 id="selectedTitle">➕ ثبت روز</h2>
-
-<label>💰 درآمد کار / اسنپ / تپسی</label>
-
-<div class="input">
-<input id="income"
-class="number-input"
-type="text"
-inputmode="numeric"
-placeholder="1,400,000"
-oninput="formatInput(this)">
-<span class="unit">تومان</span>
-</div>
-
-
-<label>⛽ هزینه بنزین</label>
-
-<div class="input">
-<input id="fuel"
-class="number-input"
-type="text"
-inputmode="numeric"
-placeholder="100,000"
-oninput="formatInput(this)">
-<span class="unit">تومان</span>
-</div>
-
-
-<label>📏 کیلومتر طی‌شده امروز</label>
-
-<div class="input">
-<input id="dayKm" class="number-input" type="text"
-inputmode="numeric" placeholder="200"
-oninput="formatInput(this)">
-<span class="unit">کیلومتر</span>
-</div>
-
-
-<label>🔧 استهلاک ماشین</label>
-
-<div class="input">
-<input id="wear"
-class="number-input"
-type="text"
-inputmode="numeric"
-placeholder="150,000"
-oninput="formatInput(this)">
-<span class="unit">تومان</span>
-</div>
-
-
-<label>📦 سایر هزینه‌ها</label>
-
-<div class="input">
-<input id="other"
-class="number-input"
-type="text"
-inputmode="numeric"
-placeholder="50,000"
-oninput="formatInput(this)">
-<span class="unit">تومان</span>
-</div>
-
-
-<button onclick="saveDay()">
-💾 ذخیره حساب روز
-</button>
-
-</div>
-
-
-<!-- ================= هدف مالی ================= -->
-
-<div class="card">
-
-<h2>🎯 هدف مالی</h2>
-
-<label>هدف درآمد خالص</label>
-
-<div class="input">
-
-<input id="goal"
-class="number-input"
-type="text"
-inputmode="numeric"
-placeholder="40,000,000"
-oninput="formatInput(this)">
-
-<span class="unit">تومان</span>
-
-</div>
-
-
-<label>تعداد روز باقی‌مانده</label>
-
-<input id="days"
-type="number"
-inputmode="numeric"
-value="20">
-
-
-<button onclick="saveGoal()">
-🎯 ذخیره هدف
-</button>
-
-
-<div class="row">
-<span>درصد پیشرفت</span>
-<b id="percent">۰٪</b>
-</div>
-
-<div class="progress">
-<div id="bar"></div>
-</div>
-
-
-<div class="row">
-<span>باقی‌مانده تا هدف</span>
-<b id="remain">۰ تومان</b>
-</div>
-
-
-<div class="row">
-<span>لازم برای هر روز</span>
-<b id="daily">۰ تومان</b>
-</div>
-
-</div>
-
-
-<!-- ================= بدهی ================= -->
-
-<div class="card">
-
-<h2>🧾 قسط و بدهی</h2>
-
-<label>مبلغ قسط / بدهی</label>
-
-<div class="input">
-
-<input id="debt"
-class="number-input"
-type="text"
-inputmode="numeric"
-placeholder="20,000,000"
-oninput="formatInput(this)">
-
-<span class="unit">تومان</span>
-
-</div>
-
-
-<label>تاریخ پرداخت</label>
-
-<input id="debtDate"
-placeholder="مثلاً ۲۹ شهریور ۱۴۰۵">
-
-
-<button onclick="saveDebt()">
-💾 ذخیره بدهی
-</button>
-
-
-<div class="row">
-<span>مبلغ بدهی</span>
-<b id="debtShow">۰ تومان</b>
-</div>
-
-
-<div class="row">
-<span>تاریخ پرداخت</span>
-<b id="dateShow">-</b>
-</div>
-
-</div>
-
-
-<!-- ================= تاریخچه ================= -->
-
-<div class="card">
-
-<h2>📋 تاریخچه کامل</h2>
-
-<div class="note">
-
-با لمس هر روز می‌توانی اطلاعات همان روز را دوباره ویرایش کنی.
-
-</div>
-
-<div id="history" class="history"></div>
-
-</div>
-
-
-
-<!-- ================= Premium | استهلاک حرفه‌ای ================= -->
-
-<div class="card" id="premiumDepreciation">
-<div id="premiumVipLock" style="display:none;margin:0 0 14px;padding:14px;border-radius:14px;background:#fff8e8;border:1px solid #d6b56a;text-align:center">
-  <div style="font-size:20px;font-weight:800">👑 امکانات VIP</div>
-  <div style="margin-top:7px">برای استفاده از استهلاک حرفه‌ای خودرو، VIP را فعال کنید.</div>
-  <button onclick="startPremiumPurchase()" style="margin-top:10px;padding:10px 22px;border:0;border-radius:10px;background:#b89b5e;color:white;font-weight:800">
-    🛒 فعال‌سازی VIP
+  <button id="navHome" class="nav-btn active" onclick="goHome()">
+    <div class="nav-icon">⌂</div>
+    <div>خانه</div>
   </button>
-</div>
+
+  <button id="navHistory" class="nav-btn" onclick="openPage('historyPage')">
+    <div class="nav-icon">◷</div>
+    <div>تاریخچه</div>
+  </button>
+
+  <button id="navReminder" class="nav-btn" onclick="showReminder()">
+    <div class="nav-icon">♧</div>
+    <div>یادآوری</div>
+  </button>
+
+  <button id="navProfile" class="nav-btn" onclick="openPage('settingsPage')">
+    <div class="nav-icon">♙</div>
+    <div>پروفایل</div>
+  </button>
+
+</nav>
 
 
-<h2>⭐ Premium | استهلاک حرفه‌ای خودرو</h2>
-
-<div class="note">
-محاسبه واقعی هزینه استهلاک خودرو و قطعات بر اساس کیلومتر.
-</div>
-
-<label>قیمت خرید خودرو</label>
-<div class="input">
-<input id="vehiclePrice" class="number-input" type="text"
-inputmode="numeric" placeholder="800,000,000" oninput="formatInput(this)">
-<span class="unit">تومان</span>
-</div>
-
-<label>ارزش اسقاط / فروش نهایی</label>
-<div class="input">
-<input id="vehicleSalvage" class="number-input" type="text"
-inputmode="numeric" placeholder="200,000,000" oninput="formatInput(this)">
-<span class="unit">تومان</span>
-</div>
-
-<label>عمر اقتصادی خودرو</label>
-<div class="input">
-<input id="vehicleLifeKm" type="number" inputmode="numeric" value="300000">
-<span class="unit">کیلومتر</span>
-</div>
-
-<label>کیلومتر طی‌شده در روز</label>
-<div class="input">
-<input id="dailyKm" type="number" inputmode="numeric" value="200">
-<span class="unit">کیلومتر</span>
-</div>
-
-<hr>
-
-<label>🛞 لاستیک — هزینه / عمر</label>
-<div class="input">
-<input id="tireCost" class="number-input" type="text"
-inputmode="numeric" placeholder="20,000,000" oninput="formatInput(this)">
-<span class="unit">تومان</span>
-</div>
-<input id="tireLife" type="number" inputmode="numeric" value="50000" placeholder="عمر به کیلومتر">
-
-<label>🛑 لنت و ترمز — هزینه / عمر</label>
-<div class="input">
-<input id="brakeCost" class="number-input" type="text"
-inputmode="numeric" placeholder="5,000,000" oninput="formatInput(this)">
-<span class="unit">تومان</span>
-</div>
-<input id="brakeLife" type="number" inputmode="numeric" value="30000">
-
-<label>🛢️ روغن و فیلترها — هزینه / عمر</label>
-<div class="input">
-<input id="oilCost" class="number-input" type="text"
-inputmode="numeric" placeholder="2,000,000" oninput="formatInput(this)">
-<span class="unit">تومان</span>
-</div>
-<input id="oilLife" type="number" inputmode="numeric" value="7000">
-
-<label>🔋 باتری — هزینه / عمر</label>
-<div class="input">
-<input id="batteryCost" class="number-input" type="text"
-inputmode="numeric" placeholder="5,000,000" oninput="formatInput(this)">
-<span class="unit">تومان</span>
-</div>
-<input id="batteryLife" type="number" inputmode="numeric" value="50000">
-
-<label>⚙️ کلاچ و دیسک — هزینه / عمر</label>
-<div class="input">
-<input id="clutchCost" class="number-input" type="text"
-inputmode="numeric" placeholder="15,000,000" oninput="formatInput(this)">
-<span class="unit">تومان</span>
-</div>
-<input id="clutchLife" type="number" inputmode="numeric" value="100000">
-
-<label>🔧 تسمه‌ها — هزینه / عمر</label>
-<div class="input">
-<input id="beltCost" class="number-input" type="text"
-inputmode="numeric" placeholder="4,000,000" oninput="formatInput(this)">
-<span class="unit">تومان</span>
-</div>
-<input id="beltLife" type="number" inputmode="numeric" value="60000">
-
-<label>🛠️ کمک‌فنر و جلوبندی — هزینه / عمر</label>
-<div class="input">
-<input id="suspensionCost" class="number-input" type="text"
-inputmode="numeric" placeholder="12,000,000" oninput="formatInput(this)">
-<span class="unit">تومان</span>
-</div>
-<input id="suspensionLife" type="number" inputmode="numeric" value="80000">
-
-<label>🔩 تعمیرات متفرقه — هزینه / عمر</label>
-<div class="input">
-<input id="repairCost" class="number-input" type="text"
-inputmode="numeric" placeholder="10,000,000" oninput="formatInput(this)">
-<span class="unit">تومان</span>
-</div>
-<input id="repairLife" type="number" inputmode="numeric" value="50000">
-
-<button onclick="savePremiumDepreciation()">
-💾 ذخیره تنظیمات Premium
-</button>
-
-<div class="row">
-<span>هزینه استهلاک هر کیلومتر</span>
-<b id="premiumPerKm">۰ تومان</b>
-</div>
-
-<div class="row">
-<span>هزینه استهلاک روزانه</span>
-<b id="premiumDaily">۰ تومان</b>
-</div>
-
-<div class="row">
-<span>هزینه استهلاک ماهانه</span>
-<b id="premiumMonthly">۰ تومان</b>
-</div>
-
-<div class="row">
-<span>هزینه استهلاک سالانه</span>
-<b id="premiumYearly">۰ تومان</b>
-</div>
-
-<div class="row">
-<span>سود واقعی با احتساب استهلاک</span>
-<b id="premiumProfit">۰ تومان</b>
-</div>
-
-</div>
-
-
-<!-- ================= گزارش ================= -->
-
-<div class="card">
-
-<h2>📈 گزارش ماه</h2>
-
-<div class="row">
-<span>کل درآمد</span>
-<b id="reportIncome">۰ تومان</b>
-</div>
-
-<div class="row">
-<span>کل بنزین</span>
-<b id="reportFuel">۰ تومان</b>
-</div>
-
-<div class="row">
-<span>کل استهلاک</span>
-<b id="reportWear">۰ تومان</b>
-</div>
-
-<div class="row">
-<span>سایر هزینه‌ها</span>
-<b id="reportOther">۰ تومان</b>
-</div>
-
-<div class="row">
-<span>کل هزینه</span>
-<b id="reportCost">۰ تومان</b>
-</div>
-
-<div class="row">
-<span>💰 سود خالص</span>
-<b id="reportProfit">۰ تومان</b>
-</div>
-
-
-<button class="danger"
-onclick="clearData()">
-
-🗑 پاک کردن همه اطلاعات
-
-</button>
-
-</div>
-
-
-<footer>
-
-<strong>راه‌حساب</strong>
-
-<br>
-
-حسابدار مالی رانندگان اسنپ و تپسی 🚗
-
-<br>
-
-نسخه رایگان آزمایشی
-
-</footer>
-
-</div>
+<div id="toast" class="toast"></div>
 
 
 <script>
+"use strict";
 
-/* =====================================
-   داده اصلی
-===================================== */
+/* =========================
+   DATA
+========================= */
 
-let data =
-JSON.parse(localStorage.getItem("rahhesab_final"))
-||
-{
-profile:{
-name:"",
-phone:"",
-car:"",
-model:""
-},
+const STORAGE_KEY = "rahhesab_v2";
 
-days:{},
-
-goal:0,
-
-goalDays:20,
-
-debt:0,
-
-debtDate:""
-
+let appData = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null") || {
+  profile:{
+    name:"",
+    phone:"",
+    car:"",
+    model:"",
+    km:0,
+    fuel:7.2
+  },
+  days:{},
+  debt:0,
+  installment:0,
+  goal:0
 };
 
 
-/* =====================================
-   تبدیل تاریخ میلادی به شمسی
-===================================== */
+/* =========================
+   HELPERS
+========================= */
 
-function gregorianToJalali(gy,gm,gd){
-
-let g_d_m=[
-0,31,59,90,120,151,
-181,212,243,273,304,334
-];
-
-let gy2=
-(gm>2)
-?
-gy+1
-:
-gy;
-
-let days=
-355666+
-365*gy+
-Math.floor((gy2+3)/4)-
-Math.floor((gy2+99)/100)+
-Math.floor((gy2+399)/400)+
-gd+
-g_d_m[gm-1];
-
-let jy=
--1595+
-33*Math.floor(days/12053);
-
-days%=12053;
-
-jy+=
-4*Math.floor(days/1461);
-
-days%=1461;
-
-if(days>365){
-
-jy+=
-Math.floor((days-1)/365);
-
-days=
-(days-1)%365;
-
+function saveData(){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(appData));
 }
 
-let jm;
-let jd;
-
-if(days<186){
-
-jm=
-1+
-Math.floor(days/31);
-
-jd=
-1+
-(days%31);
-
-}else{
-
-jm=
-7+
-Math.floor((days-186)/30);
-
-jd=
-1+
-((days-186)%30);
-
+function faNumber(value){
+  return Number(value || 0).toLocaleString("fa-IR");
 }
 
-return{
-year:jy,
-month:jm,
-day:jd
-};
+function money(value){
+  return faNumber(Math.round(Number(value || 0))) + " تومان";
+}
 
+function todayKey(){
+  const d = new Date();
+  return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+}
+
+function todayData(){
+  const key = todayKey();
+
+  if(!appData.days[key]){
+    appData.days[key] = {
+      income:0,
+      fuel:0,
+      wear:0,
+      other:0,
+      trips:0,
+      hours:0
+    };
+  }
+
+  return appData.days[key];
+}
+
+function totalExpenses(day){
+  return Number(day.fuel||0) +
+         Number(day.wear||0) +
+         Number(day.other||0);
+}
+
+function showToast(text){
+  const t = document.getElementById("toast");
+  t.textContent = text;
+  t.classList.add("show");
+
+  clearTimeout(window.toastTimer);
+
+  window.toastTimer = setTimeout(()=>{
+    t.classList.remove("show");
+  },2200);
 }
 
 
-/* =====================================
-   تاریخ امروز
-===================================== */
+/* =========================
+   DATE
+========================= */
 
-function getTodayJalali(){
+function renderDate(){
 
-let d=new Date();
+  const now = new Date();
 
-return gregorianToJalali(
-d.getFullYear(),
-d.getMonth()+1,
-d.getDate()
-);
+  const jalali =
+    new Intl.DateTimeFormat(
+      "fa-IR-u-ca-persian",
+      {
+        weekday:"long",
+        year:"numeric",
+        month:"long",
+        day:"numeric"
+      }
+    ).format(now);
 
+  const gregorian =
+    new Intl.DateTimeFormat(
+      "fa-IR",
+      {
+        year:"numeric",
+        month:"long",
+        day:"numeric"
+      }
+    ).format(now);
+
+  document.getElementById("jalaliDate").textContent = jalali;
+  document.getElementById("gregorianDate").textContent = gregorian;
 }
 
 
-let todayJ=
-getTodayJalali();
+/* =========================
+   NAVIGATION
+========================= */
 
-let viewYear=
-todayJ.year;
+function openPage(pageId){
 
-let viewMonth=
-todayJ.month;
+  document.querySelectorAll(".page").forEach(page=>{
+    page.classList.remove("active");
+  });
 
-let selectedDate=
-dateKey(
-todayJ.year,
-todayJ.month,
-todayJ.day
-);
+  const page = document.getElementById(pageId);
 
+  if(page){
+    page.classList.add("active");
+  }
 
-/* =====================================
-   ماه‌ها
-===================================== */
+  document.querySelectorAll(".nav-btn").forEach(btn=>{
+    btn.classList.remove("active");
+  });
 
-const months=[
+  if(pageId === "homePage"){
+    document.getElementById("navHome").classList.add("active");
+  }
 
-"فروردین",
-"اردیبهشت",
-"خرداد",
-"تیر",
-"مرداد",
-"شهریور",
-"مهر",
-"آبان",
-"آذر",
-"دی",
-"بهمن",
-"اسفند"
+  if(pageId === "historyPage"){
+    document.getElementById("navHistory").classList.add("active");
+  }
 
-];
+  if(pageId === "settingsPage"){
+    document.getElementById("navProfile").classList.add("active");
+  }
 
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
 
-/* =====================================
-   تعداد روز ماه شمسی
-===================================== */
-
-function isLeapJalali(year){
-
-let breaks=[
--61,9,38,199,426,686,
-756,818,1111,1181,
-1210,1635,2060,2097,
-2192,2262,2324,2394,
-2456,3178
-];
-
-let bl=
-breaks.length;
-
-let leapJ=
--14;
-
-let jp=
-breaks[0];
-
-let jm;
-
-let jump;
-
-if(
-year<jp ||
-year>=breaks[bl-1]
-){
-return false;
+  renderAll();
 }
 
-for(let i=1;i<bl;i++){
-
-jm=
-breaks[i];
-
-jump=
-jm-jp;
-
-if(year<jm)break;
-
-leapJ+=
-Math.floor(jump/33)*8+
-Math.floor((jump%33)/4);
-
-jp=jm;
-
-}
-
-let n=
-year-jp;
-
-leapJ+=
-Math.floor(n/33)*8+
-Math.floor(((n%33)+3)/4);
-
-if((jump%33)===4 && jump-n===4){
-leapJ++;
-}
-
-let gy=
-year+621;
-
-let leapG=
-Math.floor(gy/4)-
-Math.floor(
-(Math.floor(gy/100)+1)*3/4
-)-150;
-
-let march=
-20+leapJ-leapG;
-
-if(jump-n<6){
-n=
-n-jump+
-Math.floor((jump+4)/33)*33;
-}
-
-let leap=
-(
-(
-(
-n+1
-)%33-1
-)%4
-);
-
-if(leap===-1){
-leap=4;
-}
-
-return leap===0;
-
+function goHome(){
+  openPage("homePage");
 }
 
 
-function monthDays(year,month){
+/* =========================
+   HOME
+========================= */
 
-if(month<=6)return 31;
+function renderHome(){
 
-if(month<=11)return 30;
+  const d = todayData();
 
-return isLeapJalali(year)?30:29;
+  const expense = totalExpenses(d);
+  const profit = Number(d.income||0) - expense;
 
+  document.getElementById("todayIncome").textContent =
+    faNumber(d.income);
+
+  document.getElementById("todayExpense").textContent =
+    faNumber(expense);
+
+  document.getElementById("todayProfit").textContent =
+    faNumber(profit);
+
+  const p = appData.profile;
+
+  if(p.car){
+    document.getElementById("homeCar").textContent =
+      "خودرو: " + p.car + (p.model ? " " + p.model : "");
+  }else{
+    document.getElementById("homeCar").textContent =
+      "خودرو: ثبت نشده";
+  }
+
+  document.getElementById("homeKm").textContent =
+    faNumber(p.km);
+
+  document.getElementById("homeFuel").textContent =
+    p.fuel || "۷٫۲";
 }
 
 
-/* =====================================
-   روز هفته
-   شنبه = 0
-===================================== */
+/* =========================
+   INCOME
+========================= */
 
-function jalaliToGregorianApprox(
-jy,jm,jd
-){
+function saveIncome(){
 
-/*
-برای پیدا کردن روز هفته
-از تبدیل دقیق تقریبی مبتنی بر
-تاریخ مبنا استفاده می‌کنیم
-*/
+  const d = todayData();
 
-let epoch=
-new Date(2023,2,21);
+  d.income =
+    Number(document.getElementById("incomeInput").value || 0);
 
-let base={
-y:1402,
-m:1,
-d:1
-};
+  d.trips =
+    Number(document.getElementById("tripsInput").value || 0);
 
-let days=0;
+  d.hours =
+    Number(document.getElementById("hoursInput").value || 0);
 
-if(jy>=base.y){
+  saveData();
 
-for(let y=base.y;y<jy;y++){
-days+=isLeapJalali(y)?366:365;
-}
+  showToast("درآمد امروز ذخیره شد ✓");
 
-}else{
-
-for(let y=jy;y<base.y;y++){
-days-=isLeapJalali(y)?366:365;
-}
-
-}
-
-for(let m=1;m<jm;m++){
-
-days+=monthDays(jy,m);
-
-}
-
-days+=jd-1;
-
-return new Date(
-epoch.getTime()+
-days*86400000
-);
-
+  renderAll();
 }
 
 
-function firstDayOffset(year,month){
+/* =========================
+   EXPENSE
+========================= */
 
-let date=
-jalaliToGregorianApprox(
-year,
-month,
-1
-);
+function saveExpense(){
 
-let jsDay=
-date.getDay();
+  const d = todayData();
 
-return
-(jsDay+1)%7;
+  d.fuel =
+    Number(document.getElementById("fuelInput").value || 0);
 
+  d.wear =
+    Number(document.getElementById("wearInput").value || 0);
+
+  d.other =
+    Number(document.getElementById("otherInput").value || 0);
+
+  saveData();
+
+  showToast("هزینه‌های امروز ذخیره شد ✓");
+
+  renderAll();
 }
 
 
-/* =====================================
-   کلید تاریخ
-===================================== */
+/* =========================
+   CAR
+========================= */
 
-function dateKey(year,month,day){
+function saveCar(){
 
-return (
-year+"-"+
-String(month).padStart(2,"0")+"-"+
-String(day).padStart(2,"0")
-);
+  appData.profile.car =
+    document.getElementById("carName").value.trim();
 
+  appData.profile.model =
+    document.getElementById("carModel").value.trim();
+
+  appData.profile.km =
+    Number(document.getElementById("carKm").value || 0);
+
+  appData.profile.fuel =
+    Number(document.getElementById("carFuel").value || 7.2);
+
+  saveData();
+
+  showToast("اطلاعات خودرو ذخیره شد ✓");
+
+  renderAll();
 }
 
 
-/* =====================================
-   تبدیل اعداد فارسی
-===================================== */
-
-function normalizeDigits(str){
-
-return String(str)
-.replace(/[۰-۹]/g,function(d){
-
-return "۰۱۲۳۴۵۶۷۸۹".indexOf(d);
-
-})
-.replace(/[٠-٩]/g,function(d){
-
-return "٠١٢٣٤٥٦٧٨٩".indexOf(d);
-
-});
-
-}
-
-
-/* =====================================
-   فرمت ورودی
-===================================== */
-
-function formatInput(input){
-
-let value=
-normalizeDigits(input.value)
-.replace(/[^0-9]/g,"");
-
-if(value===""){
-
-input.value="";
-return;
-
-}
-
-input.value=
-Number(value)
-.toLocaleString("en-US");
-
-}
-
-
-/* =====================================
-   گرفتن عدد
-===================================== */
-
-function getNumber(id){
-
-let value=
-document
-.getElementById(id)
-.value;
-
-value=
-normalizeDigits(value)
-.replace(/,/g,"");
-
-return Number(value)||0;
-
-}
-
-
-/* =====================================
-   نمایش پول
-===================================== */
-
-function money(n){
-
-return Number(n||0)
-.toLocaleString("fa-IR")
-+" تومان";
-
-}
-
-
-function formatNumberInput(n){
-
-return n
-?
-Number(n)
-.toLocaleString("en-US")
-:
-"";
-
-}
-
-
-/* =====================================
-   نمایش ساعت
-===================================== */
-
-function updateClock(){
-
-let now=
-new Date();
-
-let time=
-now.toLocaleTimeString(
-"fa-IR",
-{
-hour:"2-digit",
-minute:"2-digit",
-second:"2-digit"
-}
-);
-
-document
-.getElementById("clock")
-.innerText=
-"🕒 "+time;
-
-let j=
-getTodayJalali();
-
-document
-.getElementById("todayDate")
-.innerText=
-j.day+" "+
-months[j.month-1]+" "+
-j.year;
-
-}
-
-
-setInterval(
-updateClock,
-1000
-);
-
-updateClock();
-
-
-/* =====================================
-   انتخاب روز
-===================================== */
-
-function selectDay(day){
-
-selectedDate=
-dateKey(
-viewYear,
-viewMonth,
-day
-);
-
-loadSelectedDay();
-
-renderCalendar();
-
-}
-
-
-/* =====================================
-   تقویم
-===================================== */
-
-function renderCalendar(){
-
-document
-.getElementById("monthTitle")
-.innerText=
-months[viewMonth-1]+
-" "+
-viewYear;
-
-
-let calendar=
-document.getElementById("calendar");
-
-calendar.innerHTML="";
-
-
-let total=
-monthDays(
-viewYear,
-viewMonth
-);
-
-
-let offset=
-firstDayOffset(
-viewYear,
-viewMonth
-);
-
-
-for(let i=0;i<offset;i++){
-
-let empty=
-document.createElement("div");
-
-empty.className=
-"day empty";
-
-calendar.appendChild(empty);
-
-}
-
-
-for(let day=1;day<=total;day++){
-
-let key=
-dateKey(
-viewYear,
-viewMonth,
-day
-);
-
-let item=
-data.days[key];
-
-let div=
-document.createElement("div");
-
-div.className="day";
-
-
-if(key===selectedDate){
-
-div.classList.add(
-"selected"
-);
-
-}
-
-
-let todayKey=
-dateKey(
-todayJ.year,
-todayJ.month,
-todayJ.day
-);
-
-if(key===todayKey){
-
-div.classList.add(
-"today"
-);
-
-}
-
-
-if(item){
-
-let profit=
-item.income-
-item.fuel-
-item.wear-
-item.other;
-
-
-if(profit>0){
-
-div.classList.add("good");
-
-}
-
-if(profit<0){
-
-div.classList.add("bad");
-
-}
-
-}
-
-
-div.innerHTML=
-"<strong>"+
-day+
-"</strong>"+
-(
-item && item.income>0
-?
-"<small>"+
-shortMoney(item.income)+
-"</small>"
-:
-""
-);
-
-
-div.onclick=function(){
-
-selectDay(day);
-
-};
-
-
-calendar.appendChild(div);
-
-}
-
-}
-
-
-/* =====================================
-   مبلغ کوتاه
-===================================== */
-
-function shortMoney(n){
-
-if(n>=1000000){
-
-return (
-n/1000000
-)
-.toFixed(1)
-.replace(".0","")
-+"م";
-
-}
-
-if(n>=1000){
-
-return (
-Math.round(n/1000)
-+"ک"
-);
-
-}
-
-return n;
-
-}
-
-
-/* =====================================
-   تغییر ماه
-===================================== */
-
-function changeMonth(step){
-
-viewMonth+=step;
-
-if(viewMonth>12){
-
-viewMonth=1;
-viewYear++;
-
-}
-
-if(viewMonth<1){
-
-viewMonth=12;
-viewYear--;
-
-}
-
-selectedDate=
-dateKey(
-viewYear,
-viewMonth,
-1
-);
-
-loadSelectedDay();
-
-renderCalendar();
-
-renderAll();
-
-}
-
-
-/* =====================================
-   بارگذاری روز
-===================================== */
-
-function loadSelectedDay(){
-
-let item=
-data.days[selectedDate];
-
-
-if(!item){
-
-item={
-income:0,
-fuel:0,
-wear:0,
-other:0
-};
-
-}
-
-
-document
-.getElementById("income")
-.value=
-formatNumberInput(
-item.income
-);
-
-
-document
-.getElementById("fuel")
-.value=
-formatNumberInput(
-item.fuel
-);
-
-
-document
-.getElementById("wear")
-.value=
-formatNumberInput(
-item.wear
-);
-
-
-document
-.getElementById("other")
-.value=
-formatNumberInput(
-item.other
-);
-
-
-let parts=
-selectedDate.split("-");
-
-
-document
-.getElementById("selectedTitle")
-.innerText=
-"➕ ثبت روز "+
-Number(parts[2])+
-" "+
-months[Number(parts[1])-1];
-
-}
-
-
-/* =====================================
-   ذخیره روز
-===================================== */
-
-function saveDay(){
-
-const income = getNumber("income");
-const fuel = getNumber("fuel");
-const manualWear = getNumber("wear");
-const other = getNumber("other");
-
-/* کیلومتر واقعی روز */
-const kmEl = document.getElementById("dayKm");
-const dayKm = kmEl
-    ? Number(normalizeDigits(kmEl.value).replace(/,/g,"")) || 0
-    : 0;
-
-/* استهلاک Premium بر اساس کیلومتر واقعی */
-let premiumWear = 0;
-
-if(typeof premiumPerKmValue === "function"){
-    premiumWear = premiumPerKmValue() * dayKm;
-}
-
-/* استهلاک نهایی = استهلاک دستی + Premium */
-const totalWear = manualWear + premiumWear;
-
-data.days[selectedDate]={
-
-income: income,
-
-fuel: fuel,
-
-wear: totalWear,
-
-manualWear: manualWear,
-
-premiumWear: premiumWear,
-
-km: dayKm,
-
-other: other
-
-};
-
-save();
-
-renderAll();
-
-if(typeof renderPremium === "function"){
-    renderPremium();
-}
-
-alert("اطلاعات روز ذخیره شد ✅");
-
-}
-
-
-/* =====================================
-   ذخیره مشخصات
-===================================== */
-
-function saveProfile(){
-
-data.profile={
-
-name:
-document
-.getElementById("driverName")
-.value,
-
-phone:
-document
-.getElementById("driverPhone")
-.value,
-
-car:
-document
-.getElementById("carName")
-.value,
-
-model:
-document
-.getElementById("carModel")
-.value
-
-};
-
-save();
-
-alert("مشخصات راننده ذخیره شد ✅");
-
-}
-
-
-/* =====================================
-   ذخیره هدف
-===================================== */
-
-function saveGoal(){
-
-data.goal=
-getNumber("goal");
-
-
-data.goalDays=
-Number(
-normalizeDigits(
-document
-.getElementById("days")
-.value
-)
-)||1;
-
-
-save();
-
-renderAll();
-
-alert("هدف مالی ذخیره شد 🎯");
-
-}
-
-
-/* =====================================
-   ذخیره بدهی
-===================================== */
+/* =========================
+   DEBT
+========================= */
 
 function saveDebt(){
 
-data.debt=
-getNumber("debt");
+  appData.debt =
+    Number(document.getElementById("debtInput").value || 0);
 
+  appData.installment =
+    Number(document.getElementById("installmentInput").value || 0);
 
-data.debtDate=
-document
-.getElementById("debtDate")
-.value;
+  saveData();
 
+  showToast("اطلاعات بدهی ذخیره شد ✓");
 
-save();
-
-renderAll();
-
-alert("بدهی ذخیره شد 🧾");
-
+  renderAll();
 }
 
 
-/* =====================================
-   ذخیره
-===================================== */
+/* =========================
+   GOAL
+========================= */
 
-function save(){
+function saveGoal(){
 
-localStorage.setItem(
-"rahhesab_final",
-JSON.stringify(data)
-);
+  appData.goal =
+    Number(document.getElementById("goalInput").value || 0);
 
+  saveData();
+
+  showToast("هدف درآمد ذخیره شد ✓");
+
+  renderAll();
 }
 
 
-/* =====================================
-   گزارش ماه
-===================================== */
+/* =========================
+   PROFILE
+========================= */
 
-function monthReport(){
+function saveProfile(){
 
-let income=0;
-let fuel=0;
-let wear=0;
-let manualWear=0;
-let premiumWear=0;
-let totalKm=0;
-let other=0;
-let cost=0;
-let profit=0;
-let workDays=0;
+  appData.profile.name =
+    document.getElementById("driverName").value.trim();
 
+  appData.profile.phone =
+    document.getElementById("driverPhone").value.trim();
 
-Object.keys(data.days)
-.forEach(key=>{
+  saveData();
 
-let parts=
-key.split("-");
-
-let y=
-Number(parts[0]);
-
-let m=
-Number(parts[1]);
-
-
-if(
-y===viewYear &&
-m===viewMonth
-){
-
-let x=
-data.days[key];
-
-
-let xWear = Number(x.wear)||0;
-let xManualWear =
-    x.manualWear !== undefined
-    ? Number(x.manualWear)||0
-    : xWear;
-
-let xPremiumWear =
-    x.premiumWear !== undefined
-    ? Number(x.premiumWear)||0
-    : 0;
-
-let xKm = Number(x.km)||0;
-
-let c=
-x.fuel+
-xWear+
-x.other;
-
-
-let p=
-x.income-c;
-
-
-income+=x.income;
-
-fuel+=x.fuel;
-
-wear+=xWear;
-manualWear+=xManualWear;
-premiumWear+=xPremiumWear;
-totalKm+=xKm;
-
-other+=x.other;
-
-cost+=c;
-
-profit+=p;
-
-
-if(x.income>0){
-
-workDays++;
-
-}
-
-}
-
-});
-
-
-return{
-
-income,
-fuel,
-wear,
-manualWear,
-premiumWear,
-totalKm,
-other,
-cost,
-profit,
-workDays
-
-};
-
+  showToast("پروفایل ذخیره شد ✓");
 }
 
 
-/* =====================================
-   تاریخچه کامل
-===================================== */
+/* =========================
+   REPORT
+========================= */
+
+function renderReport(){
+
+  let income = 0;
+  let expense = 0;
+  let trips = 0;
+  let days = 0;
+
+  Object.values(appData.days).forEach(d=>{
+
+    income += Number(d.income||0);
+    expense += totalExpenses(d);
+    trips += Number(d.trips||0);
+
+    if(
+      Number(d.income||0) > 0 ||
+      totalExpenses(d) > 0
+    ){
+      days++;
+    }
+
+  });
+
+  document.getElementById("reportIncome").textContent =
+    money(income);
+
+  document.getElementById("reportExpense").textContent =
+    money(expense);
+
+  document.getElementById("reportProfit").textContent =
+    money(income-expense);
+
+  document.getElementById("reportDays").textContent =
+    faNumber(days);
+
+  document.getElementById("reportTrips").textContent =
+    faNumber(trips);
+}
+
+
+/* =========================
+   HISTORY
+========================= */
 
 function renderHistory(){
 
-let box=
-document.getElementById("history");
+  const box =
+    document.getElementById("historyList");
 
+  const entries =
+    Object.entries(appData.days)
+      .sort((a,b)=>b[0].localeCompare(a[0]));
 
-let keys=
-Object.keys(data.days)
-.sort()
-.reverse();
+  if(!entries.length){
 
+    box.innerHTML =
+      '<div class="empty">هنوز اطلاعاتی ثبت نشده است.</div>';
 
-if(keys.length===0){
-
-box.innerHTML=
-"<div class='note'>هنوز اطلاعاتی ثبت نشده است.</div>";
-
-return;
-
-}
-
-
-box.innerHTML="";
-
-
-keys.forEach(key=>{
-
-let x=
-data.days[key];
-
-
-let profit=
-x.income-
-x.fuel-
-x.wear-
-x.other;
-
-
-let parts=
-key.split("-");
-
-
-let dateText=
-Number(parts[2])+
-" "+
-months[Number(parts[1])-1]+
-" "+
-parts[0];
-
-
-let row=
-document.createElement("div");
-
-row.className=
-"history-row";
-
-
-row.innerHTML=
-
-"<div class='history-top'>"+
-
-"<span>📅 "+
-dateText+
-"</span>"+
-
-"<b>"+
-money(profit)+
-"</b>"+
-
-"</div>"+
-
-
-"<div class='history-details'>"+
-
-"<span>💰 درآمد: "+
-money(x.income)+
-"</span>"+
-
-"<span>⛽ بنزین: "+
-money(x.fuel)+
-"</span>"+
-
-"<span>📏 کیلومتر: "+
-Number(x.km||0).toLocaleString("fa-IR")+
-" کیلومتر</span>"+
-
-"<span>🔧 استهلاک دستی: "+
-money(x.manualWear !== undefined ? x.manualWear : x.wear)+
-"</span>"+
-
-"<span>⭐ استهلاک Premium: "+
-money(x.premiumWear||0)+
-"</span>"+
-
-"<span>🔧 مجموع استهلاک: "+
-money(x.wear)+
-"</span>"+
-
-"<span>📦 سایر: "+
-money(x.other)+
-"</span>"+
-
-"</div>";
-
-
-row.onclick=function(){
-
-viewYear=
-Number(parts[0]);
-
-viewMonth=
-Number(parts[1]);
-
-selectedDate=
-key;
-
-loadSelectedDay();
-
-renderCalendar();
-
-window.scrollTo({
-top:0,
-behavior:"smooth"
-});
-
-};
-
-
-box.appendChild(row);
-
-});
-
-}
-
-
-/* =====================================
-   رندر کل برنامه
-===================================== */
-
-function renderAll(){
-
-renderCalendar();
-
-loadSelectedDay();
-
-renderHistory();
-
-
-let r=
-monthReport();
-
-
-document
-.getElementById("monthIncome")
-.innerText=
-money(r.income);
-
-
-document
-.getElementById("monthCost")
-.innerText=
-money(r.cost);
-
-
-document
-.getElementById("monthProfit")
-.innerText=
-money(r.profit);
-
-
-document
-.getElementById("workDays")
-.innerText=
-r.workDays
-.toLocaleString("fa-IR")
-+" روز";
-
-
-document
-.getElementById("reportIncome")
-.innerText=
-money(r.income);
-
-
-document
-.getElementById("reportFuel")
-.innerText=
-money(r.fuel);
-
-
-document
-.getElementById("reportWear")
-.innerText=
-money(r.wear);
-
-
-document
-.getElementById("reportOther")
-.innerText=
-money(r.other);
-
-
-document
-.getElementById("reportCost")
-.innerText=
-money(r.cost);
-
-
-document
-.getElementById("reportProfit")
-.innerText=
-money(r.profit);
-
-
-/* هدف */
-
-document
-.getElementById("goal")
-.value=
-formatNumberInput(
-data.goal
-);
-
-
-document
-.getElementById("days")
-.value=
-data.goalDays;
-
-
-/* سود کل */
-
-let totalProfit=0;
-
-
-Object.keys(data.days)
-.forEach(key=>{
-
-let x=
-data.days[key];
-
-
-totalProfit+=
-x.income-
-x.fuel-
-x.wear-
-x.other;
-
-});
-
-
-let percent=0;
-
-
-if(data.goal>0){
-
-percent=
-(totalProfit/data.goal)*100;
-
-percent=
-Math.max(
-0,
-Math.min(percent,100)
-);
-
-}
-
-
-document
-.getElementById("percent")
-.innerText=
-Math.round(percent)
-.toLocaleString("fa-IR")
-+"٪";
-
-
-document
-.getElementById("bar")
-.style.width=
-percent+"%";
-
-
-let remain=
-Math.max(
-data.goal-totalProfit,
-0
-);
-
-
-document
-.getElementById("remain")
-.innerText=
-money(remain);
-
-
-let daily=
-data.goalDays>0
-?
-Math.ceil(
-remain/data.goalDays
-)
-:
-0;
-
-
-document
-.getElementById("daily")
-.innerText=
-money(daily);
-
-
-/* بدهی */
-
-document
-.getElementById("debt")
-.value=
-formatNumberInput(
-data.debt
-);
-
-
-document
-.getElementById("debtDate")
-.value=
-data.debtDate||"";
-
-
-document
-.getElementById("debtShow")
-.innerText=
-money(data.debt);
-
-
-document
-.getElementById("dateShow")
-.innerText=
-data.debtDate||"-";
-
-
-/* مشخصات */
-
-document
-.getElementById("driverName")
-.value=
-data.profile?.name||"";
-
-
-document
-.getElementById("driverPhone")
-.value=
-data.profile?.phone||"";
-
-
-document
-.getElementById("carName")
-.value=
-data.profile?.car||"";
-
-
-document
-.getElementById("carModel")
-.value=
-data.profile?.model||"";
-
-}
-
-
-/* =====================================
-   پاک کردن اطلاعات
-===================================== */
-
-function clearData(){
-
-let answer=
-confirm(
-"⚠️ همه اطلاعات راننده، درآمدها و هزینه‌ها پاک شود؟"
-);
-
-
-if(answer){
-
-localStorage.removeItem(
-"rahhesab_final"
-);
-
-
-data={
-
-profile:{
-name:"",
-phone:"",
-car:"",
-model:""
-},
-
-days:{},
-
-goal:0,
-
-goalDays:20,
-
-debt:0,
-
-debtDate:""
-
-};
-
-
-renderAll();
-
-alert("اطلاعات پاک شد");
-
-}
-
-}
-
-
-/* =====================================
-   صفحه شروع
-===================================== */
-
-function startApp(){
-
-let percent=0;
-
-let bar=
-document.getElementById(
-"loaderBar"
-);
-
-let text=
-document.getElementById(
-"loadPercent"
-);
-
-
-let timer=
-setInterval(function(){
-
-percent+=2;
-
-
-bar.style.width=
-percent+"%";
-
-
-text.innerText=
-percent
-.toLocaleString("fa-IR")
-+"٪";
-
-
-if(percent>=100){
-
-clearInterval(timer);
-
-
-setTimeout(function(){
-
-document
-.getElementById("splash")
-.classList.add("hide");
-
-},350);
-
-}
-
-},30);
-
-}
-
-
-/* =====================================
-   شروع برنامه
-===================================== */
-
-renderAll();
-
-startApp();
-
-</script>
-
-
-<script>
-/* =====================================
-   RahHesab Premium Depreciation
-===================================== */
-
-const PREMIUM_SETTINGS_KEY = "rahhesab_premium_settings_v1";
-
-let premium =
-JSON.parse(localStorage.getItem(PREMIUM_SETTINGS_KEY)) || {
-vehiclePrice:0,
-vehicleSalvage:0,
-vehicleLifeKm:300000,
-dailyKm:200,
-tireCost:0,tireLife:50000,
-brakeCost:0,brakeLife:30000,
-oilCost:0,oilLife:7000,
-batteryCost:0,batteryLife:50000,
-clutchCost:0,clutchLife:100000,
-beltCost:0,beltLife:60000,
-suspensionCost:0,suspensionLife:80000,
-repairCost:0,repairLife:50000
-};
-
-function premiumNumber(id){
-    const el=document.getElementById(id);
-    if(!el)return 0;
-    return Number(normalizeDigits(el.value).replace(/,/g,""))||0;
-}
-
-function premiumRead(){
-    premium.vehiclePrice=premiumNumber("vehiclePrice");
-    premium.vehicleSalvage=premiumNumber("vehicleSalvage");
-    premium.vehicleLifeKm=premiumNumber("vehicleLifeKm")||300000;
-    premium.dailyKm=premiumNumber("dailyKm")||200;
-
-    const fields=[
-        ["tireCost","tireLife"],
-        ["brakeCost","brakeLife"],
-        ["oilCost","oilLife"],
-        ["batteryCost","batteryLife"],
-        ["clutchCost","clutchLife"],
-        ["beltCost","beltLife"],
-        ["suspensionCost","suspensionLife"],
-        ["repairCost","repairLife"]
-    ];
-
-    fields.forEach(x=>{
-        premium[x[0]]=premiumNumber(x[0]);
-        premium[x[1]]=premiumNumber(x[1]);
-    });
-}
-
-function premiumPerKmValue(){
-    let vehicle=
-        Math.max(
-            premium.vehiclePrice-premium.vehicleSalvage,
-            0
-        ) /
-        Math.max(premium.vehicleLifeKm,1);
-
-    let parts=0;
-
-    [
-        ["tireCost","tireLife"],
-        ["brakeCost","brakeLife"],
-        ["oilCost","oilLife"],
-        ["batteryCost","batteryLife"],
-        ["clutchCost","clutchLife"],
-        ["beltCost","beltLife"],
-        ["suspensionCost","suspensionLife"],
-        ["repairCost","repairLife"]
-    ].forEach(x=>{
-        parts +=
-            premium[x[0]] /
-            Math.max(premium[x[1]],1);
-    });
-
-    return vehicle+parts;
-}
-
-function renderPremium(){
-    const perKm=premiumPerKmValue();
-    const daily=perKm*premium.dailyKm;
-
-    document.getElementById("premiumPerKm").innerText=money(perKm);
-    document.getElementById("premiumDaily").innerText=money(daily);
-    document.getElementById("premiumMonthly").innerText=money(daily*30);
-    document.getElementById("premiumYearly").innerText=money(daily*365);
-
-    let income=0;
-    let fuel=0;
-    let other=0;
-
-    Object.keys(data.days||{}).forEach(k=>{
-        const d=data.days[k]||{};
-        income += Number(d.income)||0;
-        fuel += Number(d.fuel)||0;
-        other += Number(d.other)||0;
-    });
-
-    document.getElementById("premiumProfit").innerText=
-        money(income-fuel-other-(perKm*premium.dailyKm*Object.keys(data.days||{}).length));
-}
-
-function savePremiumDepreciation(){
-    premiumRead();
-
-    localStorage.setItem(
-        PREMIUM_SETTINGS_KEY,
-        JSON.stringify(premium)
-    );
-
-    renderPremium();
-
-    alert("تنظیمات استهلاک Premium ذخیره شد ⭐");
-}
-
-function loadPremiumDepreciation(){
-    const ids=[
-        "vehiclePrice","vehicleSalvage","vehicleLifeKm","dailyKm",
-        "tireCost","tireLife",
-        "brakeCost","brakeLife",
-        "oilCost","oilLife",
-        "batteryCost","batteryLife",
-        "clutchCost","clutchLife",
-        "beltCost","beltLife",
-        "suspensionCost","suspensionLife",
-        "repairCost","repairLife"
-    ];
-
-    ids.forEach(id=>{
-        const el=document.getElementById(id);
-        if(!el)return;
-
-        const value=premium[id];
-
-        if(value!==undefined){
-            el.value =
-                el.classList.contains("number-input")
-                ? formatNumberInput(value)
-                : value;
-        }
-    });
-
-    renderPremium();
-}
-
-document.addEventListener("DOMContentLoaded",()=>{
-    loadPremiumDepreciation();
-
-    setTimeout(()=>{
-        renderPremium();
-    },300);
-});
-</script>
-
-
-
-<div id="premium-shop-card" style="margin:16px 0;padding:18px;border:2px solid #b89b5e;border-radius:16px;background:#fffdf7;text-align:center;box-shadow:0 4px 14px rgba(0,0,0,.08)">
-  <div style="font-size:24px;font-weight:800;color:#8f773f">⭐ راه‌حساب VIP</div>
-  <div style="margin-top:10px;font-size:17px">۳۰ روز امکانات حرفه‌ای</div>
-  <div id="premium-shop-status" style="margin-top:10px;font-weight:700">وضعیت: VIP فعال نیست</div>
-  <button onclick="startPremiumPurchase()" style="margin-top:14px;padding:12px 28px;border:0;border-radius:12px;background:#b89b5e;color:white;font-size:17px;font-weight:800">
-    🛒 فعال‌سازی VIP
-  </button>
-</div>
-
-<script>
-function updatePremiumShop(){
-  const el=document.getElementById("premium-shop-status");
-  if(!el) return;
-
-  if(typeof isVipActive === "function" && isVipActive()){
-    const days = typeof vipDaysRemaining === "function"
-      ? vipDaysRemaining()
-      : 0;
-
-    el.textContent = "👑 VIP فعال است — " + days + " روز باقی‌مانده";
-  } else {
-    el.textContent = "وضعیت: VIP فعال نیست";
+    return;
   }
-}
 
-function startPremiumPurchase(){
-  alert("پرداخت رسمی VIP از طریق بازار یا مایکت در مرحله بعد فعال می‌شود.");
-}
+  box.innerHTML = "";
 
-document.addEventListener("DOMContentLoaded",updatePremiumShop);
-</script>
+  entries.forEach(([date,d])=>{
 
-<script src="bazaar-config.js"></script>
-  <script src="vip.js"></script>
-  <script src="bazaar.js"></script>
-<script>
-function updatePremiumVipLock(){
-  const card = document.getElementById("premiumDepreciation");
-  const lock = document.getElementById("premiumVipLock");
-  if(!card || !lock) return;
+    const expense = totalExpenses(d);
+    const profit = Number(d.income||0)-expense;
 
-  const active =
-    typeof isVipActive === "function" &&
-    isVipActive();
+    const item = document.createElement("div");
 
-  lock.style.display = active ? "none" : "block";
+    item.className = "history-item";
 
-  const controls = card.querySelectorAll(
-    'input, select, textarea, button'
-  );
+    item.innerHTML = `
+      <div class="history-date">${date}</div>
 
-  controls.forEach(el => {
-    if(el.closest("#premiumVipLock")) return;
-    el.disabled = !active;
+      <div class="history-values">
+
+        <div>
+          درآمد:
+          <strong>${money(d.income)}</strong>
+        </div>
+
+        <div>
+          هزینه:
+          <strong>${money(expense)}</strong>
+        </div>
+
+        <div>
+          سود:
+          <strong>${money(profit)}</strong>
+        </div>
+
+        <div>
+          سفر:
+          <strong>${faNumber(d.trips)}</strong>
+        </div>
+
+      </div>
+    `;
+
+    box.appendChild(item);
   });
 }
 
-document.addEventListener("DOMContentLoaded", updatePremiumVipLock);
+
+/* =========================
+   FORM LOAD
+========================= */
+
+function loadForms(){
+
+  const d = todayData();
+  const p = appData.profile;
+
+  document.getElementById("incomeInput").value =
+    d.income || "";
+
+  document.getElementById("tripsInput").value =
+    d.trips || "";
+
+  document.getElementById("hoursInput").value =
+    d.hours || "";
+
+  document.getElementById("fuelInput").value =
+    d.fuel || "";
+
+  document.getElementById("wearInput").value =
+    d.wear || "";
+
+  document.getElementById("otherInput").value =
+    d.other || "";
+
+  document.getElementById("carName").value =
+    p.car || "";
+
+  document.getElementById("carModel").value =
+    p.model || "";
+
+  document.getElementById("carKm").value =
+    p.km || "";
+
+  document.getElementById("carFuel").value =
+    p.fuel || 7.2;
+
+  document.getElementById("debtInput").value =
+    appData.debt || "";
+
+  document.getElementById("installmentInput").value =
+    appData.installment || "";
+
+  document.getElementById("goalInput").value =
+    appData.goal || "";
+
+  document.getElementById("driverName").value =
+    p.name || "";
+
+  document.getElementById("driverPhone").value =
+    p.phone || "";
+}
+
+
+/* =========================
+   OTHER
+========================= */
+
+function renderOther(){
+
+  document.getElementById("debtShow").textContent =
+    money(appData.debt);
+
+  let totalIncome = 0;
+
+  Object.values(appData.days).forEach(d=>{
+    totalIncome += Number(d.income||0);
+  });
+
+  let progress = 0;
+
+  if(appData.goal > 0){
+    progress =
+      Math.min(100,(totalIncome/appData.goal)*100);
+  }
+
+  document.getElementById("goalShow").textContent =
+    faNumber(progress.toFixed(0)) + "٪";
+}
+
+
+/* =========================
+   BACKUP
+========================= */
+
+function backupData(){
+
+  const data =
+    JSON.stringify(appData,null,2);
+
+  const blob =
+    new Blob([data],{type:"application/json"});
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const a =
+    document.createElement("a");
+
+  a.href = url;
+
+  a.download =
+    "rahhesab-backup-" + todayKey() + ".json";
+
+  document.body.appendChild(a);
+
+  a.click();
+
+  a.remove();
+
+  URL.revokeObjectURL(url);
+
+  showToast("فایل پشتیبان آماده شد ✓");
+}
+
+
+/* =========================
+   CLEAR
+========================= */
+
+function clearAllData(){
+
+  const ok =
+    confirm("تمام اطلاعات راه‌حساب حذف شود؟");
+
+  if(!ok){
+    return;
+  }
+
+  localStorage.removeItem(STORAGE_KEY);
+
+  appData = {
+    profile:{
+      name:"",
+      phone:"",
+      car:"",
+      model:"",
+      km:0,
+      fuel:7.2
+    },
+    days:{},
+    debt:0,
+    installment:0,
+    goal:0
+  };
+
+  showToast("اطلاعات پاک شد");
+
+  setTimeout(()=>{
+    location.reload();
+  },700);
+}
+
+
+/* =========================
+   REMINDER
+========================= */
+
+function showReminder(){
+
+  document.querySelectorAll(".nav-btn")
+    .forEach(btn=>btn.classList.remove("active"));
+
+  document.getElementById("navReminder")
+    .classList.add("active");
+
+  showToast("یادآوری: درآمد و هزینه امروز را ثبت کن 🔔");
+
+  setTimeout(()=>{
+    document.getElementById("navReminder")
+      .classList.remove("active");
+
+    document.getElementById("navHome")
+      .classList.add("active");
+  },2200);
+}
+
+
+/* =========================
+   RENDER ALL
+========================= */
+
+function renderAll(){
+
+  renderDate();
+  renderHome();
+  renderReport();
+  renderHistory();
+  renderOther();
+  loadForms();
+}
+
+
+/* =========================
+   START
+========================= */
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+  renderAll();
+
+});
+
 </script>
-
-
-<section id="privacy-policy" style="margin:16px 0;padding:18px;border:1px solid #ddd;border-radius:16px;background:#fff;line-height:2;text-align:right;direction:rtl">
-  <h2>🔐 حریم خصوصی راه‌حساب</h2>
-  <p>
-    راه‌حساب برای ارائه امکانات حسابداری و مدیریت مالی، اطلاعاتی را که کاربر
-    در برنامه وارد می‌کند مانند نام راننده، اطلاعات خودرو، درآمد، هزینه‌ها،
-    بدهی‌ها و اقساط دریافت و برای ارائه خدمات برنامه استفاده می‌کند.
-  </p>
-  <p>
-    این اطلاعات برای اهدافی مانند ثبت سوابق، محاسبات مالی و ارائه امکانات
-    حسابداری استفاده می‌شوند و بدون رضایت کاربر در اختیار اشخاص ثالث قرار
-    نمی‌گیرند.
-  </p>
-  <p>
-    راه‌حساب اطلاعات کاربران را برای فروش یا اهداف نامرتبط با عملکرد برنامه
-    استفاده نمی‌کند.
-  </p>
-  <p>
-    کاربر می‌تواند اطلاعات ثبت‌شده خود را از طریق امکانات برنامه مدیریت یا
-    حذف کند.
-  </p>
-  <p>
-    راه‌حساب تلاش می‌کند اطلاعات کاربران را با روش‌های امنیتی مناسب محافظت
-    کند و اطلاعات را فقط در حد لازم برای ارائه امکانات برنامه استفاده کند.
-  </p>
-  <p>
-    در صورت استفاده از خدمات پرداخت، پردازش اطلاعات پرداخت مطابق قوانین و
-    سیاست‌های ارائه‌دهنده سرویس پرداخت انجام خواهد شد.
-  </p>
-  <p>
-    با استفاده از راه‌حساب، کاربر این سیاست حفظ حریم خصوصی و نحوه استفاده
-    توضیح‌داده‌شده از اطلاعات را می‌پذیرد.
-  </p>
-</section>
 
 </body>
 </html>
-
-<style>
-/* RahHesab Green + White + Matte Gold Theme */
-:root{
-  --rh-green:#16834b;
-  --rh-green-dark:#0d5f37;
-  --rh-white:#ffffff;
-  --rh-gold:#b89b5e;
-  --rh-gold-dark:#8f773f;
-  --rh-gold-light:#d2bd88;
-}
-
-body{
-  background:#f7faf8 !important;
-  color:#183027 !important;
-}
-
-button{
-  border-radius:12px;
-}
-
-.premium,
-.premium-card,
-.premium-box,
-[class*="premium"]{
-  border-color:var(--rh-gold) !important;
-}
-
-.premium,
-.premium-card,
-.premium-box{
-  background:linear-gradient(145deg,#fffdf7,#f4eddb) !important;
-}
-
-.premium button,
-button.premium{
-  background:var(--rh-gold) !important;
-  color:#fff !important;
-}
-
-h1,h2,h3{
-  color:var(--rh-green-dark);
-}
-
-input,select,textarea{
-  border-color:#d7e5dd !important;
-  background:#fff !important;
-}
-
-.primary,
-.btn-primary,
-button[type="submit"]{
-  background:var(--rh-green) !important;
-  color:#fff !important;
-}
-
-</style>
