@@ -520,6 +520,104 @@ button{
     font-size:22px;
   }
 }
+
+/* ===== RAHHESAB VIP ===== */
+.vip-card{
+  grid-column:1/-1;
+  border:2px solid #e4bd38;
+  border-radius:20px;
+  padding:18px;
+  background:linear-gradient(135deg,#fff8dc,#ffed9f);
+  box-shadow:0 8px 22px rgba(150,110,0,.12);
+  text-align:right;
+}
+.vip-title{
+  font-size:20px;
+  font-weight:900;
+  color:#624b00;
+}
+.vip-desc{
+  margin-top:8px;
+  font-size:12px;
+  line-height:1.8;
+  color:#6d6030;
+}
+.vip-features{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:7px;
+  margin-top:12px;
+}
+.vip-feature{
+  padding:9px 4px;
+  border-radius:10px;
+  background:rgba(255,255,255,.75);
+  text-align:center;
+  font-size:10px;
+}
+.vip-button{
+  width:100%;
+  margin-top:12px;
+  padding:13px;
+  border:0;
+  border-radius:13px;
+  background:#d2a600;
+  color:white;
+  font-weight:900;
+  font-size:14px;
+}
+.vip-status{
+  float:left;
+  background:white;
+  border-radius:20px;
+  padding:5px 9px;
+  font-size:10px;
+  font-weight:900;
+}
+.vip-summary{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-bottom:12px;
+}
+.vip-box{
+  background:#fff;
+  border:1px solid #e3e7ea;
+  border-radius:15px;
+  padding:14px;
+  text-align:center;
+}
+.vip-box span{
+  display:block;
+  font-size:11px;
+  color:#687781;
+  margin-bottom:6px;
+}
+.vip-box strong{
+  font-size:17px;
+  color:#183a52;
+}
+.vip-calculator{
+  background:#fffdf3;
+  border:1px solid #e8d88d;
+  border-radius:17px;
+  padding:15px;
+  margin-bottom:12px;
+}
+.vip-result{
+  margin-top:12px;
+  padding:14px;
+  border-radius:13px;
+  background:#183a52;
+  color:white;
+  text-align:center;
+}
+.vip-result strong{
+  display:block;
+  font-size:22px;
+  margin-top:5px;
+}
+
 </style>
 </head>
 
@@ -575,6 +673,29 @@ button{
 
 
   <div class="dashboard-grid">
+
+    <button class="vip-card" onclick="openVipPage()">
+      <span class="vip-status" id="vipStatus">قفل</span>
+      <div class="vip-title">⭐ VIP حسابداری حرفه‌ای</div>
+      <div class="vip-desc">
+        محاسبه حرفه‌ای درآمد خالص، هزینه‌ها، سود واقعی، کیلومتر و عملکرد راننده
+      </div>
+
+      <div class="vip-features">
+        <div class="vip-feature">💰 درآمد خالص</div>
+        <div class="vip-feature">⛽ بنزین</div>
+        <div class="vip-feature">🚗 استهلاک</div>
+        <div class="vip-feature">🔧 تعمیرات</div>
+        <div class="vip-feature">📊 سود واقعی</div>
+        <div class="vip-feature">🛣️ سود/کیلومتر</div>
+      </div>
+
+      <button class="vip-button"
+        onclick="event.stopPropagation();openVipPage()">
+        ⭐ ورود به VIP
+      </button>
+    </button>
+
 
     <button class="card income-card" onclick="openPage('incomePage')">
       <div class="card-icon">💰</div>
@@ -860,6 +981,134 @@ button{
   <div class="section-title">📄 تاریخچه</div>
 
   <div id="historyList"></div>
+
+</section>
+
+
+
+<section id="vipPage" class="page">
+
+  <button class="back-btn" onclick="goHome()">← بازگشت</button>
+
+  <div class="section-title">⭐ حسابداری حرفه‌ای VIP</div>
+
+  <div id="vipLocked">
+
+    <div class="form-box" style="text-align:center">
+
+      <div style="font-size:50px">🔒</div>
+
+      <h3>پنل VIP قفل است</h3>
+
+      <p style="font-size:12px;line-height:1.8;color:#687781">
+        برای استفاده از امکانات حسابداری حرفه‌ای، اشتراک VIP را از بازار فعال کنید.
+      </p>
+
+      <button class="primary" onclick="buyVip()">
+        ⭐ خرید VIP از بازار
+      </button>
+
+      <button class="secondary" onclick="checkVip()">
+        🔄 بررسی اشتراک
+      </button>
+
+    </div>
+
+  </div>
+
+  <div id="vipUnlocked" style="display:none">
+
+    <div class="vip-summary">
+
+      <div class="vip-box">
+        <span>درآمد امروز</span>
+        <strong id="vipIncome">۰</strong>
+      </div>
+
+      <div class="vip-box">
+        <span>هزینه امروز</span>
+        <strong id="vipExpense">۰</strong>
+      </div>
+
+      <div class="vip-box">
+        <span>سود خالص</span>
+        <strong id="vipProfit">۰</strong>
+      </div>
+
+      <div class="vip-box">
+        <span>درآمد هر سفر</span>
+        <strong id="vipTripIncome">۰</strong>
+      </div>
+
+    </div>
+
+    <div class="vip-calculator">
+
+      <h3>🧮 محاسبه حرفه‌ای</h3>
+
+      <div class="field">
+        <label>درآمد</label>
+        <input id="vipCalcIncome"
+          type="number"
+          inputmode="numeric"
+          placeholder="مثلاً ۳۰۰۰۰۰۰">
+      </div>
+
+      <div class="field">
+        <label>کل هزینه</label>
+        <input id="vipCalcExpense"
+          type="number"
+          inputmode="numeric"
+          placeholder="مثلاً ۷۰۰۰۰۰">
+      </div>
+
+      <div class="field">
+        <label>کیلومتر</label>
+        <input id="vipCalcKm"
+          type="number"
+          inputmode="decimal"
+          placeholder="مثلاً ۱۸۰">
+      </div>
+
+      <div class="field">
+        <label>تعداد سفر</label>
+        <input id="vipCalcTrips"
+          type="number"
+          inputmode="numeric"
+          placeholder="مثلاً ۱۵">
+      </div>
+
+      <button class="primary" onclick="calculateVip()">
+        🧮 محاسبه
+      </button>
+
+      <div class="vip-result">
+        سود خالص
+        <strong id="vipCalcProfit">۰ تومان</strong>
+      </div>
+
+      <div class="report-list" style="margin-top:12px">
+
+        <div class="report-row">
+          <span>سود هر کیلومتر</span>
+          <strong id="vipPerKm">۰ تومان</strong>
+        </div>
+
+        <div class="report-row">
+          <span>سود هر سفر</span>
+          <strong id="vipPerTrip">۰ تومان</strong>
+        </div>
+
+        <div class="report-row">
+          <span>درصد سود</span>
+          <strong id="vipProfitPercent">۰٪</strong>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
 
 </section>
 
@@ -1571,6 +1820,138 @@ document.addEventListener("DOMContentLoaded",()=>{
   renderAll();
 
 });
+
+
+/* ===== RAHHESAB VIP JS ===== */
+
+function openVipPage(){
+  openPage("vipPage");
+  updateVipUI();
+}
+
+function updateVipUI(){
+
+  const active =
+    typeof window.isVipActive === "function" &&
+    window.isVipActive();
+
+  const status = document.getElementById("vipStatus");
+  const locked = document.getElementById("vipLocked");
+  const unlocked = document.getElementById("vipUnlocked");
+
+  if(status){
+    status.textContent = active ? "فعال ✓" : "قفل";
+  }
+
+  if(locked){
+    locked.style.display = active ? "none" : "block";
+  }
+
+  if(unlocked){
+    unlocked.style.display = active ? "block" : "none";
+  }
+
+  if(active){
+    renderVipDashboard();
+  }
+}
+
+function renderVipDashboard(){
+
+  const d = todayData();
+
+  const income = Number(d.income || 0);
+  const expense = totalExpenses(d);
+  const profit = income - expense;
+  const trips = Number(d.trips || 0);
+
+  const a = document.getElementById("vipIncome");
+  const b = document.getElementById("vipExpense");
+  const c = document.getElementById("vipProfit");
+  const e = document.getElementById("vipTripIncome");
+
+  if(a) a.textContent = money(income);
+  if(b) b.textContent = money(expense);
+  if(c) c.textContent = money(profit);
+  if(e) e.textContent = money(trips ? income/trips : 0);
+
+  const i = document.getElementById("vipCalcIncome");
+  const x = document.getElementById("vipCalcExpense");
+  const k = document.getElementById("vipCalcKm");
+  const t = document.getElementById("vipCalcTrips");
+
+  if(i) i.value = income || "";
+  if(x) x.value = expense || "";
+  if(k) k.value = appData.profile.km || "";
+  if(t) t.value = trips || "";
+}
+
+function calculateVip(){
+
+  const income =
+    Number(document.getElementById("vipCalcIncome").value || 0);
+
+  const expense =
+    Number(document.getElementById("vipCalcExpense").value || 0);
+
+  const km =
+    Number(document.getElementById("vipCalcKm").value || 0);
+
+  const trips =
+    Number(document.getElementById("vipCalcTrips").value || 0);
+
+  const profit = income - expense;
+
+  const perKm = km > 0 ? profit / km : 0;
+  const perTrip = trips > 0 ? profit / trips : 0;
+  const percent = income > 0 ? profit / income * 100 : 0;
+
+  document.getElementById("vipCalcProfit").textContent =
+    money(profit) + " تومان";
+
+  document.getElementById("vipPerKm").textContent =
+    money(perKm) + " تومان";
+
+  document.getElementById("vipPerTrip").textContent =
+    money(perTrip) + " تومان";
+
+  document.getElementById("vipProfitPercent").textContent =
+    faNumber(percent.toFixed(1)) + "٪";
+}
+
+async function buyVip(){
+
+  if(typeof window.buyBazaarVip !== "function"){
+    showToast("اتصال بازار در دسترس نیست");
+    return;
+  }
+
+  await window.buyBazaarVip();
+  updateVipUI();
+}
+
+async function checkVip(){
+
+  if(typeof window.checkBazaarSubscription !== "function"){
+    updateVipUI();
+    return;
+  }
+
+  const active =
+    await window.checkBazaarSubscription();
+
+  updateVipUI();
+
+  showToast(
+    active ? "VIP فعال است ✓" : "VIP فعال نیست"
+  );
+}
+
+window.addEventListener(
+  "rahhesab-vip-changed",
+  updateVipUI
+);
+
 
 </script>
 
