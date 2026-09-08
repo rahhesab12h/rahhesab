@@ -620,6 +620,24 @@ button{
 
 </style>
 <link rel="stylesheet" href="ABC/abc.css">
+
+<style id="rahhesab-unified-v2">
+.rh-unified-menu{direction:rtl;margin:12px 0}
+.rh-unified-menu button{
+display:block;width:100%;margin:8px 0;padding:13px;
+border:0;border-radius:14px;background:#102f49;color:#fff;
+font-family:inherit;font-weight:800;font-size:14px
+}
+.rh-unified-menu .vip{background:#b88300}
+.rh-unified-menu .charity{background:#8b3150}
+.rh-unified-menu .support{background:#315b78}
+.rh-u-box{direction:rtl;text-align:right;background:#f7f9fb;
+border:1px solid #e1e6eb;border-radius:13px;padding:12px;margin:8px 0}
+.rh-u-input{direction:rtl;width:100%;box-sizing:border-box;
+padding:11px;border:1px solid #d5dce3;border-radius:10px;
+margin:5px 0;font-family:inherit}
+</style>
+
 </head>
 
 <body>
@@ -2109,6 +2127,331 @@ function openABCPage(){
     alert("خطا در باز کردن بخش ABC");
   }
 }
+</script>
+
+
+<div id="rahhesabUnifiedMenu" class="rh-unified-menu">
+
+<button class="vip" onclick="rhUnifiedVip()">
+👑 VIP راه‌حساب
+</button>
+
+<button class="support" onclick="rhUnifiedSupport()">
+🎧 پشتیبانی و آموزش
+</button>
+
+<button onclick="rhUnifiedReports()">
+📊 گزارش‌های مالی
+</button>
+
+<button class="charity" onclick="rhUnifiedCharity()">
+❤️ خیریه
+</button>
+
+<button onclick="rhUnifiedCampaign()">
+📢 کمپین‌ها و اطلاعیه‌ها
+</button>
+
+<button onclick="rhUnifiedAbout()">
+ℹ️ درباره راه‌حساب
+</button>
+
+</div>
+
+
+<script id="rahhesab-unified-js-v2">
+(function(){
+"use strict";
+
+function show(title,body){
+    if(typeof window.rhShowModal==="function"){
+        window.rhShowModal(title,body);
+    }else{
+        alert(title+"\n\n"+body.replace(/<[^>]*>/g,""));
+    }
+}
+
+function getVip(){
+    try{
+        return typeof window.getVipEntitlement==="function"
+            ? window.getVipEntitlement()
+            : null;
+    }catch(e){return null}
+}
+
+window.rhUnifiedVip=function(){
+
+    const v=getVip();
+
+    show("👑 VIP راه‌حساب",`
+        <div class="rh-u-box">
+            <b>وضعیت:</b>
+            ${v ? "VIP فعال ✓" : "VIP فعال نیست"}
+        </div>
+
+        <div class="rh-u-box">
+            <b>VIP ماهانه</b><br>
+            مدت: ۳۰ روز
+        </div>
+
+        <div class="rh-u-box">
+            <b>VIP سالانه</b><br>
+            مدت: ۳۶۵ روز<br>
+            قیمت: ۷۵۰٬۰۰۰ تومان
+        </div>
+
+        ${v ? "" : `
+        <button onclick="rhUnifiedBuy('rahhesab_vip_30')">
+        خرید VIP ماهانه
+        </button>
+
+        <button onclick="rhUnifiedBuy('rahhesab_vip_365')">
+        خرید VIP سالانه
+        </button>
+        `}
+
+        <button onclick="rhUnifiedCheckVip()">
+        بررسی وضعیت خرید
+        </button>
+    `);
+};
+
+window.rhUnifiedBuy=async function(id){
+
+    if(typeof window.buyBazaarVip!=="function"){
+        alert("رابط خرید بازار در این نسخه نصب نشده است.");
+        return;
+    }
+
+    await window.buyBazaarVip(id);
+};
+
+window.rhUnifiedCheckVip=async function(){
+
+    if(typeof window.checkBazaarSubscription!=="function"){
+        alert("بررسی بازار در دسترس نیست.");
+        return;
+    }
+
+    const ok=await window.checkBazaarSubscription();
+
+    show(
+        "وضعیت VIP",
+        ok ? "VIP فعال و خرید تأیید شد ✓"
+           : "خرید تأییدشده‌ای پیدا نشد."
+    );
+};
+
+window.rhUnifiedSupport=function(){
+
+    show("🎧 پشتیبانی",`
+
+    <button onclick="rhUnifiedDocs()">
+    📚 آموزش راه‌حساب
+    </button>
+
+    <button onclick="rhUnifiedFaq()">
+    ❓ سؤالات متداول
+    </button>
+
+    <button onclick="rhUnifiedProblem()">
+    📝 گزارش مشکل
+    </button>
+
+    `);
+};
+
+window.rhUnifiedDocs=function(){
+
+    show("📚 آموزش",`
+    <div class="rh-u-box">
+    <b>حساب روزانه</b><br>
+    درآمد، هزینه، سوخت، استهلاک، کیلومتر،
+    ساعت کار و تعداد سفر را ثبت کن.
+    </div>
+
+    <div class="rh-u-box">
+    <b>گزارش مالی</b><br>
+    سود = درآمد − هزینه
+    </div>
+
+    <div class="rh-u-box">
+    <b>پشتیبان‌گیری</b><br>
+    برای جلوگیری از دست رفتن اطلاعات،
+    مرتب نسخه پشتیبان تهیه کن.
+    </div>
+    `);
+};
+
+window.rhUnifiedFaq=function(){
+
+    show("❓ سؤالات متداول",`
+    <div class="rh-u-box">
+    <b>VIP چه زمانی فعال می‌شود؟</b><br>
+    پس از تأیید خرید توسط بازار.
+    </div>
+
+    <div class="rh-u-box">
+    <b>اطلاعات مالی کجا ذخیره می‌شود؟</b><br>
+    اطلاعات فعلی برنامه روی دستگاه ذخیره می‌شود.
+    </div>
+
+    <div class="rh-u-box">
+    <b>اگر خرید انجام شد ولی VIP فعال نشد؟</b><br>
+    ابتدا وضعیت خرید را بررسی کن و خرید مجدد انجام نده.
+    </div>
+    `);
+};
+
+window.rhUnifiedProblem=function(){
+
+    show("📝 گزارش مشکل",`
+
+    <input id="rhProblemTitle"
+    class="rh-u-input"
+    placeholder="عنوان مشکل">
+
+    <textarea id="rhProblemText"
+    class="rh-u-input"
+    rows="5"
+    placeholder="شرح مشکل"></textarea>
+
+    <input id="rhProblemFiles"
+    class="rh-u-input"
+    type="file"
+    multiple
+    accept="image/*,.pdf,.txt,.json,.doc,.docx">
+
+    <button onclick="rhSaveProblem()">
+    📎 ثبت گزارش
+    </button>
+
+    `);
+};
+
+window.rhSaveProblem=function(){
+
+    const title=document.getElementById("rhProblemTitle")?.value.trim();
+    const text=document.getElementById("rhProblemText")?.value.trim();
+    const files=document.getElementById("rhProblemFiles")?.files;
+
+    if(!title || !text){
+        alert("عنوان و شرح مشکل را وارد کن.");
+        return;
+    }
+
+    const report={
+        id:"RH-"+Date.now(),
+        date:new Date().toISOString(),
+        title:title,
+        text:text,
+        files:Array.from(files||[]).map(f=>({
+            name:f.name,
+            type:f.type,
+            size:f.size
+        }))
+    };
+
+    let list=[];
+
+    try{
+        list=JSON.parse(
+            localStorage.getItem(
+                "rahhesab_support_reports_v2"
+            ) || "[]"
+        );
+    }catch(e){}
+
+    list.push(report);
+
+    localStorage.setItem(
+        "rahhesab_support_reports_v2",
+        JSON.stringify(list)
+    );
+
+    show("✅ گزارش ثبت شد",`
+        <div class="rh-u-box">
+        کد پیگیری:<br>
+        <b>${report.id}</b>
+        </div>
+        <div class="rh-u-box">
+        گزارش روی دستگاه ذخیره شد.
+        </div>
+    `);
+};
+
+window.rhUnifiedReports=function(){
+
+    let r=null;
+
+    try{
+        if(window.RahHesabABC &&
+           typeof window.RahHesabABC.month==="function"){
+            r=window.RahHesabABC.month();
+        }
+    }catch(e){}
+
+    if(!r){
+        show("📊 گزارش‌های مالی",
+        "گزارش‌های مالی از بخش حسابداری برنامه قابل مشاهده است.");
+        return;
+    }
+
+    show("📊 گزارش ماهانه",`
+        <div class="rh-u-box">
+        درآمد: ${r.income||0}
+        </div>
+        <div class="rh-u-box">
+        هزینه: ${r.expense||0}
+        </div>
+        <div class="rh-u-box">
+        سود: ${r.profit||0}
+        </div>
+        `);
+};
+
+window.rhUnifiedCharity=function(){
+
+    show("❤️ خیریه",`
+    <div class="rh-u-box">
+    <b>کمک داوطلبانه</b><br>
+    این بخش برای معرفی فرصت‌های کمک‌رسانی
+    معتبر و شفاف در نظر گرفته شده است.
+    </div>
+
+    <div class="rh-u-box">
+    تا زمانی که مقصد رسمی و تأییدشده تنظیم نشده،
+    هیچ شماره حساب یا مقصد پرداخت ساختگی نمایش داده نمی‌شود.
+    </div>
+    `);
+};
+
+window.rhUnifiedCampaign=function(){
+
+    show("📢 کمپین‌ها و اطلاعیه‌ها",`
+    <div class="rh-u-box">
+    اطلاعیه و کمپین‌های رسمی راه‌حساب در این بخش نمایش داده می‌شوند.
+    </div>
+    `);
+};
+
+window.rhUnifiedAbout=function(){
+
+    show("ℹ️ درباره راه‌حساب",`
+    <div class="rh-u-box">
+    <b>راه‌حساب</b><br>
+    حسابدار مالی اسنپ و تپسی
+    </div>
+
+    <div class="rh-u-box">
+    درآمد، هزینه، سود، اقساط، بدهی،
+    استهلاک، خودرو، هدف، گزارش،
+    تاریخچه، پشتیبان‌گیری، VIP و پشتیبانی.
+    </div>
+    `);
+};
+
+})();
 </script>
 
 </body>
