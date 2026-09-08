@@ -1,0 +1,37 @@
+{
+  "appName": "راه‌حساب",
+  "version": "ABC-1.0",
+  "vip": {
+    "free": true,
+    "plans": {
+      "monthly": {
+        "productId": "rahhesab_vip_30",
+        "durationDays": 30
+      },
+      "yearly": {
+        "productId": "rahhesab_vip_365",
+        "durationDays": 365,
+        "priceToman": 750000
+      }
+    }
+  },
+  "startup": {
+    "durationMs": 3000,
+    "progressFrom": 0,
+    "progressTo": 100
+  },
+  "reports": {
+    "daily": true,
+    "weekly": true,
+    "monthly": true,
+    "history": true
+  },
+  "advertising": {
+    "enabled": true,
+    "supportReviewRequired": true
+  },
+  "charity": {
+    "enabled": true,
+    "verifiedDestinationsOnly": true
+  }
+}

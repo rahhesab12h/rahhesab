@@ -619,6 +619,7 @@ button{
 }
 
 </style>
+<link rel="stylesheet" href="ABC/abc.css">
 </head>
 
 <body>
@@ -672,7 +673,14 @@ button{
   </div>
 
 
-  <div class="dashboard-grid">
+  
+<div class="card" onclick="openABCPage()" style="cursor:pointer;">
+  <div style="font-size:28px;">📊</div>
+  <b>ABC حسابداری</b>
+  <small>گزارش‌ها و امکانات کامل</small>
+</div>
+
+<div class="dashboard-grid">
 
     <button class="vip-card" onclick="openVipPage()">
       <span class="vip-status" id="vipStatus">قفل</span>
@@ -1959,6 +1967,149 @@ window.addEventListener(
 <script src="bazaar-config.js"></script>
 <script src="vip.js"></script>
 <script src="bazaar.js"></script>
+
+<script src="ABC/abc.js"></script>
+<script src="ABC/abc-ui.js"></script>
+<script src="ABC/abc-services.js"></script>
+
+
+<div id="abcLiveClock">
+  <b>۰۰:۰۰:۰۰</b>
+  <small>در حال بارگذاری تاریخ...</small>
+</div>
+
+<div id="abcPanel">
+<div class="abc-box">
+  <div class="abc-title">🚀 ABC حسابداری یکپارچه</div>
+  <div style="font-size:13px;line-height:1.8;">
+    گزارش‌ها، پشتیبانی، تبلیغات، خیریه و VIP
+  </div>
+</div>
+
+
+<button class="abc-btn" onclick="goHome()" style="margin-bottom:12px;">
+  🏠 بازگشت به صفحه اصلی
+</button>
+
+
+  <div class="abc-box">
+    <div class="abc-title">🚀 ABC — امکانات راه‌حساب</div>
+
+    <div class="abc-grid">
+      <button class="abc-btn" onclick="RahHesabABC.show('daily')">📅 امروز</button>
+      <button class="abc-btn" onclick="RahHesabABC.show('weekly')">📊 هفتگی</button>
+      <button class="abc-btn" onclick="RahHesabABC.show('monthly')">📆 ماهانه</button>
+      <button class="abc-btn" onclick="openABCSupport()">🆘 پشتیبانی</button>
+      <button class="abc-btn" onclick="RahHesabABC.show('about')">ℹ️ درباره برنامه</button>
+      <button class="abc-btn" onclick="openABCAds()">📢 تبلیغات</button>
+      <button class="abc-btn" onclick="openABCCharity()">❤️ خیریه</button>
+      <button class="abc-btn" onclick="openABCVipPlans()">⭐ VIP</button>
+    </div>
+  </div>
+
+  <div class="abc-section" data-abc="daily"></div>
+  <div class="abc-section" data-abc="weekly"></div>
+  <div class="abc-section" data-abc="monthly"></div>
+
+  <div class="abc-section" data-abc="support">
+    <div class="abc-box">
+      <div class="abc-title">🆘 پشتیبانی راه‌حساب</div>
+      <p>برای راهنمایی، گزارش مشکل یا درخواست همکاری با پشتیبانی ارتباط بگیرید.</p>
+      <button class="abc-btn" onclick="alert('بخش ارتباط با پشتیبانی در حال آماده‌سازی است.')">
+        ارتباط با پشتیبانی
+      </button>
+    </div>
+  </div>
+
+  <div class="abc-section" data-abc="about">
+    <div class="abc-box">
+      <div class="abc-title">ℹ️ درباره راه‌حساب</div>
+      <p>
+        راه‌حساب یک حسابدار مالی برای رانندگان است.
+        هدف برنامه، ساده‌تر کردن مدیریت درآمد، هزینه، سود، بدهی،
+        اقساط، استهلاک و گزارش‌های مالی روزانه است.
+      </p>
+      <p>نسخه ABC-1.0</p>
+    </div>
+  </div>
+
+  <div class="abc-section" data-abc="ads">
+    <div class="abc-box">
+      <div class="abc-title">📢 پنل تبلیغات و کمپین</div>
+      <p>
+        کسب‌وکارها و برنامه‌های مجاز می‌توانند درخواست تبلیغات خود را ثبت کنند.
+        درخواست‌ها قبل از انتشار توسط پشتیبانی بررسی می‌شوند.
+      </p>
+      <button class="abc-btn" onclick="alert('درخواست تبلیغات برای پشتیبانی ارسال می‌شود.')">
+        درخواست تبلیغات
+      </button>
+    </div>
+  </div>
+
+  <div class="abc-section" data-abc="charity">
+    <div class="abc-box">
+      <div class="abc-title">❤️ پنل خیریه</div>
+      <p>
+        کمک مالی کاملاً داوطلبانه است و فقط به مقصدهای معتبر و تأییدشده
+        هدایت خواهد شد.
+      </p>
+      <button class="abc-btn" onclick="alert('فهرست خیریه‌های تأییدشده در حال آماده‌سازی است.')">
+        مشاهده خیریه‌ها
+      </button>
+    </div>
+  </div>
+
+  <div class="abc-section" data-abc="vip">
+    <div class="abc-box">
+      <div class="abc-title">⭐ VIP راه‌حساب</div>
+      <p>VIP سی‌روزه و VIP یک‌ساله از طریق بازار.</p>
+      <button class="abc-btn" onclick="window.buyBazaarVip && window.buyBazaarVip()">
+        خرید VIP از بازار
+      </button>
+    </div>
+  </div>
+
+</div>
+
+<script src="ABC/startup/startup.js"></script>
+
+<script>
+function openABCPage(){
+  try{
+    if(typeof openPage === "function"){
+      try{
+        openPage("abcPage");
+      }catch(e){}
+    }
+
+    const abc = document.getElementById("abcPanel");
+
+    if(abc){
+      document.querySelectorAll(".page").forEach(function(p){
+        p.style.display = "none";
+      });
+
+      abc.style.display = "block";
+
+      if(window.RahHesabABC && typeof RahHesabABC.show === "function"){
+        RahHesabABC.show("daily");
+      }
+
+      if(typeof renderABC === "function"){
+        renderABC();
+      }
+
+      window.scrollTo({top:0,behavior:"smooth"});
+      return;
+    }
+
+    alert("بخش ABC هنوز بارگذاری نشده است.");
+  }catch(e){
+    console.error("ABC:",e);
+    alert("خطا در باز کردن بخش ABC");
+  }
+}
+</script>
 
 </body>
 </html>

@@ -17,7 +17,8 @@ class BazaarPlugin : Plugin() {
 
     companion object {
 
-        private const val PRODUCT_ID = "rahhesab_vip_30"
+        private const val MONTHLY_PRODUCT_ID = "rahhesab_vip_30"
+        private const val YEARLY_PRODUCT_ID = "rahhesab_vip_365"
 
         private const val RSA_KEY =
             "MIHNMA0GCSqGSIb3DQEBAQUAA4G7ADCBtwKBrwCPqvvtjVNDFd1fzL8Yero6NBzthhXdaJaFceUPtI8wCIgIejlxe018gxdVtB+l8/Pc2cfzCXIfuivbnPEnPU1NBUzh/0Cz7GkYFtOtHKrkC3Row9HtBj3hor+59xXRc14nOYlvbePSrZqfO7kiEf/uxxYjaOuxf80eDqddi1CT76eb1Dine3kMmcwMTqSt7pxfyCiYFKxzvuwcc2K2OHZ90ZG2J59aCW6bVxanfvECAwEAAQ=="
@@ -26,13 +27,19 @@ class BazaarPlugin : Plugin() {
     private var payment: Payment? = null
     private var connection: Connection? = null
 
+    private fun isAllowedProduct(productId: String): Boolean {
+        return productId == MONTHLY_PRODUCT_ID ||
+               productId == YEARLY_PRODUCT_ID
+    }
+
     @PluginMethod
     fun connect(call: PluginCall) {
 
         if (payment != null && connection != null) {
             val result = JSObject()
             result.put("connected", true)
-            result.put("productId", PRODUCT_ID)
+            result.put("monthlyProductId", MONTHLY_PRODUCT_ID)
+            result.put("yearlyProductId", YEARLY_PRODUCT_ID)
             call.resolve(result)
             return
         }
@@ -53,13 +60,13 @@ class BazaarPlugin : Plugin() {
                     val result = JSObject()
 
                     result.put("connected", true)
-                    result.put("productId", PRODUCT_ID)
+                    result.put("monthlyProductId", MONTHLY_PRODUCT_ID)
+                    result.put("yearlyProductId", YEARLY_PRODUCT_ID)
 
                     call.resolve(result)
                 }
 
                 connectionFailed {
-
                     call.reject(
                         "اتصال به بازار ناموفق بود",
                         it.message
@@ -97,8 +104,18 @@ class BazaarPlugin : Plugin() {
             return
         }
 
+        val requestedProduct =
+            call.getString("productId")
+                ?: call.getString("payload")
+                ?: MONTHLY_PRODUCT_ID
+
+        if (!isAllowedProduct(requestedProduct)) {
+            call.reject("محصول VIP نامعتبر است")
+            return
+        }
+
         val payload =
-            call.getString("payload") ?: PRODUCT_ID
+            call.getString("payload") ?: requestedProduct
 
         try {
 
@@ -107,7 +124,7 @@ class BazaarPlugin : Plugin() {
                 registry = host.activityResultRegistry,
 
                 request = PurchaseRequest(
-                    productId = PRODUCT_ID,
+                    productId = requestedProduct,
                     payload = payload,
                     dynamicPriceToken = null
                 )
@@ -137,7 +154,6 @@ class BazaarPlugin : Plugin() {
                 }
 
                 purchaseFailed {
-
                     call.reject(
                         "خرید ناموفق بود",
                         it.message
@@ -145,7 +161,6 @@ class BazaarPlugin : Plugin() {
                 }
 
                 failedToBeginFlow {
-
                     call.reject(
                         "شروع فرآیند خرید ناموفق بود",
                         it.message
@@ -178,9 +193,15 @@ class BazaarPlugin : Plugin() {
 
                 querySucceed { purchases ->
 
-                    val purchase = purchases.firstOrNull {
-                        it.productId == PRODUCT_ID
+                    val monthly = purchases.firstOrNull {
+                        it.productId == MONTHLY_PRODUCT_ID
                     }
+
+                    val yearly = purchases.firstOrNull {
+                        it.productId == YEARLY_PRODUCT_ID
+                    }
+
+                    val purchase = yearly ?: monthly
 
                     val result = JSObject()
 
@@ -204,14 +225,13 @@ class BazaarPlugin : Plugin() {
                     } else {
 
                         result.put("active", false)
-                        result.put("productId", PRODUCT_ID)
+                        result.put("productId", MONTHLY_PRODUCT_ID)
                     }
 
                     call.resolve(result)
                 }
 
                 queryFailed {
-
                     call.reject(
                         "بررسی اشتراک بازار ناموفق بود",
                         it.message
