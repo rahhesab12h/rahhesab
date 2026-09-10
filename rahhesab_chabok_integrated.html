@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#ffffff">
+<title>راه‌حساب | چابک</title>
+<style>
+:root{
+  --bg:#f8fafc; --text:#10243a; --muted:#657384; --nav:#ffffff;
+  --green:#09a86b; --green2:#087f5b; --dark:#0d2d48;
+  --shadow:0 5px 18px rgba(16,36,58,.08);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Tahoma,Arial,sans-serif}
+button{font:inherit}
+.app{max-width:520px;margin:auto;min-height:100vh;padding-bottom:92px}
+.header{display:flex;align-items:center;justify-content:space-between;padding:18px 18px 12px;background:#fff}
+.brand{display:flex;align-items:center;gap:12px}
+.logo{width:58px;height:58px;border-radius:15px;background:#0d2d48;display:grid;place-items:center;color:#fff;font-size:29px;font-weight:900;box-shadow:var(--shadow)}
+.brand h1{margin:0;font-size:25px}
+.brand p{margin:5px 0 0;color:var(--muted);font-size:13px}
+.date{display:flex;align-items:center;gap:9px;color:#18334b;font-size:13px;font-weight:700}
+.date .cal{font-size:30px}
+.summary{margin:12px 18px 18px;background:var(--dark);color:#fff;border-radius:22px;padding:20px 10px;display:grid;grid-template-columns:repeat(3,1fr);box-shadow:var(--shadow)}
+.metric{text-align:center;padding:0 8px;border-left:1px solid rgba(255,255,255,.28)}
+.metric:last-child{border-left:0}
+.metric .label{font-size:16px;margin-bottom:8px}
+.metric .value{font-size:24px;font-weight:900;white-space:nowrap}
+.metric .unit{font-size:13px;margin-top:6px}
+.up{color:#32d39a}.down{color:#ff4e68}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:0 18px}
+.card{border-radius:19px;min-height:190px;padding:20px 10px 14px;text-align:center;display:flex;flex-direction:column;justify-content:space-between;box-shadow:var(--shadow);border:1px solid rgba(0,0,0,.03);cursor:pointer}
+.card .icon{font-size:50px;line-height:1}
+.card h2{font-size:20px;margin:5px 0}
+.card p{font-size:12px;color:#263849;margin:0;line-height:1.7}
+.card .arrow{align-self:flex-start;font-size:30px;line-height:1}
+.income{background:#c9f0df}.expense{background:#ffd6d8}.report{background:#cce3ff}
+.car{background:#ffe0ad}.debt{background:#e4d9ff}.goal{background:#c9f4ef}
+.settings{background:#dce4eb}.backup{background:#cfe4ff}.history{background:#e1d5ff}
+.vehicle{margin:14px 18px;background:#fff;border:1px solid #dbe2e8;border-radius:18px;padding:15px 18px;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--shadow)}
+.vehicle strong{font-size:14px}.vehicle small{color:var(--muted)}
+.bottom{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:min(520px,100%);height:78px;background:var(--nav);border-top:1px solid #e2e7eb;display:grid;grid-template-columns:repeat(4,1fr);z-index:10}
+.nav{border:0;background:none;color:#687482;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer}
+.nav .nicon{font-size:28px}.nav span:last-child{font-size:12px;font-weight:700}.nav.active{color:#1467d9}
+.page{display:none;padding:18px}.page.active{display:block}
+.back{border:0;background:#fff;border-radius:12px;padding:10px 14px;box-shadow:var(--shadow);cursor:pointer}
+.panel{background:#fff;border-radius:18px;padding:18px;margin-top:14px;box-shadow:var(--shadow)}
+.row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #edf0f3}.row:last-child{border-bottom:0}
+input{width:100%;padding:13px;border:1px solid #d8dee5;border-radius:12px;margin:7px 0 12px}
+.primary{border:0;background:var(--green);color:#fff;padding:13px 18px;border-radius:12px;cursor:pointer}
+@media(max-width:390px){
+ .grid{gap:9px;padding:0 12px}.card{min-height:170px}.card h2{font-size:17px}.card .icon{font-size:42px}.summary{margin-left:12px;margin-right:12px}.vehicle{margin-left:12px;margin-right:12px}
+}
+
+/* rahhesab-chabok-v1 */
+.chabok-card{background:linear-gradient(145deg,#082b46,#0d4661)!important;color:#fff;border:1px solid #0f6f83!important;position:relative;overflow:hidden}
+.chabok-card h2,.chabok-card p{color:#fff}.chabok-card .arrow{color:#ffd23f}.vip-pill{position:absolute;top:12px;left:12px;background:#ffd23f;color:#13293d;border-radius:999px;padding:5px 9px;font-size:11px;font-weight:900}
+.chabok-page{display:none;min-height:100vh;background:#071f33;color:#fff;padding:18px 14px 100px}.chabok-page.active{display:block}
+.ch-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}.ch-title{font-size:24px;font-weight:900}.ch-sub{font-size:11px;color:#b9cedb;margin-top:4px}.ch-back{border:1px solid #31576d;background:#10364f;color:#fff;border-radius:12px;padding:9px 12px;cursor:pointer}
+.ch-hero{background:linear-gradient(135deg,#0b3a57,#0b2941);border:1px solid #1b6177;border-radius:22px;padding:18px;margin-bottom:14px;box-shadow:0 12px 30px #0005}.ch-hero .amount{font-size:28px;font-weight:900;color:#ffd23f}.ch-hero small{color:#b9cedb}.ch-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}.ch-stat{background:#0d4661;border:1px solid #1d7186;border-radius:14px;padding:10px;text-align:center}.ch-stat b{display:block;font-size:16px}.ch-stat span{font-size:10px;color:#b9cedb}
+.ch-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.ch-tile{min-height:118px;border:1px solid #1c6176;background:#0b3049;color:#fff;border-radius:17px;padding:11px 7px;cursor:pointer;text-align:center;box-shadow:0 6px 18px #0003}.ch-tile .ci{font-size:31px}.ch-tile b{display:block;margin-top:6px;font-size:12px}.ch-tile span{font-size:9px;color:#aac2d0;line-height:1.6}.ch-tile.gold{border-color:#d3aa22;background:linear-gradient(145deg,#153c4e,#0a2940)}
+.ch-section{background:#0b3049;border:1px solid #1a5b70;border-radius:18px;padding:14px;margin-top:12px}.ch-section h3{margin:0 0 10px;color:#ffd23f;font-size:15px}.ch-row{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid #1c4a5e;font-size:12px}.ch-row:last-child{border-bottom:0}.ch-muted{color:#aac2d0}.ch-input{width:100%;padding:11px;border:1px solid #2b6175;background:#08263c;color:#fff;border-radius:11px;margin:5px 0;font-family:inherit}.ch-btn{width:100%;border:0;border-radius:12px;padding:12px;background:#ffd23f;color:#13293d;font-weight:900;cursor:pointer;margin-top:7px}.ch-btn.dark{background:#12425c;color:#fff;border:1px solid #2a697d}.ch-list{margin-top:8px}.ch-stop{display:flex;align-items:center;gap:8px;padding:10px;border-radius:12px;background:#08263c;border:1px solid #174a60;margin:7px 0}.ch-stop .num{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:#ffd23f;color:#10283a;font-weight:900}.ch-stop small{display:block;color:#9eb8c7}.ch-vip-lock{padding:15px;border:1px dashed #d2ad2b;border-radius:15px;text-align:center;background:#102f42}.ch-vip-lock b{color:#ffd23f}.ch-note{font-size:10px;color:#9eb8c7;line-height:1.8;margin-top:8px}
+@media(max-width:390px){.ch-grid{gap:7px}.ch-tile{min-height:108px}.ch-tile .ci{font-size:27px}.ch-tile b{font-size:11px}.ch-hero .amount{font-size:24px}}
+
+</style>
+</head>
+<body>
+<div class="app">
+  <main id="home" class="page active" style="padding:0">
+    <header class="header">
+      <div class="brand">
+        <div class="logo">▟↗</div>
+        <div><h1>راه‌حساب</h1><p>حسابدار مالی رانندگان</p></div>
+      </div>
+      <div class="date"><span class="cal">▣</span><span>شنبه ۱۴۰۴/۰۶/۰۸<br>۲۸ شهریور ۱۴۰۴</span></div>
+    </header>
+
+    <section class="summary">
+      <div class="metric"><div class="label">سود امروز <span class="up">↑</span></div><div class="value">۱,۶۲۰,۰۰۰</div><div class="unit">تومان</div></div>
+      <div class="metric"><div class="label">هزینه امروز <span class="down">↓</span></div><div class="value">۱,۲۳۰,۰۰۰</div><div class="unit">تومان</div></div>
+      <div class="metric"><div class="label">درآمد امروز <span class="up">↑</span></div><div class="value">۲,۸۵۰,۰۰۰</div><div class="unit">تومان</div></div>
+    </section>
+
+    <section class="grid">
+      <article class="card income" onclick="openPage('درآمد')"><div class="icon">💰</div><div><h2>درآمد</h2><p>ثبت و مشاهده درآمدها</p></div><div class="arrow">‹</div></article>
+      <article class="card expense" onclick="openPage('هزینه')"><div class="icon">👛</div><div><h2>هزینه</h2><p>ثبت و مدیریت هزینه‌ها</p></div><div class="arrow">‹</div></article>
+      <article class="card report" onclick="openPage('گزارش')"><div class="icon">▥</div><div><h2>گزارش</h2><p>گزارش‌های مالی و ماهانه</p></div><div class="arrow">‹</div></article>
+      <article class="card car" onclick="openPage('خودرو')"><div class="icon">🚕</div><div><h2>خودرو</h2><p>هزینه‌ها و سرویس‌ها</p></div><div class="arrow">‹</div></article>
+      <article class="card debt" onclick="openPage('اقساط و بدهی')"><div class="icon">▣</div><div><h2>اقساط و بدهی</h2><p>مدیریت اقساط و بدهی‌ها</p></div><div class="arrow">‹</div></article>
+      <article class="card goal" onclick="openPage('هدف')"><div class="icon">🎯</div><div><h2>هدف</h2><p>تعیین هدف و پیشرفت</p></div><div class="arrow">‹</div></article>
+      <article class="card settings" onclick="openPage('تنظیمات')"><div class="icon">⚙️</div><div><h2>تنظیمات</h2><p>تنظیمات برنامه</p></div><div class="arrow">‹</div></article>
+      <article class="card backup" onclick="openPage('پشتیبان‌گیری')"><div class="icon">☁️</div><div><h2>پشتیبان‌گیری</h2><p>ذخیره و بازیابی اطلاعات</p></div><div class="arrow">‹</div></article>
+      <article class="card history" onclick="openPage('تاریخچه')"><div class="icon">📄</div><div><h2>تاریخچه</h2><p>تمامی تراکنش‌ها</p></div><div class="arrow">‹</div></article>
+
+      <article class="card chabok-card" onclick="openChabok()"><span class="vip-pill">👑 VIP</span><div class="icon">⚡</div><div><h2>چابک</h2><p>مدیریت هوشمند راننده</p></div><div class="arrow">‹</div></article>
+    </section>
+
+    <div class="vehicle">
+      <div><strong>خودرو: پژو ۲۰۶</strong><br><small>کارکرد: ۱۲۰,۵۰۰ کیلومتر</small></div>
+      <div><small>مصرف سوخت: ۷.۲ لیتر/۱۰۰km</small></div>
+    </div>
+  </main>
+
+  <section id="page" class="page">
+    <button class="back" onclick="goHome()">→ بازگشت</button>
+    <div class="panel">
+      <h2 id="pageTitle"></h2>
+      <div id="pageBody"></div>
+    </div>
+  </section>
+
+  <section id="chabokPage" class="chabok-page">
+    <div class="ch-head"><div><div class="ch-title">⚡ چابک <span style="color:#ffd23f">VIP</span></div><div class="ch-sub">مدیریت هوشمند درآمد، هزینه، خودرو و مسیر راننده</div></div><button class="ch-back" onclick="closeChabok()">→ راه‌حساب</button></div>
+    <div class="ch-hero"><small>خالص امروز</small><div class="amount" id="chNet">۰ تومان</div><div class="ch-stats"><div class="ch-stat"><b id="chIncome">۰</b><span>درآمد</span></div><div class="ch-stat"><b id="chCost">۰</b><span>هزینه</span></div><div class="ch-stat"><b id="chHourly">۰</b><span>خالص ساعتی</span></div></div></div>
+    <div class="ch-grid">
+      <button class="ch-tile" onclick="chabokPanel('income')"><div class="ci">💰</div><b>مدیریت درآمد</b><span>حقوق، بار، سرویس و پاداش</span></button>
+      <button class="ch-tile" onclick="chabokPanel('costs')"><div class="ci">🔧</div><b>هزینه‌های خودرو</b><span>لاستیک، روغن، تعمیرات و سرویس</span></button>
+      <button class="ch-tile" onclick="chabokPanel('fuel')"><div class="ci">⛽</div><b>سوخت و کیلومتر</b><span>هزینه سوخت و هزینه هر km</span></button>
+      <button class="ch-tile gold" onclick="chabokPanel('routes')"><div class="ci">🛣️</div><b>چینش مسیرها</b><span>ترتیب هوشمند چند مقصد</span></button>
+      <button class="ch-tile" onclick="chabokPanel('reminders')"><div class="ci">🔔</div><b>یادآوری‌ها</b><span>بیمه، لاستیک، سرویس و قسط</span></button>
+      <button class="ch-tile" onclick="chabokPanel('analytics')"><div class="ci">📊</div><b>گزارش چابک</b><span>سود واقعی و درآمد ساعتی</span></button>
+      <button class="ch-tile" onclick="chabokPanel('car')"><div class="ci">🚗</div><b>مدیریت خودرو</b><span>مشخصات و هزینه‌های خودرو</span></button>
+      <button class="ch-tile" onclick="chabokPanel('insurance')"><div class="ci">🛡️</div><b>بیمه و خلافی</b><span>ثبت سررسید و هزینه</span></button>
+      <button class="ch-tile" onclick="chabokPanel('goals')"><div class="ci">🎯</div><b>هدف درآمدی</b><span>برنامه روزانه تا هدف ماه</span></button>
+    </div>
+    <div id="chabokContent" class="ch-section"><h3>👑 چابک VIP</h3><div class="ch-vip-lock"><b>پنل کامل راننده</b><p class="ch-note">در نسخه نهایی، فعال‌سازی این بخش به تأیید خرید VIP بازار متصل می‌شود. این نسخه رابط و منطق محلی پنل را آماده کرده است.</p><button class="ch-btn" onclick="chabokPanel('routes')">شروع با چینش مسیر</button></div></div>
+  </section>
+
+</div>
+
+<nav class="bottom">
+  <button class="nav active" onclick="goHome()" id="n-home"><span class="nicon">⌂</span><span>خانه</span></button>
+  <button class="nav" onclick="openPage('تاریخچه')" id="n-history"><span class="nicon">◷</span><span>تاریخچه</span></button>
+  <button class="nav" onclick="openPage('یادآوری')" id="n-reminder"><span class="nicon">♧</span><span>یادآوری</span></button>
+  <button class="nav" onclick="openPage('پروفایل')" id="n-profile"><span class="nicon">♙</span><span>پروفایل</span></button>
+</nav>
+
+<script>
+const pageBodies={
+  "درآمد": `<p>ثبت درآمد روزانه و مشاهده مجموع درآمد.</p><label>مبلغ درآمد</label><input inputmode="numeric" placeholder="مثلاً ۲,۸۵۰,۰۰۰"><button class="primary">ذخیره درآمد</button>`,
+  "هزینه": `<p>ثبت سوخت، استهلاک و سایر هزینه‌ها.</p><label>مبلغ هزینه</label><input inputmode="numeric" placeholder="مثلاً ۱,۲۳۰,۰۰۰"><button class="primary">ذخیره هزینه</button>`,
+  "گزارش": `<div class="row"><b>درآمد ماه</b><span>۰ تومان</span></div><div class="row"><b>هزینه ماه</b><span>۰ تومان</span></div><div class="row"><b>سود ماه</b><span>۰ تومان</span></div>`,
+  "خودرو": `<div class="row"><b>خودرو</b><span>پژو ۲۰۶</span></div><div class="row"><b>کارکرد</b><span>۱۲۰,۵۰۰ km</span></div><div class="row"><b>مصرف</b><span>۷.۲ لیتر</span></div>`,
+  "اقساط و بدهی": `<p>مدیریت اقساط و بدهی‌ها.</p><input placeholder="عنوان قسط"><input inputmode="numeric" placeholder="مبلغ"><button class="primary">ثبت</button>`,
+  "هدف": `<p>هدف درآمد ماهانه خود را تعیین کنید.</p><input inputmode="numeric" placeholder="هدف درآمدی"><button class="primary">ذخیره هدف</button>`,
+  "تنظیمات": `<div class="row"><b>تم برنامه</b><span>روشن</span></div><div class="row"><b>اعلان‌ها</b><span>فعال</span></div>`,
+  "پشتیبان‌گیری": `<p>اطلاعات برنامه را ذخیره یا بازیابی کنید.</p><button class="primary">ایجاد نسخه پشتیبان</button>`,
+  "تاریخچه": `<div class="row"><b>امروز</b><span>بدون تراکنش</span></div>`,
+  "یادآوری": `<p>یادآوری‌های مالی و کاری در این بخش نمایش داده می‌شوند.</p>`,
+  "پروفایل": `<div class="row"><b>نام راننده</b><span>ثبت نشده</span></div><div class="row"><b>خودرو</b><span>پژو ۲۰۶</span></div>`
+};
+
+function openPage(name){
+  document.getElementById('home').classList.remove('active');
+  document.getElementById('page').classList.add('active');
+  document.getElementById('pageTitle').textContent=name;
+  document.getElementById('pageBody').innerHTML=pageBodies[name] || '<p>این بخش آماده تکمیل است.</p>';
+  document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));
+  if(name==='تاریخچه') document.getElementById('n-history').classList.add('active');
+  else if(name==='پروفایل') document.getElementById('n-profile').classList.add('active');
+  else if(name==='یادآوری') document.getElementById('n-reminder').classList.add('active');
+}
+function goHome(){
+  document.getElementById('page').classList.remove('active');
+  document.getElementById('home').classList.add('active');
+  document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));
+  document.getElementById('n-home').classList.add('active');
+  scrollTo({top:0,behavior:'smooth'});
+}
+
+// rahhesab-chabok-v1
+const CH_KEY='rahhesab_chabok_v1';
+function chRead(){try{return JSON.parse(localStorage.getItem(CH_KEY)||'{"income":0,"cost":0,"hours":0,"km":0,"stops":[]}')}catch(e){return {income:0,cost:0,hours:0,km:0,stops:[]}}}
+function chWrite(v){localStorage.setItem(CH_KEY,JSON.stringify(v));chRefresh()}
+function faNum(v){return Number(v||0).toLocaleString('fa-IR')}
+function chRefresh(){const d=chRead();document.getElementById('chIncome').textContent=faNum(d.income);document.getElementById('chCost').textContent=faNum(d.cost);document.getElementById('chNet').textContent=faNum(d.income-d.cost)+' تومان';document.getElementById('chHourly').textContent=faNum(d.hours?Math.round((d.income-d.cost)/d.hours):0)}
+function openChabok(){document.getElementById('home').classList.remove('active');document.getElementById('page').classList.remove('active');document.querySelector('.bottom').style.display='none';document.getElementById('chabokPage').classList.add('active');chRefresh();scrollTo(0,0)}
+function closeChabok(){document.getElementById('chabokPage').classList.remove('active');document.querySelector('.bottom').style.display='grid';document.getElementById('home').classList.add('active');scrollTo(0,0)}
+function chabokPanel(type){
+ const box=document.getElementById('chabokContent');
+ const d=chRead();
+ if(type==='income') box.innerHTML=`<h3>💰 مدیریت درآمد</h3><div class="ch-row"><span>مدل درآمد</span><b>حقوق / بار / سرویس / پاداش</b></div><input id="chiAmount" class="ch-input" inputmode="numeric" placeholder="مبلغ درآمد"><input id="chiCount" class="ch-input" inputmode="numeric" placeholder="تعداد بار/سرویس (اختیاری)"><button class="ch-btn" onclick="chAddIncome()">ثبت درآمد</button>`;
+ else if(type==='costs') box.innerHTML=`<h3>🔧 هزینه‌های خودرو</h3><input id="chcAmount" class="ch-input" inputmode="numeric" placeholder="مبلغ هزینه"><select id="chcType" class="ch-input"><option>لاستیک</option><option>روغن</option><option>تعمیرات</option><option>سرویس</option><option>کارواش</option><option>پارکینگ</option><option>عوارض</option><option>بیمه</option><option>خلافی</option><option>معاینه فنی</option><option>اقساط خودرو</option><option>استهلاک</option><option>سایر</option></select><button class="ch-btn" onclick="chAddCost()">ثبت هزینه</button>`;
+ else if(type==='fuel') box.innerHTML=`<h3>⛽ سوخت و کیلومتر</h3><input id="chfAmount" class="ch-input" inputmode="numeric" placeholder="مبلغ سوخت"><input id="chfKm" class="ch-input" inputmode="decimal" placeholder="کیلومتر کارکرد"><input id="chfHours" class="ch-input" inputmode="decimal" placeholder="ساعت کار امروز"><button class="ch-btn" onclick="chAddFuel()">ثبت</button><p class="ch-note">هزینه هر کیلومتر و درآمد ساعتی از داده‌های ثبت‌شده محاسبه می‌شود.</p>`;
+ else if(type==='routes') box.innerHTML=`<h3>🛣️ چینش هوشمند مسیرها</h3><input id="chrLat" class="ch-input" inputmode="decimal" placeholder="عرض جغرافیایی مبدأ (مثلاً 35.6892)"><input id="chrLng" class="ch-input" inputmode="decimal" placeholder="طول جغرافیایی مبدأ (مثلاً 51.3890)"><button class="ch-btn dark" onclick="chUseGPS()">📍 استفاده از موقعیت فعلی</button><input id="chrName" class="ch-input" placeholder="نام مقصد"><input id="chrDLat" class="ch-input" inputmode="decimal" placeholder="عرض مقصد"><input id="chrDLng" class="ch-input" inputmode="decimal" placeholder="طول مقصد"><button class="ch-btn" onclick="chAddStop()">+ افزودن مقصد</button><div id="chStops" class="ch-list"></div><button class="ch-btn" onclick="chSortStops()">⚡ چینش پیشنهادی مسیر</button><p class="ch-note">نسخه فعلی بر اساس فاصله مستقیم مرتب می‌کند؛ برای ETA و مسیر جاده‌ای در نسخه نهایی باید سرویس مسیریابی متصل شود.</p>`;
+ else if(type==='reminders') box.innerHTML=`<h3>🔔 یادآوری‌های راننده</h3>${['بیمه','لاستیک','روغن و سرویس','معاینه فنی','قسط خودرو'].map(x=>`<div class="ch-row"><span>${x}</span><button class="ch-btn dark" style="width:auto;padding:7px 10px;margin:0" onclick="alert('یادآوری ${x} ثبت شد')">ثبت</button></div>`).join('')}`;
+ else if(type==='analytics') box.innerHTML=`<h3>📊 گزارش چابک</h3><div class="ch-row"><span>درآمد</span><b>${faNum(d.income)} تومان</b></div><div class="ch-row"><span>هزینه</span><b>${faNum(d.cost)} تومان</b></div><div class="ch-row"><span>خالص</span><b>${faNum(d.income-d.cost)} تومان</b></div><div class="ch-row"><span>درآمد خالص ساعتی</span><b>${faNum(d.hours?Math.round((d.income-d.cost)/d.hours):0)} تومان</b></div><div class="ch-row"><span>هزینه هر کیلومتر</span><b>${faNum(d.km?Math.round(d.cost/d.km):0)} تومان</b></div>`;
+ else if(type==='car') box.innerHTML=`<h3>🚗 مدیریت خودرو</h3><input id="chCar" class="ch-input" placeholder="نام خودرو"><input id="chCarKm" class="ch-input" inputmode="numeric" placeholder="کارکرد فعلی (km)"><button class="ch-btn" onclick="localStorage.setItem('rahhesab_chabok_car',JSON.stringify({name:document.getElementById('chCar').value,km:document.getElementById('chCarKm').value}));alert('اطلاعات خودرو ذخیره شد')">ذخیره خودرو</button>`;
+ else if(type==='insurance') box.innerHTML=`<h3>🛡️ بیمه و خلافی</h3><input class="ch-input" placeholder="عنوان (مثلاً بیمه شخص ثالث)"><input class="ch-input" type="date"><input class="ch-input" inputmode="numeric" placeholder="مبلغ"><button class="ch-btn" onclick="alert('مورد ثبت شد')">ثبت سررسید و هزینه</button>`;
+ else if(type==='goals') box.innerHTML=`<h3>🎯 هدف درآمدی</h3><input id="chGoal" class="ch-input" inputmode="numeric" placeholder="هدف ماهانه"><button class="ch-btn" onclick="localStorage.setItem('rahhesab_chabok_goal',document.getElementById('chGoal').value);alert('هدف ذخیره شد')">ذخیره هدف</button>`;
+ if(type==='routes') renderStops();
+}
+function cleanN(v){return Number(String(v||'').replace(/,/g,'').replace(/[۰-۹]/g,d=>'۰۱۲۳۴۵۶۷۸۹'.indexOf(d)))||0}
+function chAddIncome(){const d=chRead();d.income+=cleanN(document.getElementById('chiAmount').value);chWrite(d);alert('درآمد ثبت شد');chabokPanel('analytics')}
+function chAddCost(){const d=chRead();d.cost+=cleanN(document.getElementById('chcAmount').value);chWrite(d);alert('هزینه ثبت شد');chabokPanel('analytics')}
+function chAddFuel(){const d=chRead();d.cost+=cleanN(document.getElementById('chfAmount').value);d.km+=Number(document.getElementById('chfKm').value)||0;d.hours+=Number(document.getElementById('chfHours').value)||0;chWrite(d);alert('سوخت و کارکرد ثبت شد');chabokPanel('analytics')}
+function chUseGPS(){if(!navigator.geolocation){alert('موقعیت‌یابی روی این دستگاه در دسترس نیست');return}navigator.geolocation.getCurrentPosition(p=>{document.getElementById('chrLat').value=p.coords.latitude.toFixed(6);document.getElementById('chrLng').value=p.coords.longitude.toFixed(6)},()=>alert('دسترسی موقعیت داده نشد'))}
+function chAddStop(){const d=chRead();const n=document.getElementById('chrName').value.trim()||'مقصد جدید';const lat=Number(document.getElementById('chrDLat').value),lng=Number(document.getElementById('chrDLng').value);if(!Number.isFinite(lat)||!Number.isFinite(lng)){alert('مختصات مقصد را وارد کنید');return}d.stops.push({name:n,lat,lng});chWrite(d);document.getElementById('chrName').value='';document.getElementById('chrDLat').value='';document.getElementById('chrDLng').value='';renderStops()}
+function dist(a,b,c,e){const R=6371,rad=Math.PI/180,dLat=(c-a)*rad,dLon=(e-b)*rad;const x=Math.sin(dLat/2)**2+Math.cos(a*rad)*Math.cos(c*rad)*Math.sin(dLon/2)**2;return 2*R*Math.asin(Math.sqrt(x))}
+function chSortStops(){const d=chRead();const lat=Number(document.getElementById('chrLat').value),lng=Number(document.getElementById('chrLng').value);if(!Number.isFinite(lat)||!Number.isFinite(lng)){alert('ابتدا موقعیت مبدأ را وارد کنید یا GPS را بزنید');return}let a={lat,lng};const out=[];let left=[...d.stops];while(left.length){left.sort((x,y)=>dist(a.lat,a.lng,x.lat,x.lng)-dist(a.lat,a.lng,y.lat,y.lng));const n=left.shift();n.distance=dist(a.lat,a.lng,n.lat,n.lng);out.push(n);a=n}d.stops=out;chWrite(d);renderStops();alert('ترتیب پیشنهادی آماده شد')}
+function renderStops(){const el=document.getElementById('chStops');if(!el)return;const d=chRead();el.innerHTML=d.stops.length?d.stops.map((x,i)=>`<div class="ch-stop"><div class="num">${i+1}</div><div><b>${x.name}</b><small>${x.distance?x.distance.toFixed(1)+' km از توقف قبلی':''}</small></div></div>`).join(''):'<div class="ch-note">هنوز مقصدی اضافه نشده است.</div>'}
+
+</script>
+</body>
+</html>
