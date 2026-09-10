@@ -712,7 +712,6 @@ margin:5px 0;font-family:inherit}
 </style>
 
 <style id="rahhesab-chabok-css">
-<style>
 :root{
   --bg:#f8fafc; --text:#10243a; --muted:#657384; --nav:#ffffff;
   --green:#09a86b; --green2:#087f5b; --dark:#0d2d48;
@@ -771,7 +770,143 @@ input{width:100%;padding:13px;border:1px solid #d8dee5;border-radius:12px;margin
 @media(max-width:390px){.ch-grid{gap:7px}.ch-tile{min-height:108px}.ch-tile .ci{font-size:27px}.ch-tile b{font-size:11px}.ch-hero .amount{font-size:24px}}
 
 </style>
+
+<style id="rahhesab-reference-dashboard-css-v1">
+/* rahhesab-reference-dashboard-v1 */
+.rh-ref-dashboard{
+  direction:rtl;
+  margin:0 0 18px;
+  font-family:Tahoma,Arial,sans-serif;
+}
+.rh-ref-hero{
+  background:linear-gradient(135deg,#0d2d48,#164866);
+  color:#fff;
+  border-radius:24px;
+  padding:20px 18px;
+  margin-bottom:14px;
+  box-shadow:0 10px 28px rgba(13,45,72,.16);
+}
+.rh-ref-hero-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+}
+.rh-ref-brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.rh-ref-logo{
+  width:52px;height:52px;border-radius:16px;
+  display:grid;place-items:center;
+  background:#fff;color:#0d2d48;
+  font-size:27px;font-weight:900;
+}
+.rh-ref-title{font-size:23px;font-weight:900}
+.rh-ref-sub{font-size:11px;color:#c8d9e4;margin-top:5px}
+.rh-ref-profile{
+  border:1px solid rgba(255,255,255,.25);
+  background:rgba(255,255,255,.10);
+  color:#fff;border-radius:12px;
+  padding:9px 11px;font-size:12px;font-weight:800;
+}
+.rh-ref-status{
+  margin-top:15px;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:8px;
+}
+.rh-ref-stat{
+  background:rgba(255,255,255,.09);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:14px;padding:10px 6px;text-align:center;
+}
+.rh-ref-stat b{display:block;font-size:17px}
+.rh-ref-stat span{font-size:10px;color:#c8d9e4}
+
+.rh-ref-title-row{
+  display:flex;align-items:center;justify-content:space-between;
+  margin:16px 2px 9px;
+}
+.rh-ref-title-row h3{margin:0;font-size:16px}
+.rh-ref-title-row small{color:#71808e;font-size:10px}
+
+.rh-ref-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+.rh-ref-tile{
+  min-height:118px;
+  border:1px solid rgba(0,0,0,.04);
+  border-radius:18px;
+  padding:12px 7px;
+  box-shadow:0 5px 16px rgba(16,36,58,.07);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;
+  cursor:pointer;
+}
+.rh-ref-tile .ico{font-size:30px;line-height:1;margin-bottom:8px}
+.rh-ref-tile b{font-size:12px}
+.rh-ref-tile span{font-size:9px;color:#566676;line-height:1.6;margin-top:4px}
+
+.rh-ref-green{background:#c9f0df}
+.rh-ref-blue{background:#cce3ff}
+.rh-ref-gold{background:#ffe0ad}
+.rh-ref-purple{background:#e4d9ff}
+.rh-ref-teal{background:#c9f4ef}
+.rh-ref-pink{background:#ffd6d8}
+.rh-ref-gray{background:#dce4eb}
+
+.rh-ref-wide{
+  margin-top:12px;
+  background:#fff;
+  border:1px solid #dce3e8;
+  border-radius:18px;
+  padding:15px;
+  box-shadow:0 5px 16px rgba(16,36,58,.06);
+}
+.rh-ref-wide-head{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:8px;margin-bottom:10px;
+}
+.rh-ref-wide-head b{font-size:14px}
+.rh-ref-wide-head span{
+  background:#c9f0df;color:#087f5b;
+  border-radius:999px;padding:5px 8px;font-size:10px;font-weight:900;
+}
+.rh-ref-info{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:8px;
+}
+.rh-ref-info div{
+  background:#f7f9fb;border-radius:12px;padding:9px;
+}
+.rh-ref-info small{display:block;color:#71808e;font-size:9px}
+.rh-ref-info strong{display:block;font-size:11px;margin-top:3px}
+
+.rh-ref-feature-list{display:grid;gap:8px}
+.rh-ref-feature{
+  display:flex;align-items:center;gap:9px;
+  background:#f7f9fb;border-radius:12px;padding:10px;
+}
+.rh-ref-feature .fi{font-size:22px}
+.rh-ref-feature b{font-size:11px}
+.rh-ref-feature small{display:block;color:#71808e;font-size:9px;margin-top:2px}
+
+.rh-ref-footer{
+  text-align:center;color:#7a8792;
+  font-size:9px;line-height:1.9;
+  padding:14px 8px 4px;
+}
+
+@media(max-width:390px){
+  .rh-ref-grid{gap:7px}
+  .rh-ref-tile{min-height:105px}
+  .rh-ref-tile .ico{font-size:27px}
+  .rh-ref-tile b{font-size:11px}
+}
 </style>
+
 </head>
 
 <body>
@@ -801,6 +936,155 @@ input{width:100%;padding:13px;border:1px solid #d8dee5;border-radius:12px;margin
 <!-- HOME -->
 
 <section id="homePage" class="page active">
+
+<!-- rahhesab-reference-dashboard-v1 -->
+<div id="rhReferenceDashboard" class="rh-ref-dashboard">
+
+  <div class="rh-ref-hero">
+    <div class="rh-ref-hero-top">
+      <div class="rh-ref-brand">
+        <div class="rh-ref-logo">📈</div>
+        <div>
+          <div class="rh-ref-title">راه‌حساب</div>
+          <div class="rh-ref-sub">حسابدار مالی رانندگان</div>
+        </div>
+      </div>
+      <button class="rh-ref-profile" onclick="rhRefProfile()">👤 پروفایل</button>
+    </div>
+
+    <div class="rh-ref-status">
+      <div class="rh-ref-stat">
+        <b id="rhRefIncome">۰</b>
+        <span>درآمد امروز</span>
+      </div>
+      <div class="rh-ref-stat">
+        <b id="rhRefExpense">۰</b>
+        <span>هزینه امروز</span>
+      </div>
+      <div class="rh-ref-stat">
+        <b id="rhRefProfit">۰</b>
+        <span>سود امروز</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="rh-ref-title-row">
+    <h3>ویژگی‌های کلیدی</h3>
+    <small>دسترسی سریع</small>
+  </div>
+
+  <div class="rh-ref-grid">
+
+    <button class="rh-ref-tile rh-ref-green" onclick="openPage('incomePage')">
+      <div class="ico">💰</div><b>درآمد</b><span>ثبت و مدیریت درآمد</span>
+    </button>
+
+    <button class="rh-ref-tile rh-ref-pink" onclick="openPage('expensePage')">
+      <div class="ico">💳</div><b>هزینه</b><span>ثبت هزینه‌ها</span>
+    </button>
+
+    <button class="rh-ref-tile rh-ref-blue" onclick="openPage('reportPage')">
+      <div class="ico">📊</div><b>گزارش</b><span>گزارش مالی</span>
+    </button>
+
+    <button class="rh-ref-tile rh-ref-gold" onclick="openPage('carPage')">
+      <div class="ico">🚕</div><b>خودرو</b><span>اطلاعات و سرویس</span>
+    </button>
+
+    <button class="rh-ref-tile rh-ref-purple" onclick="openPage('debtPage')">
+      <div class="ico">📅</div><b>اقساط و بدهی</b><span>مدیریت تعهدات</span>
+    </button>
+
+    <button class="rh-ref-tile rh-ref-teal" onclick="openPage('goalPage')">
+      <div class="ico">🎯</div><b>هدف</b><span>هدف و پیشرفت</span>
+    </button>
+
+    <button class="rh-ref-tile rh-ref-blue" onclick="openChabok()">
+      <div class="ico">⚡</div><b>چابک</b><span>مدیریت سریع کار</span>
+    </button>
+
+    <button class="rh-ref-tile rh-ref-gold" onclick="openVipPage()">
+      <div class="ico">⭐</div><b>VIP</b><span>حسابداری حرفه‌ای</span>
+    </button>
+
+    <button class="rh-ref-tile rh-ref-gray" onclick="openPage('historyPage')">
+      <div class="ico">📄</div><b>تاریخچه</b><span>سوابق فعالیت</span>
+    </button>
+
+  </div>
+
+  <div class="rh-ref-wide">
+    <div class="rh-ref-wide-head">
+      <b>🚚 اطلاعات خودرو</b>
+      <span id="rhRefVehicleStatus">فعال</span>
+    </div>
+    <div class="rh-ref-info">
+      <div><small>خودرو</small><strong id="rhRefCar">ثبت نشده</strong></div>
+      <div><small>کارکرد</small><strong><span id="rhRefKm">۰</span> کیلومتر</strong></div>
+      <div><small>مصرف سوخت</small><strong><span id="rhRefFuel">۷٫۲</span> لیتر / ۱۰۰km</strong></div>
+      <div><small>وضعیت</small><strong>آماده فعالیت</strong></div>
+    </div>
+  </div>
+
+  <div class="rh-ref-wide">
+    <div class="rh-ref-wide-head">
+      <b>🚛 سفارش، بار و مأموریت</b>
+      <span>V1</span>
+    </div>
+
+    <div class="rh-ref-feature-list">
+      <div class="rh-ref-feature" onclick="rhRefMessage('ثبت سفارش در مرحله بعدی فعال می‌شود')">
+        <div class="fi">📦</div>
+        <div><b>ثبت سفارش و بار</b><small>سفارش ← بار ← پیشنهاد راننده ← مأموریت</small></div>
+      </div>
+      <div class="rh-ref-feature" onclick="rhRefMessage('مسیر و رهگیری در ماژول مأموریت فعال می‌شود')">
+        <div class="fi">🗺️</div>
+        <div><b>مسیر و رهگیری</b><small>مسیر، توقف‌ها و موقعیت مأموریت</small></div>
+      </div>
+      <div class="rh-ref-feature" onclick="rhRefMessage('تحویل و ثبت وضعیت بار')">
+        <div class="fi">📍</div>
+        <div><b>تحویل</b><small>کد تحویل، وضعیت بار و مدرک تحویل</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rh-ref-wide">
+    <div class="rh-ref-wide-head">
+      <b>📣 تبلیغات و رشد</b>
+      <span>آماده انتشار</span>
+    </div>
+    <div class="rh-ref-feature-list">
+      <div class="rh-ref-feature">
+        <div class="fi">📱</div>
+        <div><b>انتشار در کافه‌بازار</b><small>پس از تکمیل تست نهایی</small></div>
+      </div>
+      <div class="rh-ref-feature">
+        <div class="fi">📈</div>
+        <div><b>رشد کاربران</b><small>تبلیغات پس از انتشار</small></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="rh-ref-wide">
+    <div class="rh-ref-wide-head">
+      <b>ℹ️ اطلاعات پروژه</b>
+    </div>
+    <div class="rh-ref-info">
+      <div><small>پلتفرم</small><strong>اندروید (Capacitor)</strong></div>
+      <div><small>زبان</small><strong>HTML / JS / Kotlin</strong></div>
+      <div><small>پایگاه داده</small><strong>SQLite</strong></div>
+      <div><small>نسخه</small><strong>1.1</strong></div>
+      <div><small>انتشار</small><strong>کافه‌بازار</strong></div>
+      <div><small>پشتیبان</small><strong>GitHub + Backup</strong></div>
+    </div>
+  </div>
+
+  <div class="rh-ref-footer">
+    راه‌حساب؛ از ثبت‌نام تا تحویل، همه چیز تحت کنترل شماست.
+  </div>
+
+</div>
+
 
   <div class="summary">
 
@@ -2671,6 +2955,46 @@ function chSortStops(){const d=chRead();const lat=Number(document.getElementById
 function renderStops(){const el=document.getElementById('chStops');if(!el)return;const d=chRead();el.innerHTML=d.stops.length?d.stops.map((x,i)=>`<div class="ch-stop"><div class="num">${i+1}</div><div><b>${x.name}</b><small>${x.distance?x.distance.toFixed(1)+' km از توقف قبلی':''}</small></div></div>`).join(''):'<div class="ch-note">هنوز مقصدی اضافه نشده است.</div>'}
 
 </script>
+
+<script id="rahhesab-reference-dashboard-js-v1">
+(function(){
+  function text(id,v){
+    var e=document.getElementById(id);
+    if(e) e.textContent=(v===undefined||v===null||v==="")?"۰":String(v);
+  }
+
+  window.rhRefMessage=function(msg){
+    if(typeof window.alert==="function") window.alert(msg);
+  };
+
+  window.rhRefProfile=function(){
+    if(typeof window.openPage==="function") window.openPage("settingsPage");
+  };
+
+  window.rhRefSync=function(){
+    var income=document.getElementById("todayIncome");
+    var expense=document.getElementById("todayExpense");
+    var profit=document.getElementById("todayProfit");
+
+    text("rhRefIncome",income ? income.textContent : "۰");
+    text("rhRefExpense",expense ? expense.textContent : "۰");
+    text("rhRefProfit",profit ? profit.textContent : "۰");
+
+    var car=document.getElementById("homeCar");
+    var km=document.getElementById("homeKm");
+    var fuel=document.getElementById("homeFuel");
+
+    text("rhRefCar",car ? car.textContent.replace(/^خودرو:\s*/,"") : "ثبت نشده");
+    text("rhRefKm",km ? km.textContent : "۰");
+    text("rhRefFuel",fuel ? fuel.textContent : "۷٫۲");
+  };
+
+  document.addEventListener("DOMContentLoaded",function(){
+    setTimeout(window.rhRefSync,300);
+    setTimeout(window.rhRefSync,1200);
+  });
+})();
 </script>
+
 </body>
 </html>
