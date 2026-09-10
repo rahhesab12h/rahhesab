@@ -618,6 +618,79 @@ button{
   margin-top:5px;
 }
 
+/* ================= Splash ================= */
+
+#splash{
+position:fixed;
+z-index:9999;
+inset:0;
+background:linear-gradient(145deg,#064b38,#15966d);
+display:flex;
+align-items:center;
+justify-content:center;
+transition:opacity .6s ease,visibility .6s ease
+}
+
+#splash.hide{
+opacity:0;
+visibility:hidden
+}
+
+.splash-box{
+text-align:center;
+width:85%;
+max-width:360px;
+color:white
+}
+
+.splash-logo{
+width:190px;
+height:190px;
+object-fit:contain;
+border-radius:32px;
+box-shadow:0 15px 40px #0006;
+animation:logoPulse 1.8s infinite
+}
+
+@keyframes logoPulse{
+0%,100%{transform:scale(1)}
+50%{transform:scale(1.04)}
+}
+
+.splash-box h1{
+font-size:32px;
+margin:25px 0 10px
+}
+
+.splash-box p{
+margin:0 0 28px;
+color:#d8f3e8;
+font-size:13px
+}
+
+.loader{
+height:9px;
+background:#ffffff44;
+border-radius:20px;
+overflow:hidden;
+margin-top:20px
+}
+
+.loader div{
+height:100%;
+width:0%;
+background:white;
+border-radius:20px;
+transition:width .12s linear
+}
+
+#loadPercent{
+display:block;
+margin-top:12px;
+font-size:16px
+}
+
+
 </style>
 <link rel="stylesheet" href="ABC/abc.css">
 
