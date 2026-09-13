@@ -1033,7 +1033,7 @@ input{width:100%;padding:13px;border:1px solid #d8dee5;border-radius:12px;margin
     </div>
 
     <div class="rh-ref-feature-list">
-      <div class="rh-ref-feature" onclick="rhRefMessage('ثبت سفارش در مرحله بعدی فعال می‌شود')">
+      <div class="rh-ref-feature" onclick="openPage('ordersPage')">
         <div class="fi">📦</div>
         <div><b>ثبت سفارش و بار</b><small>سفارش ← بار ← پیشنهاد راننده ← مأموریت</small></div>
       </div>
@@ -1216,6 +1216,156 @@ input{width:100%;padding:13px;border:1px solid #d8dee5;border-radius:12px;margin
 
 </section>
 
+
+<!-- ORDERS AND CONTRACTS V1 -->
+<section id="ordersPage" class="page">
+
+  <button class="back-btn" onclick="goHome()">← بازگشت به خانه</button>
+
+  <div class="section-title">📦 سفارش و قرارداد</div>
+
+  <div class="form-box">
+    <div class="field">
+      <label>نوع ثبت</label>
+      <select id="rhRecordType">
+        <option value="order">سفارش / بار</option>
+        <option value="contract">قرارداد شرکت</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>عنوان</label>
+      <input id="rhRecordTitle" placeholder="مثلاً بار تهران به کرج">
+    </div>
+
+    <div class="field">
+      <label>طرف مقابل / شرکت</label>
+      <input id="rhRecordParty" placeholder="نام شرکت یا مشتری">
+    </div>
+
+    <div class="field">
+      <label>مبلغ</label>
+      <input id="rhRecordAmount" inputmode="numeric" placeholder="مبلغ">
+    </div>
+
+    <div class="field">
+      <label>توضیحات</label>
+      <input id="rhRecordNote" placeholder="توضیحات اختیاری">
+    </div>
+
+    <button class="primary" onclick="rhCreateRecord()">ثبت</button>
+  </div>
+
+  <div class="form-box">
+    <div class="section-title">📋 سوابق ثبت‌شده</div>
+    <div id="rhRecordsList"></div>
+  </div>
+
+</section>
+
+
+<script id="rahhesab-orders-contracts-js">
+function rhEnsureRecords(){
+  appData.orders = Array.isArray(appData.orders) ? appData.orders : [];
+  appData.contracts = Array.isArray(appData.contracts) ? appData.contracts : [];
+}
+
+function rhCreateRecord(){
+  rhEnsureRecords();
+
+  const type = document.getElementById("rhRecordType").value;
+  const title = document.getElementById("rhRecordTitle").value.trim();
+  const party = document.getElementById("rhRecordParty").value.trim();
+  const amount = Number(document.getElementById("rhRecordAmount").value) || 0;
+  const note = document.getElementById("rhRecordNote").value.trim();
+
+  if(!title){
+    alert("عنوان را وارد کنید");
+    return;
+  }
+
+  const record = {
+    id: Date.now().toString(),
+    type,
+    title,
+    party,
+    amount,
+    note,
+    status:"active",
+    createdAt:new Date().toISOString(),
+    canceledAt:null
+  };
+
+  if(type === "order"){
+    appData.orders.push(record);
+  }else{
+    appData.contracts.push(record);
+  }
+
+  saveData();
+  rhRenderRecords();
+
+  document.getElementById("rhRecordTitle").value="";
+  document.getElementById("rhRecordParty").value="";
+  document.getElementById("rhRecordAmount").value="";
+  document.getElementById("rhRecordNote").value="";
+
+  alert("با موفقیت ثبت شد");
+}
+
+function rhCancelRecord(type,id){
+  rhEnsureRecords();
+
+  const list = type === "order" ? appData.orders : appData.contracts;
+  const item = list.find(x => x.id === id);
+
+  if(!item || item.status === "cancelled") return;
+
+  if(!confirm("این مورد لغو شود؟")) return;
+
+  item.status="cancelled";
+  item.canceledAt=new Date().toISOString();
+
+  saveData();
+  rhRenderRecords();
+}
+
+function rhRenderRecords(){
+  rhEnsureRecords();
+
+  const box=document.getElementById("rhRecordsList");
+  if(!box) return;
+
+  const records=[
+    ...appData.orders.map(x=>({...x,source:"order"})),
+    ...appData.contracts.map(x=>({...x,source:"contract"}))
+  ].sort((a,b)=>String(b.createdAt).localeCompare(String(a.createdAt)));
+
+  if(!records.length){
+    box.innerHTML='<div style="padding:12px;text-align:center;opacity:.7">هنوز سفارشی یا قراردادی ثبت نشده است.</div>';
+    return;
+  }
+
+  box.innerHTML=records.map(x=>{
+    const typeLabel=x.source==="order" ? "📦 سفارش / بار" : "📄 قرارداد شرکت";
+    const statusLabel=x.status==="cancelled" ? "لغو شده" : "فعال";
+    const statusClass=x.status==="cancelled" ? "cancelled" : "active";
+
+    return `
+      <div class="form-box" style="margin-top:10px">
+        <b>${typeLabel}</b>
+        <div style="margin-top:6px">${x.title}</div>
+        <div style="opacity:.75;margin-top:4px">${x.party || "بدون طرف مقابل"}</div>
+        <div style="margin-top:6px">مبلغ: ${Number(x.amount||0).toLocaleString("fa-IR")}</div>
+        <div style="margin-top:6px">وضعیت: <span class="${statusClass}">${statusLabel}</span></div>
+        ${x.note ? `<div style="margin-top:6px;opacity:.8">${x.note}</div>` : ""}
+        ${x.status!=="cancelled" ? `<button class="danger" onclick="rhCancelRecord('${x.source}','${x.id}')">لغو</button>` : ""}
+      </div>
+    `;
+  }).join("");
+}
+
+</script>
 
 <!-- INCOME -->
 
@@ -1644,7 +1794,9 @@ let appData = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null") || {
   days:{},
   debt:0,
   installment:0,
-  goal:0
+  goal:0,
+  orders:[],
+  contracts:[]
 };
 
 
@@ -2253,6 +2405,7 @@ function renderAll(){
   renderHistory();
   renderOther();
   loadForms();
+  rhRenderRecords();
 }
 
 
@@ -2904,7 +3057,7 @@ const pageBodies={
   "پروفایل": `<div class="row"><b>نام راننده</b><span>ثبت نشده</span></div><div class="row"><b>خودرو</b><span>پژو ۲۰۶</span></div>`
 };
 
-function openPage(name){
+function chabokOpenPage(name){
   document.getElementById('home').classList.remove('active');
   document.getElementById('page').classList.add('active');
   document.getElementById('pageTitle').textContent=name;
@@ -2914,7 +3067,7 @@ function openPage(name){
   else if(name==='پروفایل') document.getElementById('n-profile').classList.add('active');
   else if(name==='یادآوری') document.getElementById('n-reminder').classList.add('active');
 }
-function goHome(){
+function chabokGoHome(){
   document.getElementById('page').classList.remove('active');
   document.getElementById('home').classList.add('active');
   document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));
